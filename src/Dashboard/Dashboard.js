@@ -38,6 +38,8 @@ class DashboardHome extends Component {
           <Box title="Notification Area" type="primary" closable collapsable>
             <ul>
               <li>Welcome to the Zev Rector Homepage</li>
+              <li>You Can Add Spaces</li>
+              <li>You Can Send Forms To Users &amp; Select</li>
             </ul>
           </Box>
         </Col>
