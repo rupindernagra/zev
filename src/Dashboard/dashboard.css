@@ -26,3 +26,14 @@ body{
     padding-top:1px;
     cursor: pointer;
 }
+.applicant-list .asent{
+    color:#367fa9;
+    margin-right:15px;
+}
+.applicant-list .aopen{
+    color:green;
+    margin-right:15px;
+}
+/* .applicant-list .acomp{
+    color:blue;
+} */

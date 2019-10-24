@@ -84,8 +84,60 @@ class Spaces extends Component {
     return (<Content title="Spaces" subTitle="Spaces" browserTitle="Zev Rector :: Spaces">
       <Row>
         <Col xs={12}>
-          <Box title="List of spaces" type="primary" footer={<Button type="primary" text="Save" />}>
-            Spaces List here
+          <Box title="List of spaces" type="primary">
+            <input type="text" className="form-group form-control" placeholder="Search Spaces ..." />
+            <Button type="primary" text="Add New Space" />
+            <div className="form-group"></div>
+            <div className="table-responsive">
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Space Name</th>
+                    <th># Views</th>
+                    <th># Applicants</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Image</td>
+                    <td>Space One</td>
+                    <td>100</td>
+                    <td>90</td>
+                    <td><Button type="success" text="Share" /> <Button type="primary" text="View/Edit" /></td>
+                  </tr>
+                  <tr>
+                    <td>Image</td>
+                    <td>Space two</td>
+                    <td>100</td>
+                    <td>100</td>
+                    <td><Button type="success" text="Share" /> <Button type="primary" text="View/Edit" /></td>
+                  </tr>
+                  <tr>
+                    <td>Image</td>
+                    <td>Space Three</td>
+                    <td>100</td>
+                    <td>90</td>
+                    <td><Button type="success" text="Share" /> <Button type="primary" text="View/Edit" /></td>
+                  </tr>
+                  <tr>
+                    <td>Image</td>
+                    <td>Space Four</td>
+                    <td>100</td>
+                    <td>120</td>
+                    <td><Button type="success" text="Share" /> <Button type="primary" text="View/Edit" /></td>
+                  </tr>
+                  <tr>
+                    <td>Image</td>
+                    <td>Space Five</td>
+                    <td>1300</td>
+                    <td>90</td>
+                    <td><Button type="success" text="Share" /> <Button type="primary" text="View/Edit" /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </Box>
         </Col>
       </Row>
@@ -99,8 +151,63 @@ class Applicants extends Component {
     return (<Content title="Applicants" subTitle="Applicants" browserTitle="Zev Rector :: Applicants">
       <Row>
         <Col xs={12}>
-          <Box title="List of Applicants" type="primary" footer={<Button type="primary" text="Save" />}>
-            Spaces List here
+          <Box title="List of Applicants" type="primary">
+            <input type="text" className="form-group form-control" placeholder="Search Applicants ..." />
+            <div className="form-group"></div>
+            <div className="table-responsive">
+              <table className="table table-striped applicant-list">
+                <thead>
+                  <tr>
+                    <th>Applicant Name</th>
+                    <th>Space Name</th>
+                    <th>Reports</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Kevin Parker</td>
+                    <td>Space One</td>
+                    <td><a href="/applicants">Report Link</a></td>
+                    <td>
+                      <span className="asent"><i className="fa fa-paper-plane-o"></i> Sent</span>
+                      <span className="aopen"><i className="fa fa-envelope-open-o"></i> Opened</span>
+                      <span className="acomp"><i className="fa fa-thumbs-o-up"></i> Completed</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Ted Parker</td>
+                    <td>Space Three</td>
+                    <td><a href="/applicants">Report Link</a></td>
+                    <td>
+                      <span className="asent"><i className="fa fa-paper-plane-o"></i> Sent</span>
+                      <span className="aopen"><i className="fa fa-envelope-open-o"></i> Opened</span>
+                      <span className="acomp"><i className="fa fa-thumbs-o-up"></i> Completed</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Kenny G</td>
+                    <td>Space One</td>
+                    <td><a href="/applicants">Report Link</a></td>
+                    <td>
+                      <span className="asent"><i className="fa fa-paper-plane-o"></i> Sent</span>
+                      <span className="aopen"><i className="fa fa-envelope-open-o"></i> Opened</span>
+                      <span className="acomp"><i className="fa fa-thumbs-o-up"></i> Completed</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Ben Parker</td>
+                    <td>Space One</td>
+                    <td><a href="/applicants">Report Link</a></td>
+                    <td>
+                      <span className="asent"><i className="fa fa-paper-plane-o"></i> Sent</span>
+                      <span className="aopen"><i className="fa fa-envelope-open-o"></i> Opened</span>
+                      <span className="acomp"><i className="fa fa-thumbs-o-up"></i> Completed</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </Box>
         </Col>
       </Row>
