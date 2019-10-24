@@ -5,6 +5,8 @@ import Registration from './Registration/Registration';
 import Admin from './Admin/Admin';
 import Dashboard from './Dashboard/Dashboard';
 import Profile from './Dashboard/Dashboard';
+import Spaces from './Dashboard/Dashboard';
+import Applicants from './Dashboard/Dashboard';
 
 class App extends Component{
     render() {
@@ -14,6 +16,8 @@ class App extends Component{
                   <Route path="/admin" component={Admin}/>
                   <Route path="/dashboard" component={Dashboard}/>
                   <Route path="/profile" component={Profile}/>
+                  <Route path="/spaces" component={Spaces}/>
+                  <Route path="/applicants" component={Applicants}/>
                 </Switch>
               </Router>
     }
