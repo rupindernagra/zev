@@ -1,3 +1,28 @@
 body{
     background: none;
 }
+.userDP{
+    height: 200px;
+    width: 200px;
+    margin: auto;
+    border-radius: 50%;
+    border: 1px solid #000000;
+    margin-bottom:10px;
+    overflow: hidden;
+}
+.userDP .fa{
+    font-size:220px;
+    color:#333333;
+}
+.userName{
+    margin-bottom:10px;
+}
+.userName .fa{
+    margin-left: 15px;
+    height:18px;
+    width:18px;
+    border-radius: 50%;
+    border:1px solid #000000;
+    padding-top:1px;
+    cursor: pointer;
+}

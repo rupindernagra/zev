@@ -7,9 +7,6 @@ import './dashboard.css';
 
 const { Item } = Sidebar;
 export default class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-  }
   sidebar = [
     <Item link="DashboardHome" text="Dashboard" to="/dashboard" icon="fa-home" />,
     <Item link="Profile" text="Profile" to="/profile" icon="fa-user" />,
@@ -60,8 +57,18 @@ class Profile extends Component {
     return (<Content title="Profile" subTitle="Manager Profile" browserTitle="Zev Rector :: Manager Profile">
       <Row>
         <Col xs={12}>
-          <Box title="Profile" type="primary" footer={<Button type="primary" text="Save" />}>
-            Hello World
+          <Box title="Profile" type="primary">
+            <Col xs={{span:8,offset:2}} className="text-center">
+              <div className="userDP">
+                <i className="fa fa-user user"></i>
+              </div>
+              <div className="userName">
+                {/* <input type="text" name="username" value="Kevin Parker" readOnly="true" />  */}
+                Kevin Parker
+                <i className="fa fa-pencil"></i>
+              </div>
+              <Button type="primary" text="Save" />
+            </Col>
           </Box>
         </Col>
       </Row>
