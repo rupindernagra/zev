@@ -75,3 +75,13 @@
 .inner-form-group .form-group{
   margin-bottom: 0;
 }
+.reg-form{
+  top:50%;
+  position: relative;
+  padding: 15px;
+  overflow: hidden;
+  border: 1px solid #cccccc;
+  transform: translateY(-50%);
+  background: #ffffff;
+  border-radius: 3px;
+}
