@@ -18,7 +18,7 @@
     border-radius: 3px;
 }
 body{
-    background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);
+    background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%)!important;
     /* background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB); */
     height:100vh;
     animation:Gradient 15s ease infinite;}

@@ -15,6 +15,7 @@ export default class Dashboard extends Component {
     <Item link="Profile" text="Profile" to="/profile" icon="fa-user" />,
     <Item link="Spaces" text="Spaces" to="/spaces" icon="fa-map-marker" />,
     <Item link="Applicants" text="Applicants" to="/applicants" icon="fa-users" />,
+    <Item link="Logout" text="Logout" to="/logout" icon="fa-power-off" />,
   ];
   render() {
     if(!localStorage.getItem('login')){
@@ -26,6 +27,7 @@ export default class Dashboard extends Component {
         <Profile path="/profile" />,
         <Spaces path="/spaces" />,
         <Applicants path="/applicants" />,
+        <Logout path="/logout" />,
       </AdminLTE>
     );
   }
@@ -94,5 +96,13 @@ class Applicants extends Component {
         </Col>
       </Row>
     </Content>);
+  }
+}
+
+class Logout extends Component {
+  state = {}
+  render() {
+    localStorage.removeItem('login');
+    return <Redirect to='/dashboard' />
   }
 }

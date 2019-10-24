@@ -85,3 +85,7 @@
   background: #ffffff;
   border-radius: 3px;
 }
+form input{margin-left:10px;}
+*{
+  font-size:13px;
+}

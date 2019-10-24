@@ -72,8 +72,9 @@ export default class Admin extends Component {
     return (
       <Container>
         <Row>
-          <Col md={{span:4, offset:4}} xs={{span:4, offset:4}}>
+          <Col md={{span:4, offset:4}} xs={{span:8, offset:2}}>
           <Form className="admin-login">
+          <h1 className="text-center">Login</h1>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control name="email" type="email" placeholder="Enter email"  onChange={this.handleChange} noValidate />
