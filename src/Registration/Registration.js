@@ -95,7 +95,7 @@ export default class Registration extends Component {
               <form onSubmit={this.handleSubmit} className="reg-form">
                 <h3 className="mb-3 tx-semibold text-center">Registration Form</h3>
                 <div className="form-group">
-                  <Text type="text" placeholder="First Name" sm={12} name="firstname" labelSm="0" onChange={this.handleChange} noValidate></Text>
+                  <Text type="text" placeholder="First Name" sm={12} name="firstname" labelSm="0" onChange={this.handleChange} required noValidate></Text>
                   {errors.firstname.length > 0 &&
                     <span className='error pr-15 text-right text-danger d-block'>{errors.firstname}</span>}
                 </div>
@@ -159,6 +159,5 @@ export default class Registration extends Component {
     event.preventDefault();
     this.setState({formValid: validateForm(this.state.errors)});
     this.setState({errorCount: countErrors(this.state.errors)});
-      }
-    
-    }
+  }  
+}
