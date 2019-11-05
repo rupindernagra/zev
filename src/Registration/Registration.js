@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Inputs, Button } from 'adminlte-2-react';
 import '../App.css';
+import './registration.css';
 const { Text } = Inputs;
 const validEmailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 
@@ -93,21 +94,20 @@ export default class Registration extends Component {
             <Col sm={6}>
               <form onSubmit={this.handleSubmit} className="reg-form">
                 <h3 className="mb-3 tx-semibold text-center">Registration Form</h3>
-                <div className="form-group inner-form-group">
-                  <Text type="text" iconLeft="fa-user" placeholder="First Name" sm="12" name="firstname" labelSm="0" onChange={this.handleChange} noValidate></Text>
+                <div className="form-group">
+                  <Text type="text" placeholder="First Name" sm={12} name="firstname" labelSm="0" onChange={this.handleChange} noValidate></Text>
                   {errors.firstname.length > 0 &&
                     <span className='error pr-15 text-right text-danger d-block'>{errors.firstname}</span>}
                 </div>
-                <div className="form-group inner-form-group">
-                  <Text type="text" iconLeft="fa-user" placeholder="Last Name" sm="12" name="lastname" labelSm="0" onChange={this.handleChange} noValidate></Text>
+                <div className="form-group">
+                  <Text type="text" placeholder="Last Name" sm={12} name="lastname" labelSm="0" onChange={this.handleChange} noValidate></Text>
                   {errors.lastname.length > 0 &&
                     <span className='error pr-15 text-right text-danger d-block'>{errors.lastname}</span>}
                 </div>
                 <div className="form-group has-text">
-                  <div className="col-sm-12">
+                  <div className="form-group col-sm-12">
                     <div className="input-group">
-                      <span className="input-group-addon"><i className="fa fa-phone"></i>
-                      </span><input type="number" pattern="[0-9]" className="form-control" placeholder="Phone" name="phone" onChange={this.handleChange} noValidate />
+                      <input type="number" pattern="[0-9]" className="form-control" placeholder="Phone" name="phone" onChange={this.handleChange} noValidate />
                     </div>
                     {errors.phone.length > 0 &&
                       <span className='error pr-15 text-right text-danger d-block'>{errors.phone}</span>}
@@ -115,11 +115,8 @@ export default class Registration extends Component {
                 </div>
 
                 <div className="form-group has-text">
-                  <div className="col-sm-12">
+                  <div className="form-group col-sm-12">
                     <div className="input-group">
-                      <span className="input-group-addon">
-                        <i className="fa fa-usd"></i>
-                      </span>
                       <input type="number" pattern="[0-9]" className="form-control" placeholder="Brokerage" name="brokerage" onChange={this.handleChange} noValidate />
                     </div>
                     {errors.brokerage.length > 0 &&
@@ -128,8 +125,8 @@ export default class Registration extends Component {
                 </div>
 
                 <div className="form-group has-email"><label className="control-label col-sm-0"></label>
-                  <div className="col-sm-12 col-sm-offset-0">
-                    <div className="input-group"><span className="input-group-addon"><i className="fa fa-at"></i></span><input type="email" onChange={this.handleChange} noValidate  className="form-control" name="email" placeholder="Email" />
+                  <div className="form-group col-sm-12 col-sm-offset-0">
+                    <div className="input-group"><input type="email" onChange={this.handleChange} noValidate  className="form-control" name="email" placeholder="Email" />
                     </div>
                     {errors.email.length > 0 &&
                     <span className='error pr-15 text-right text-danger d-block'>{errors.email}</span>}
@@ -141,15 +138,13 @@ export default class Registration extends Component {
                   <div className="form-group has-password">
                     <div className="col-sm-12">
                       <div className="input-group">
-                        <span className="input-group-addon"><i className="fa fa-key"></i>
-                        </span>
                         <input type="password" className="form-control" name="password" onChange={this.handleChange} noValidate placeholder="Password" />
                       </div>
                       {errors.password.length > 0 &&
                         <span className='error pr-15 text-right text-danger d-block'>{errors.password}</span>}
                     </div>
                   </div>
-                  <div className="text-center">  <Button text="Submit" className="mx-15 mt-15 bg-gradient tx-white" onClick={this.handleSubmit} /> {this.state.errorCount !== null ? <p className="form-status">Form is {formValid ? 'valid ✅' : 'invalid ❌'}</p> : ''}</div>
+                  <div className="text-center">  <Button text="Submit" className="mx-15 mt-15 bg-gradient tx-white register-button" onClick={this.handleSubmit} /> {this.state.errorCount !== null ? <p className="form-status">Form is {formValid ? 'valid ✅' : 'invalid ❌'}</p> : ''}</div>
               </form>
                 
             </Col>

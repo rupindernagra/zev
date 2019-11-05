@@ -15,7 +15,28 @@
     border: 1px solid #cccccc;
     transform: translateY(-50%);
     background: #ffffff;
-    border-radius: 3px;
+    border-radius: 10px;
+}
+.admin-login h1{
+    margin-bottom:30px;
+}
+.admin-login input{
+    height:40px;
+    padding-left:20px;
+    border-radius: 20px!important;
+}
+.admin-login .form-label, .admin-login .text-muted{
+    width:100%;
+    text-align:center;
+}
+.admin-login .form-group{
+    margin-bottom:15px;
+}
+.admin-login button{
+    height:40px;
+    width:150px;
+    border-radius: 20px!important;
+    margin:0px;
 }
 body{
     background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%)!important;

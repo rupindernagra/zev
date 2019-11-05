@@ -1,0 +1,23 @@
+.form-group > .form-group{
+    margin-bottom:0px;
+}
+.reg-form{
+    border-radius: 10px;
+}
+.reg-form h3{
+    margin-bottom:30px!important;
+}
+.reg-form > .form-group{
+    margin-bottom:15px;
+}
+.form-group input{
+    height:40px;
+    padding-left:20px;
+    border-radius: 20px!important;
+}
+body button.register-button{
+    height:40px;
+    width:150px;
+    border-radius: 20px!important;
+    margin:0px;
+}

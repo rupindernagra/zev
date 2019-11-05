@@ -91,7 +91,7 @@ export default class Admin extends Component {
               {errors.password.length > 0 &&
                     <span className='error pr-15 text-right text-danger d-block'>{errors.password}</span>}
             </Form.Group>
-            <div className="text-right">
+            <div className="text-center">
               <Button variant="primary" type="submit" onClick={this.handleSubmit}>
                 Login
               </Button>
