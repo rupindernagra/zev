@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import { Row, Col, Inputs, Button } from 'adminlte-2-react'; // can use in other pages for layout
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import {Container,Row,Col,Form,Button} from 'react-bootstrap';
 import './admin-login.css';
 const validEmailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
@@ -91,14 +91,19 @@ export default class Admin extends Component {
               {errors.password.length > 0 &&
                     <span className='error pr-15 text-right text-danger d-block'>{errors.password}</span>}
             </Form.Group>
-            <div className="text-center">
-              <Button variant="primary" type="submit" onClick={this.handleSubmit}>
-                Login
-              </Button>
-              {/* {this.state.errorCount !== null ? <p className="form-status text-center">Form is {formValid ? 'valid ✅' : 'invalid ❌'}</p> : ''} */}
-              {this.state.validateUser !== null ? <p className="form-status alert alert-danger text-center">Invalid User Credentials</p> : ''}
-            </div>
+
+            <Form.Group controlId="formBasicPassword">
+              <div className="text-center">
+                <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+                  Login
+                </Button>
+                {/* {this.state.errorCount !== null ? <p className="form-status text-center">Form is {formValid ? 'valid ✅' : 'invalid ❌'}</p> : ''} */}
+                {this.state.validateUser !== null ? <p className="form-status alert alert-danger text-center">Invalid User Credentials</p> : ''}
+              </div>
+            </Form.Group>
+            <Link to="/forgot-password">Forgot password?</Link>
           </Form>
+
           </Col>
         </Row>
       </Container>

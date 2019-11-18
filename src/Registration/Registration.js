@@ -16,7 +16,7 @@ const countErrors = (errors) => {
 const validateForm = (errors) => {
   let valid = true;
   Object.values(errors).forEach(
-    (val) => val.length > 0 && (valid = false)
+    (val) => { val.length > 0 && (valid = false) }
   );
   return valid;
 }
@@ -93,7 +93,7 @@ export default class Registration extends Component {
             <Col sm={3}></Col>
             <Col sm={6}>
               <form onSubmit={this.handleSubmit} className="reg-form">
-                <h3 className="mb-3 tx-semibold text-center">Registration Form</h3>
+                <h3 className="mb-3 tx-semibold text-center">Get Started</h3>
                 <div className="form-group">
                   <Text type="text" placeholder="First Name" sm={12} name="firstname" labelSm="0" onChange={this.handleChange} required noValidate></Text>
                   {errors.firstname.length > 0 &&
@@ -159,5 +159,33 @@ export default class Registration extends Component {
     event.preventDefault();
     this.setState({formValid: validateForm(this.state.errors)});
     this.setState({errorCount: countErrors(this.state.errors)});
+
+    if(this.state.formValid) {
+      var formData = {
+        firstname : this.state.firstname,
+        lastname  : this.state.lastname,
+        phone     : this.state.phone,
+        brokerage : this.state.brokerage,
+        email     : this.state.email,
+        password  : this.state.password
+      }
+
+      fetch('http://localhost:3001/api/register', {
+        method: 'POST',
+        headers: {
+          // 'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: Object.keys(formData).map(key => key + '=' + formData[key]).join('&')
+        
+      }).then(res => {
+        console.log(res);
+        // debugger;
+      }).catch(err => {
+        console.log(err);
+        console.log(err.status);
+      })
+    }
+
   }  
 }

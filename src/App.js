@@ -7,6 +7,7 @@ import Dashboard from './Dashboard/Dashboard';
 import Profile from './Dashboard/Dashboard';
 import Spaces from './Dashboard/Dashboard';
 import Applicants from './Dashboard/Dashboard';
+import ForgotPassword from './Admin/ForgotPassword';
 
 class App extends Component{
     render() {
@@ -18,6 +19,7 @@ class App extends Component{
                   <Route path="/profile" component={Profile}/>
                   <Route path="/spaces" component={Spaces}/>
                   <Route path="/applicants" component={Applicants}/>
+                  <Route path="/forgot-password" component={ForgotPassword} />
                 </Switch>
               </Router>
     }
