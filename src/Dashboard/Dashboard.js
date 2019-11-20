@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
-import AdminLTE, { Sidebar, Content, Row, Col, Box, Button } from 'adminlte-2-react';
+import AdminLTE, { Sidebar, Content, Row, Col, Box, Button, Inputs } from 'adminlte-2-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Redirect } from 'react-router-dom'
 //import {Container,Row,Col,Form,Button} from 'react-bootstrap';
 import './dashboard.css';
+const { Select2, Date, DateTime, Text } = Inputs;
 
 const { Item } = Sidebar;
 export default class Dashboard extends Component {
   sidebar = [
     <Item link="DashboardHome" text="Dashboard" to="/dashboard" icon="fa-home" />,
     <Item link="Profile" text="Profile" to="/profile" icon="fa-user" />,
-    <Item link="Spaces" text="Spaces" to="/spaces" icon="fa-map-marker" />,
+    <Item link="Spaces" text="Spaces" to="/spaces" icon="fa-map-marker"  />,
+    // <Item link="SpaceAdd"  text="Add Space" to="/spaces_add" icon="fa-map-marker" children="Spaces" isSubItem={true} />,
+    <Item link="SpaceAdd"  text="Add Space" to="/spaces_add" icon="fa-map-marker" />,
     <Item link="Applicants" text="Applicants" to="/applicants" icon="fa-users" />,
     <Item link="Logout" text="Logout" to="/logout" icon="fa-power-off" />,
   ];
   render() {
-    if(!localStorage.getItem('login')){
+    if(!localStorage.getItem('login')) {
       return <Redirect to='/admin' />
     }
     return (
@@ -23,6 +26,7 @@ export default class Dashboard extends Component {
         <DashboardHome path="/dashboard" />,
         <Profile path="/profile" />,
         <Spaces path="/spaces" />,
+        <SpaceAdd path="/spaces_add" isSubItem={true} />,
         <Applicants path="/applicants" />,
         <Logout path="/logout" />,
       </AdminLTE>
@@ -79,6 +83,13 @@ class Profile extends Component {
 }
 
 class Spaces extends Component {
+  addSpace(event) {
+    event.preventDefault();
+
+    console.log('click on space');
+    window.location.href = "/dashboard";
+  }
+  
   state = {}
   render() {
     return (<Content title="Spaces" subTitle="Spaces" browserTitle="Zev Rector :: Spaces">
@@ -86,7 +97,7 @@ class Spaces extends Component {
         <Col xs={12}>
           <Box title="List of spaces" type="primary">
             <input type="text" className="form-group form-control" placeholder="Search Spaces ..." />
-            <Button type="primary" text="Add New Space" />
+            <Button type="primary" text="Add New Space" onClick={this.addSpace} />
             <div className="form-group"></div>
             <div className="table-responsive">
               <table className="table table-striped">
@@ -138,6 +149,91 @@ class Spaces extends Component {
                 </tbody>
               </table>
             </div>
+          </Box>
+        </Col>
+      </Row>
+    </Content>);
+  }
+}
+
+class SpaceAdd extends Component {
+  addSpace(event) {
+    event.preventDefault();
+
+    console.log('click on space');
+    window.location.href = "/dashboard";
+  }
+  
+  state = {}
+  render() {
+    const { errors, formValid } = this.state;
+    return (<Content title="SpaceAdd" subTitle="Add new Space" browserTitle="Zev Rector :: Spacesasd">
+      <Row>
+        {/* <Col xs={12}>
+          <Box title="List of spaces" type="primary">
+            <input type="text" className="form-group form-control" placeholder="Search Spaces ..." />
+            <Button type="primary" text="Add New Space" onClick={this.addSpace} />
+            <div className="form-group"></div>
+          </Box>
+        </Col> */}
+        {/* <Col sm={3}></Col> */}
+        <Col xs={12}>
+          <Box title="Add New Space" type="primary">
+            <form  className="">
+              {/* <h3 className="mb-3 tx-semibold text-center">Get Started</h3> */}
+              <div className="form-group">
+                <Text type="text" placeholder="Space Name" sm={12} name="space_name" labelSm="0" /* onChange={this.handleChange} */ required noValidate />
+                {/* {errors.firstname.length > 0 &&
+                  <span className='error pr-15 text-right text-danger d-block'>{errors.firstname}</span>} */}
+              </div>
+              <div className="form-group">
+                <textarea className="form-control" sm={12} style={{resize: "none", width: '100%'}} placeholder="Description" name="description"  noValidate ></textarea>
+                {/* {errors.lastname.length > 0 &&
+                  <span className='error pr-15 text-right text-danger d-block'>{errors.lastname}</span>} */}
+              </div>
+              <div className="form-group has-text">
+                <div className="form-group col-sm-12">
+                  {/* <div className="input-group"> */}
+                  <Text type="text" placeholder="City" sm={12} name="city" labelSm="0" /* onChange={this.handleChange} */ required noValidate />
+                  {/* </div> */}
+                  {/* {errors.phone.length > 0 &&
+                    <span className='error pr-15 text-right text-danger d-block'>{errors.phone}</span>} */}
+                </div>
+              </div>
+
+              <div className="form-group has-text">
+                <div className="form-group col-sm-12">
+                  <div className="input-group">
+                    <input type="number" pattern="[0-9]" className="form-control" placeholder="No. of balconies" name="no_of_balconies" /* onChange={this.handleChange} */ noValidate />
+                  </div>
+                  {/* {errors.brokerage.length > 0 &&
+                    <span className='error pr-15 text-right text-danger d-block'>{errors.brokerage}</span>} */}
+                </div>
+              </div>
+
+              <div className="form-group has-email"><label className="control-label col-sm-0"></label>
+                <div className="form-group col-sm-12 col-sm-offset-0">
+                  <div className="input-group">
+                    <input type="text" /* onChange={this.handleChange} */ noValidate  className="form-control" name="balconies_space" placeholder="Balconies Space" />
+                  </div>
+                  {/* {errors.email.length > 0 &&
+                  <span className='error pr-15 text-right text-danger d-block'>{errors.email}</span>} */}
+                </div>
+              </div>
+                {/* <Select iconLeft="fa-user-tag" defaultValue="manager" sm="12" labelSm="0" options={['Admin', 'Manager']} placeholder="User Type" title="User Type">
+                </Select> */}
+
+                <div className="form-group has-password">
+                  <div className="col-sm-12">
+                    <div className="input-group">
+                      <input type="number" className="form-control" name="no_of_bedrooms" /* onChange={this.handleChange} */ noValidate placeholder="No. of Bedrooms" />
+                    </div>
+                    {/* {errors.password.length > 0 &&
+                      <span className='error pr-15 text-right text-danger d-block'>{errors.password}</span>} */}
+                  </div>
+                </div>
+                <div className="text-center">  <Button text="Submit" className="mx-15 mt-15 bg-gradient tx-white register-button" /> {this.state.errorCount !== null ? <p className="form-status">Form is {formValid ? 'valid ✅' : 'invalid ❌'}</p> : ''}</div>
+            </form>
           </Box>
         </Col>
       </Row>

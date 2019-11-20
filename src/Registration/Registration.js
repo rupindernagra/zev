@@ -170,17 +170,17 @@ export default class Registration extends Component {
         password  : this.state.password
       }
 
+      
       fetch('http://localhost:3001/api/register', {
         method: 'POST',
         headers: {
-          // 'Accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
         },
-        body: Object.keys(formData).map(key => key + '=' + formData[key]).join('&')
-        
+        body: JSON.stringify(formData)
       }).then(res => {
         console.log(res);
-        // debugger;
+        if( res.status ) window.location.href = "/admin";
       }).catch(err => {
         console.log(err);
         console.log(err.status);
