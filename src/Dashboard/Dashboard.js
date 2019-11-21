@@ -5,8 +5,9 @@ import { Redirect } from 'react-router-dom'
 //import {Container,Row,Col,Form,Button} from 'react-bootstrap';
 import './dashboard.css';
 const { Select2, Date, DateTime, Text } = Inputs;
+var JSAlert = require("js-alert");
 
-const { Item } = Sidebar;
+const { Item, Header } = Sidebar;
 export default class Dashboard extends Component {
   sidebar = [
     <Item link="DashboardHome" text="Dashboard" to="/dashboard" icon="fa-home" />,
@@ -86,8 +87,7 @@ class Spaces extends Component {
   addSpace(event) {
     event.preventDefault();
 
-    console.log('click on space');
-    window.location.href = "/dashboard";
+    window.location.href = "/spaces_add";
   }
   
   state = {}
@@ -157,17 +157,117 @@ class Spaces extends Component {
 }
 
 class SpaceAdd extends Component {
-  addSpace(event) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      space_name: '',
+      description: '',
+      city: '',
+      space_status: '',
+      space_type: '',
+      no_of_balconies: 0,
+      balconies_space: '0.00',
+      no_of_bedrooms: 0,
+      no_of_bathrooms: 0,
+      no_of_garages: 0,
+      no_of_parkings: 0,
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
     event.preventDefault();
 
-    console.log('click on space');
-    window.location.href = "/dashboard";
+    const {name, value} = event.target;
+    switch(name) {
+      case 'space_name':
+        this.setState({ space_name: value });
+        break;
+      case 'description':
+        this.setState({ description: value });
+        break;
+      case 'city':
+        this.setState({ city: value });
+        break;
+      case 'space_status':
+        this.setState({ space_status: value });
+        break;
+      case 'space_type':
+        this.setState({ space_type: value });
+        break;
+      case 'no_of_balconies':
+        this.setState({ no_of_balconies: value });
+        break;
+      case 'balconies_space':
+        this.setState({ balconies_space: value });
+        break;
+      case 'no_of_bedrooms':
+        this.setState({ no_of_bedrooms: value });
+        break;
+      case 'no_of_bathrooms':
+        this.setState({ no_of_bathrooms: value });
+        break;
+      case 'no_of_garages':
+        this.setState({ no_of_garages: value });
+        break;
+      case 'no_of_parkings':
+        this.setState({ no_of_parkings: value });
+        break;
+      default:
+        break;
+    }
+
   }
-  
-  state = {}
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    // let myForm = document.getElementById('myForm');
+    // let formD = new FormData(myForm);
+
+    console.log('in submit');
+
+    var formData = {
+      space_name      : this.state.space_name,
+      description     : this.state.description,
+      city            : this.state.city,
+      space_status    : this.state.space_status,
+      space_type      : this.state.space_type,
+      no_of_balconies : this.state.no_of_balconies,
+      balconies_space : this.state.balconies_space,
+      no_of_bedrooms  : this.state.no_of_bedrooms,
+      no_of_bathrooms : this.state.no_of_bathrooms,
+      no_of_garages   : this.state.no_of_garages,
+      no_of_parkings  : this.state.no_of_parkings,
+    };
+
+    console.log('formData', formData);
+
+    fetch('http://localhost:3001/api/space/add', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    }).then(res => {
+      console.log(res);
+      if( res.status ) {
+        JSAlert.alert("Space successfully added").then(function() {
+          window.location.href = "/spaces";
+        });
+      }
+    }).catch(err => {
+      console.log(err);
+      console.log(err.status);
+    })
+    
+  }
+
   render() {
     const { errors, formValid } = this.state;
-    return (<Content title="SpaceAdd" subTitle="Add new Space" browserTitle="Zev Rector :: Spacesasd">
+    return (<Content title="Space" subTitle="Add new Space" browserTitle="Zev Rector :: Add new Space">
       <Row>
         {/* <Col xs={12}>
           <Box title="List of spaces" type="primary">
@@ -179,60 +279,103 @@ class SpaceAdd extends Component {
         {/* <Col sm={3}></Col> */}
         <Col xs={12}>
           <Box title="Add New Space" type="primary">
-            <form  className="">
-              {/* <h3 className="mb-3 tx-semibold text-center">Get Started</h3> */}
-              <div className="form-group">
-                <Text type="text" placeholder="Space Name" sm={12} name="space_name" labelSm="0" /* onChange={this.handleChange} */ required noValidate />
-                {/* {errors.firstname.length > 0 &&
-                  <span className='error pr-15 text-right text-danger d-block'>{errors.firstname}</span>} */}
-              </div>
-              <div className="form-group">
-                <textarea className="form-control" sm={12} style={{resize: "none", width: '100%'}} placeholder="Description" name="description"  noValidate ></textarea>
+            <form id="myForm" className="add-space-form">
+              <Text label="Space Name" labelPosition="above" type="text" placeholder="Space Name" sm={12} name="space_name" onChange={(e) => this.handleChange(e)} required noValidate />
+              {/* {errors.firstname.length > 0 &&
+                <span className='error pr-15 text-right text-danger d-block'>{errors.firstname}</span>} */}
+
+              <div className="form-group has-text">
+                <label>Description</label>
+                <textarea className="form-control" style={{resize: "none", width: "100%", height: "80px"}} placeholder="Description" name="description" onChange={(e) => this.handleChange(e)} noValidate />
                 {/* {errors.lastname.length > 0 &&
                   <span className='error pr-15 text-right text-danger d-block'>{errors.lastname}</span>} */}
               </div>
-              <div className="form-group has-text">
-                <div className="form-group col-sm-12">
-                  {/* <div className="input-group"> */}
-                  <Text type="text" placeholder="City" sm={12} name="city" labelSm="0" /* onChange={this.handleChange} */ required noValidate />
-                  {/* </div> */}
-                  {/* {errors.phone.length > 0 &&
-                    <span className='error pr-15 text-right text-danger d-block'>{errors.phone}</span>} */}
-                </div>
-              </div>
+              
+              <Text label="City" labelPosition="above" type="text" placeholder="City" sm={12} name="city" onChange={(e) => this.handleChange(e)} required noValidate />
+              {/* {errors.phone.length > 0 &&
+                <span className='error pr-15 text-right text-danger d-block'>{errors.phone}</span>} */}
 
-              <div className="form-group has-text">
-                <div className="form-group col-sm-12">
-                  <div className="input-group">
-                    <input type="number" pattern="[0-9]" className="form-control" placeholder="No. of balconies" name="no_of_balconies" /* onChange={this.handleChange} */ noValidate />
-                  </div>
-                  {/* {errors.brokerage.length > 0 &&
-                    <span className='error pr-15 text-right text-danger d-block'>{errors.brokerage}</span>} */}
-                </div>
-              </div>
-
-              <div className="form-group has-email"><label className="control-label col-sm-0"></label>
-                <div className="form-group col-sm-12 col-sm-offset-0">
-                  <div className="input-group">
-                    <input type="text" /* onChange={this.handleChange} */ noValidate  className="form-control" name="balconies_space" placeholder="Balconies Space" />
-                  </div>
+              <Row>
+                <Col sm={6}>
+                  <Text label="Space Status" labelPosition="above" type="text" onChange={(e) => this.handleChange(e)} noValidate  className="form-control" name="space_status" />
+                </Col>
+                <Col sm={6}>
+                  <Text label="Space Type" labelPosition="above" type="text" onChange={(e) => this.handleChange(e)} noValidate  className="form-control" name="space_type" />
                   {/* {errors.email.length > 0 &&
                   <span className='error pr-15 text-right text-danger d-block'>{errors.email}</span>} */}
-                </div>
-              </div>
-                {/* <Select iconLeft="fa-user-tag" defaultValue="manager" sm="12" labelSm="0" options={['Admin', 'Manager']} placeholder="User Type" title="User Type">
-                </Select> */}
+                </Col>
+              </Row>
 
-                <div className="form-group has-password">
-                  <div className="col-sm-12">
+              <Row>
+                <Col sm={6}>
+                  <div className="form-group has-text">
+                    <label>No of Balconies</label>
                     <div className="input-group">
-                      <input type="number" className="form-control" name="no_of_bedrooms" /* onChange={this.handleChange} */ noValidate placeholder="No. of Bedrooms" />
+                      <input type="number" pattern="[0-9]" className="form-control" placeholder="No. of balconies" name="no_of_balconies" onChange={ (e) => this.handleChange(e) } noValidate />
+                    </div>
+                    {/* {errors.brokerage.length > 0 &&
+                      <span className='error pr-15 text-right text-danger d-block'>{errors.brokerage}</span>} */}
+                  </div>
+                </Col>
+                <Col sm={6}>                    
+                    <Text label="Balconies Space" labelPosition="above" type="text" onChange={(e) => this.handleChange(e)} noValidate  className="form-control" name="balconies_space" placeholder="Balconies Space" />
+                    {/* {errors.email.length > 0 &&
+                    <span className='error pr-15 text-right text-danger d-block'>{errors.email}</span>} */}
+                </Col>
+              </Row>
+              {/* <Select iconLeft="fa-user-tag" defaultValue="manager" sm="12" labelSm="0" options={['Admin', 'Manager']} placeholder="User Type" title="User Type">
+                    </Select> */}
+              
+              <Row>
+                <Col sm={3}>
+                  <div className="form-group">
+                    <label>No of Bedrooms</label>
+                    <div className="input-group">
+                      <input type="number" className="form-control" name="no_of_bedrooms" onChange={(e) => this.handleChange(e)} noValidate />
                     </div>
                     {/* {errors.password.length > 0 &&
                       <span className='error pr-15 text-right text-danger d-block'>{errors.password}</span>} */}
                   </div>
-                </div>
-                <div className="text-center">  <Button text="Submit" className="mx-15 mt-15 bg-gradient tx-white register-button" /> {this.state.errorCount !== null ? <p className="form-status">Form is {formValid ? 'valid ✅' : 'invalid ❌'}</p> : ''}</div>
+                </Col>
+                <Col sm={3}>
+                  <div className="form-group">
+                    <label>No of Bathrooms</label>
+                    <div className="input-group">
+                      <input type="number" className="form-control" name="no_of_bathrooms" onChange={(e) => this.handleChange(e)} noValidate />
+                    </div>
+                    {/* {errors.password.length > 0 &&
+                      <span className='error pr-15 text-right text-danger d-block'>{errors.password}</span>} */}
+                  </div>
+                </Col>
+                <Col sm={3}>
+                  <div className="form-group">
+                    <label>No of Garages</label>
+                    <div className="input-group">
+                      <input type="number" className="form-control" name="no_of_garages" onChange={(e) => this.handleChange(e)} noValidate />
+                    </div>
+                    {/* {errors.password.length > 0 &&
+                      <span className='error pr-15 text-right text-danger d-block'>{errors.password}</span>} */}
+                  </div>
+                </Col>
+                <Col sm={3}>
+                  <div className="form-group">
+                    <label>No of Parkings</label>
+                    <div className="input-group">
+                      <input type="number" className="form-control" name="no_of_parkings" onChange={(e) => this.handleChange(e)} noValidate />
+                    </div>
+                    {/* {errors.password.length > 0 &&
+                      <span className='error pr-15 text-right text-danger d-block'>{errors.password}</span>} */}
+                  </div>
+                </Col>
+              </Row>
+              
+
+              {/* <Box > */}
+              <div style={{ padding: "15px 0" }}>
+                <Button text="Publish" onClick={this.handleSubmit} size="lg" type="primary" className=" tx-white " />
+                {/* {this.state.errorCount !== null ? <p className="form-status">Form is {formValid ? 'valid ✅' : 'invalid ❌'}</p> : ''} */}
+              </div>
+              {/* </Box> */}
             </form>
           </Box>
         </Col>
