@@ -85,13 +85,40 @@ class Profile extends Component {
 }
 
 class Spaces extends Component {
+  constructor() {
+    super();
+    this.state = {
+      spaces: []
+    };
+  }
   addSpace(event) {
     event.preventDefault();
 
     window.location.href = "/spaces_add";
   }
+
+  componentDidMount() {
+    // Get all Spaces
+    fetch('http://localhost:3001/api/spaces', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.status) {
+        this.setState({
+          spaces: data.response
+        })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
   
-  state = {}
   render() {
     return (<Content title="Spaces" subTitle="Spaces" browserTitle="Zev Rector :: Spaces">
       <Row>
@@ -106,47 +133,28 @@ class Spaces extends Component {
                   <tr>
                     <th>Image</th>
                     <th>Space Name</th>
+                    <th>Space Status</th>
+                    <th>Space Type</th>
                     <th># Views</th>
                     <th># Applicants</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Image</td>
-                    <td>Space One</td>
-                    <td>100</td>
-                    <td>90</td>
-                    <td><Button type="success" text="Share" /> <Button type="primary" text="View/Edit" /></td>
-                  </tr>
-                  <tr>
-                    <td>Image</td>
-                    <td>Space two</td>
-                    <td>100</td>
-                    <td>100</td>
-                    <td><Button type="success" text="Share" /> <Button type="primary" text="View/Edit" /></td>
-                  </tr>
-                  <tr>
-                    <td>Image</td>
-                    <td>Space Three</td>
-                    <td>100</td>
-                    <td>90</td>
-                    <td><Button type="success" text="Share" /> <Button type="primary" text="View/Edit" /></td>
-                  </tr>
-                  <tr>
-                    <td>Image</td>
-                    <td>Space Four</td>
-                    <td>100</td>
-                    <td>120</td>
-                    <td><Button type="success" text="Share" /> <Button type="primary" text="View/Edit" /></td>
-                  </tr>
-                  <tr>
-                    <td>Image</td>
-                    <td>Space Five</td>
-                    <td>1300</td>
-                    <td>90</td>
-                    <td><Button type="success" text="Share" /> <Button type="primary" text="View/Edit" /></td>
-                  </tr>
+                  {this.state.spaces.map((space, index) => (
+                    <tr>
+                      <td>Image</td>
+                      <td>{space.space_name}</td>
+                      <td>{space.space_status}</td>
+                      <td>{space.space_type}</td>
+                      <td>100</td>
+                      <td>90</td>
+                      <td>
+                        <Button type="success" text="Share" />
+                        <Button className="ml-3" type="primary" text="View/Edit" />
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
