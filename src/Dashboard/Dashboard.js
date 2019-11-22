@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AdminLTE, { Sidebar, Content, Row, Col, Box, Button, Inputs } from 'adminlte-2-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Redirect } from 'react-router-dom'
+import { Redirect, useParams } from 'react-router-dom'
 import ImageUploader from 'react-images-upload';
 //import {Container,Row,Col,Form,Button} from 'react-bootstrap';
 import './dashboard.css';
@@ -29,6 +29,7 @@ export default class Dashboard extends Component {
         <Profile path="/profile" />,
         <Spaces path="/spaces" />,
         <SpaceAdd path="/spaces_add" isSubItem={true} />,
+        <SpaceSingle path="/space/:spaceId" />
         <Applicants path="/applicants" />,
         <Logout path="/logout" />,
       </AdminLTE>
@@ -90,16 +91,25 @@ class Spaces extends Component {
     this.state = {
       spaces: []
     };
+    this.moveToSpace = this.moveToSpace.bind(this)
   }
   addSpace(event) {
     event.preventDefault();
 
     window.location.href = "/spaces_add";
   }
+  moveToSpace(spaceId) {
+    // event.preventDefault();
+    // move to single space
+    console.log('event', spaceId)
+     debugger
+    // window.location.href = '/space/' + event.target;
+
+  }
 
   componentDidMount() {
     // Get all Spaces
-    fetch('http://localhost:3001/api/spaces', {
+    fetch('http://localhost:3001/api/space/get', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -110,7 +120,7 @@ class Spaces extends Component {
     .then(data => {
       if(data.status) {
         this.setState({
-          spaces: data.response
+          spaces: data.results
         })
       }
     })
@@ -133,7 +143,7 @@ class Spaces extends Component {
                   <tr>
                     <th>Image</th>
                     <th>Space Name</th>
-                    <th>Space Status</th>
+                    {/* <th>Space Status</th> */}
                     <th>Space Type</th>
                     <th># Views</th>
                     <th># Applicants</th>
@@ -145,13 +155,13 @@ class Spaces extends Component {
                     <tr>
                       <td>Image</td>
                       <td>{space.space_name}</td>
-                      <td>{space.space_status}</td>
+                      {/* <td>{space.space_status}</td> */}
                       <td>{space.space_type}</td>
                       <td>100</td>
                       <td>90</td>
                       <td>
                         <Button type="success" text="Share" />
-                        <Button className="ml-3" type="primary" text="View/Edit" />
+                        <Button className="ml-3" type="primary" text="View/Edit" to={`/space/${space.id}`} />
                       </td>
                     </tr>
                   ))}
@@ -162,6 +172,124 @@ class Spaces extends Component {
         </Col>
       </Row>
     </Content>);
+  }
+}
+
+class SpaceSingle extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      space: '',
+      status: false
+    };
+  }
+  componentDidMount() {
+
+    // let { spaceId } = useParams();
+    const { match: { params } } = this.props;
+
+    // Get single Space
+    fetch(`http://localhost:3001/api/space/${params.spaceId}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.status) {
+        this.setState({
+          space: data.results[0],
+          status: data.status
+        })
+      } else {
+        this.setState({
+          status: data.status
+        })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  render() {
+    let space_status = this.state.status;
+      let space = {};
+    if(space_status) {
+      space = this.state.space;
+    }
+    
+    return (
+      // {space_status ? (
+      <Content title="Space" subTitle={space.space_name} browserTitle="Zev Rector :: Spaces">
+        <Row>
+          <Col xs={12}>
+            <Box title={space.space_name} type="primary">
+              <div className="table-responsive">
+                <table className="table table-striped">
+                  <tbody>
+                    <tr>
+                      <th>Image</th>
+                      <td>Image</td>
+                    </tr>
+                    <tr>
+                      <th>Space Name</th>
+                      <td>{space.space_name}</td>
+                    </tr>
+                    <tr>
+                      <th>Description</th>
+                      <td>{space.description}</td>
+                    </tr>
+                    <tr>
+                      <th>City</th>
+                      <td>{space.city}</td>
+                    </tr>
+                    <tr>
+                      <th>Space Type</th>
+                      <td>{space.space_type}</td>
+                    </tr>
+                    <tr>
+                      <th>No of Balconies</th>
+                      <td>{space.no_of_balconies}</td>
+                    </tr>
+                    <tr>
+                      <th>Balconies Space</th>
+                      <td>{space.balconies_space}</td>
+                    </tr>
+                    <tr>
+                      <th>No of Bedrooms</th>
+                      <td>{space.no_of_bedrooms}</td>
+                    </tr>
+                    <tr>
+                      <th>no of Bathrooms</th>
+                      <td>{space.no_of_bathrooms}</td>
+                    </tr>
+                    <tr>
+                      <th>No of Garages</th>
+                      <td>{space.no_of_garages}</td>
+                    </tr>
+                    <tr>
+                      <th>No of Parkings</th>
+                      <td>{space.no_of_parkings}</td>
+                    </tr>
+                    <tr>
+                      <th>Pets Allowed</th>
+                      <td>{space.pets_allowed ? "Yes" : "No"}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </Box>
+          </Col>
+        </Row>
+      </Content>
+      // ) : (
+      //   <Redirect to="/spaces">
+      // ) }
+    );
   }
 }
 
