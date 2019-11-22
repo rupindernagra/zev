@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AdminLTE, { Sidebar, Content, Row, Col, Box, Button, Inputs } from 'adminlte-2-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Redirect } from 'react-router-dom'
+import ImageUploader from 'react-images-upload';
 //import {Container,Row,Col,Form,Button} from 'react-bootstrap';
 import './dashboard.css';
 const { Select2, Date, DateTime, Text } = Inputs;
@@ -171,9 +172,17 @@ class SpaceAdd extends Component {
       no_of_bathrooms: 0,
       no_of_garages: 0,
       no_of_parkings: 0,
+      space_image: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onDrop = this.onDrop.bind(this);
+  }
+
+  onDrop(picture) {
+    this.setState({
+      space_image: this.state.space_image.concat(picture),
+    });
   }
 
   handleChange(event) {
@@ -223,15 +232,11 @@ class SpaceAdd extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    // let myForm = document.getElementById('myForm');
-    // let formD = new FormData(myForm);
-
-    console.log('in submit');
-
     var formData = {
       space_name      : this.state.space_name,
       description     : this.state.description,
       city            : this.state.city,
+      image_url       : this.state.space_image,
       space_status    : this.state.space_status,
       space_type      : this.state.space_type,
       no_of_balconies : this.state.no_of_balconies,
@@ -241,8 +246,6 @@ class SpaceAdd extends Component {
       no_of_garages   : this.state.no_of_garages,
       no_of_parkings  : this.state.no_of_parkings,
     };
-
-    console.log('formData', formData);
 
     fetch('http://localhost:3001/api/space/add', {
       method: 'POST',
@@ -280,6 +283,21 @@ class SpaceAdd extends Component {
         <Col xs={12}>
           <Box title="Add New Space" type="primary">
             <form id="myForm" className="add-space-form">
+
+              <div className="form-group has-text">
+                <label>Space Image</label>
+                <ImageUploader
+                  name="space_image"
+                  withIcon={true}
+                  buttonText='Choose images'
+                  onChange={this.onDrop}
+                  imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                  maxFileSize={5242880}
+                  singleImage={true}
+                  withPreview={true}
+                />
+              </div>
+
               <Text label="Space Name" labelPosition="above" type="text" placeholder="Space Name" sm={12} name="space_name" onChange={(e) => this.handleChange(e)} required noValidate />
               {/* {errors.firstname.length > 0 &&
                 <span className='error pr-15 text-right text-danger d-block'>{errors.firstname}</span>} */}
