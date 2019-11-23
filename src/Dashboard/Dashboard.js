@@ -120,7 +120,7 @@ class Spaces extends Component {
     .then(data => {
       if(data.status) {
         this.setState({
-          spaces: data.results
+          spaces: data.result
         })
       }
     })
@@ -201,11 +201,7 @@ class SpaceSingle extends Component {
     .then(data => {
       if(data.status) {
         this.setState({
-          space: data.results[0],
-          status: data.status
-        })
-      } else {
-        this.setState({
+          space: data.result[0],
           status: data.status
         })
       }
@@ -217,14 +213,14 @@ class SpaceSingle extends Component {
 
   render() {
     let space_status = this.state.status;
-      let space = {};
+    let space = {};
     if(space_status) {
       space = this.state.space;
     }
     
     return (
-      // {space_status ? (
       <Content title="Space" subTitle={space.space_name} browserTitle="Zev Rector :: Spaces">
+        {/* {space_status ? ( */}
         <Row>
           <Col xs={12}>
             <Box title={space.space_name} type="primary">
@@ -284,11 +280,11 @@ class SpaceSingle extends Component {
               </div>
             </Box>
           </Col>
-        </Row>
+        </Row> 
+        {/* ) : (
+          <Redirect to="/spaces" />
+        ) } */}
       </Content>
-      // ) : (
-      //   <Redirect to="/spaces">
-      // ) }
     );
   }
 }

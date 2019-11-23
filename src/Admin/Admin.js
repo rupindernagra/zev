@@ -112,17 +112,39 @@ export default class Admin extends Component {
     
   handleSubmit(event) {
     event.preventDefault();
-    if(this.state.formValid===false){
+
+    if(this.state.formValid === false) {
       return false;
     }
-    if(this.state.email==='admin@admin.com' && this.state.password==='admin123'){
-      this.setState({validateUser: null});
-      console.log(this.state);
-      localStorage.setItem('login',true);
-    }else{
-      console.log("check");
-      this.setState({validateUser: true});
+
+    var formData = {
+      email: this.state.email,
+      password: this.state.password
     }
+
+    fetch('http://localhost:3001/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    }).then(
+      res => res.json()
+    ).then(data => {
+      console.log('data', data);
+      if(data.status) {
+        this.setState({validateUser: null});
+        localStorage.setItem('login',true);
+      } else {
+        console.log("check");
+        this.setState({validateUser: true});
+      }
+    }).catch(err => {
+      console.log(err);
+      console.log(err.status);
+    })
+
   }
 
 }
