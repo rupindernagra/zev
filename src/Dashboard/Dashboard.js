@@ -92,7 +92,7 @@ class Spaces extends Component {
     this.state = {
       spaces: []
     };
-    this.api = new API;
+    this.api = new API();
     this.moveToSpace = this.moveToSpace.bind(this)
   }
   addSpace(event) {
@@ -178,7 +178,7 @@ class SpaceSingle extends Component {
       space: '',
       status: false
     };
-    this.api = new API;
+    this.api = new API();
   }
   componentDidMount() {
 
@@ -296,7 +296,7 @@ class SpaceAdd extends Component {
       no_of_parkings: 0,
       space_image: ''
     };
-    this.app = new API
+    this.app = new API();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onDrop = this.onDrop.bind(this);
@@ -594,6 +594,6 @@ class Logout extends Component {
   state = {}
   render() {
     localStorage.removeItem('login');
-    return <Redirect to='/dashboard' />
+    return <Redirect to='/admin' />
   }
 }

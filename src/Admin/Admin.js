@@ -37,7 +37,7 @@ export default class Admin extends Component {
         password: '',
       }
     };
-    this.api = new API;
+    this.api = new API();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 

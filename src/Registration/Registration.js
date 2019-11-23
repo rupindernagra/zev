@@ -42,7 +42,7 @@ export default class Registration extends Component {
         password: '',
       }
     };
-    this.api = new API;
+    this.api = new API();
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -91,6 +91,9 @@ export default class Registration extends Component {
 
   render() {
     const { errors, formValid } = this.state;
+    if(localStorage.getItem('login')){
+      return <Redirect to='/dashboard' />
+    }
     if(this.state.isRegistered) {
       return <Redirect to='/admin' />
     }

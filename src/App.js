@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import PublicSpace from './Public/PublicSpaces';
 import Registration from './Registration/Registration';
 import Admin from './Admin/Admin';
 import Dashboard from './Dashboard/Dashboard';
@@ -15,7 +16,9 @@ class App extends Component{
     render() {
       return  <Router>
                 <Switch>
-                  <Route exact path="/" component={Registration}/>
+                  <Route exact path="/" component={Admin}/>
+                  <Route exact path="/register" component={Registration}/>
+                  <Route exact path="/public/space/" component={PublicSpace}/>
                   <Route path="/admin" component={Admin}/>
                   <Route path="/dashboard" component={Dashboard}/>
                   <Route path="/profile" component={Profile}/>
