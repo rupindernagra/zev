@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Redirect, Link } from 'react-router-dom';
 import {Container,Row,Col,Form,Button} from 'react-bootstrap';
 import './admin-login.css';
+import API from '../Common/API';
 const validEmailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 
 const countErrors = (errors) => {
@@ -36,13 +37,14 @@ export default class Admin extends Component {
         password: '',
       }
     };
+    this.api = new API;
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
-    let errors = this.state.errors;   
+    let errors = this.state.errors;
     switch (name) {
       case 'email':
         errors.email =
@@ -122,17 +124,9 @@ export default class Admin extends Component {
       password: this.state.password
     }
 
-    fetch('http://localhost:3001/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    }).then(
+    this.api.login(formData).then(
       res => res.json()
     ).then(data => {
-      console.log('data', data);
       if(data.status) {
         this.setState({validateUser: null});
         localStorage.setItem('login',true);

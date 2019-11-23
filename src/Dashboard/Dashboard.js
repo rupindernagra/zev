@@ -5,6 +5,7 @@ import { Redirect, useParams } from 'react-router-dom'
 import ImageUploader from 'react-images-upload';
 //import {Container,Row,Col,Form,Button} from 'react-bootstrap';
 import './dashboard.css';
+import API from '../Common/API';
 const { Select2, Date, DateTime, Text } = Inputs;
 var JSAlert = require("js-alert");
 
@@ -91,6 +92,7 @@ class Spaces extends Component {
     this.state = {
       spaces: []
     };
+    this.api = new API;
     this.moveToSpace = this.moveToSpace.bind(this)
   }
   addSpace(event) {
@@ -109,22 +111,15 @@ class Spaces extends Component {
 
   componentDidMount() {
     // Get all Spaces
-    fetch('http://localhost:3001/api/space/get', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-    .then(res => res.json())
-    .then(data => {
+    this.api.getSpaces().then(
+      res => res.json()
+    ).then(data => {
       if(data.status) {
         this.setState({
           spaces: data.result
         })
       }
-    })
-    .catch(err => {
+    }).catch(err => {
       console.log(err);
     })
   }
@@ -183,6 +178,7 @@ class SpaceSingle extends Component {
       space: '',
       status: false
     };
+    this.api = new API;
   }
   componentDidMount() {
 
@@ -190,13 +186,7 @@ class SpaceSingle extends Component {
     const { match: { params } } = this.props;
 
     // Get single Space
-    fetch(`http://localhost:3001/api/space/${params.spaceId}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
+    this.api.getSpaceById(params.spaceId)
     .then(res => res.json())
     .then(data => {
       if(data.status) {
@@ -306,6 +296,7 @@ class SpaceAdd extends Component {
       no_of_parkings: 0,
       space_image: ''
     };
+    this.app = new API
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onDrop = this.onDrop.bind(this);
@@ -379,16 +370,11 @@ class SpaceAdd extends Component {
       no_of_parkings  : this.state.no_of_parkings,
     };
 
-    fetch('http://localhost:3001/api/space/add', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    }).then(res => {
-      console.log(res);
-      if( res.status ) {
+    this.app.addSpace(formData).then(
+      res => res.json()
+    ).then(data => {
+      console.log(data);
+      if( data.status ) {
         JSAlert.alert("Space successfully added").then(function() {
           window.location.href = "/spaces";
         });

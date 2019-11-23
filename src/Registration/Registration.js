@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Redirect} from 'react-router-dom';
 import { Row, Col, Inputs, Button } from 'adminlte-2-react';
 import '../App.css';
 import './registration.css';
+import API from '../Common/API';
 const { Text } = Inputs;
+var JSAlert = require("js-alert");
 const validEmailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 
 const countErrors = (errors) => {
@@ -29,6 +32,7 @@ export default class Registration extends Component {
     this.state = {
       formValid: false,
       errorCount: null,
+      isRegistered: false,
       errors: {
         firstname: '',
         lastname: '',
@@ -38,6 +42,7 @@ export default class Registration extends Component {
         password: '',
       }
     };
+    this.api = new API;
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -86,6 +91,9 @@ export default class Registration extends Component {
 
   render() {
     const { errors, formValid } = this.state;
+    if(this.state.isRegistered) {
+      return <Redirect to='/admin' />
+    }
     return (
       <div className="registration">
         <div className="container">
@@ -170,21 +178,21 @@ export default class Registration extends Component {
         password  : this.state.password
       }
 
-      
-      fetch('http://localhost:3001/api/register', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      }).then(res => {
-        console.log(res);
-        if( res.status ) window.location.href = "/admin";
+      let _self = this;
+
+      // Call Registeration API
+      this.api.register(formData).then(
+        res => res.json()
+      ).then(data => {
+        if( data.status ) {
+          JSAlert.alert("Registered Successfully").then(function() {
+            _self.setState({ isRegistered: true })
+          });
+        }
       }).catch(err => {
         console.log(err);
         console.log(err.status);
-      })
+      });
     }
 
   }  
