@@ -1,0 +1,25 @@
+body, .public-view-space {
+    background: none !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+}
+.ui.cards > .card > .content, .ui.card > .content {
+    min-height: 0 !important;
+}
+.space-features .feature-label {
+    display: inline-block;
+}
+.space-features .item strong {
+    margin-left: 5px;
+}
+.space-similar .image {
+    position: relative;
+}
+.space-similar .listing-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-image: linear-gradient(0deg,#000,transparent);
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.2);
+}
