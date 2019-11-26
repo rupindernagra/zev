@@ -3,19 +3,20 @@ import React, { Component } from 'react';
 // import { Row, Col, Inputs, Button } from 'adminlte-2-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import $ from 'jquery';
 import '../App.css';
 import '../Registration/registration.css';
 import './public.css';
 import API from '../Common/API';
 import PublicMenu from './PublicMenu';
 import SpaceListing from './SpaceListing';
-import Slider from 'react-slick';
 import Modal from '../Components/Modules/Modal';
+import ApplicationForm from './ApplicationForm';
+import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import faker from 'faker';
 // const { Text } = Inputs;
+const {$} = window;
 var JSAlert = require("js-alert");
 
 export default class PublicSpaces extends Component {
@@ -24,7 +25,7 @@ export default class PublicSpaces extends Component {
     super(props);
 
     this.api = new API();
-    // this.handleSubmit = this.handleSubmit.bind(this)
+    // this.handleChange = this.handleChange.bind(this)
   }
 
   // componentDidMount() {
@@ -51,7 +52,7 @@ export default class PublicSpaces extends Component {
       <div>
         <PublicMenu />
         <div className="public-view-space">
-          <section className="space-address">
+          <section className="space-address py-5">
             <Container>
               <Row>
                 <Col sm={12}>
@@ -230,7 +231,9 @@ export default class PublicSpaces extends Component {
             <Container>
               <Row>
                 <Col sm={12}>
-                  <Modal />
+                  <Modal>
+                    <ApplicationForm />
+                  </Modal>
                   <h4>Similar Spaces</h4>
                   <hr />
                 </Col>

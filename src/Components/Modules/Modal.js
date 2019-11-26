@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
 
 export default class Modal extends Component {
+    constructor(props) {
+        super(props);
+        
+    }
     render() {
+        console.log('props', this.props);
         return (
             <div className="ui modal">
                 <i className="close icon"></i>
                 <div className="header">
-                    Profile Picture
+                    Submit Application
                 </div>
-                <div className="image content">
-                    <div className="ui medium image">
-                        <img src="/images/avatar/large/chris.jpg" />
-                    </div>
-                    <div className="description">
-                    <div className="ui header">We've auto-chosen a profile image for you.</div>
-                    <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-                    <p>Is it okay to use this photo?</p>
-                    </div>
+                <div className="content">
+                    {this.props.children}
                 </div>
                 <div className="actions">
                     <div className="ui black deny button">
