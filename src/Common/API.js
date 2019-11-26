@@ -57,4 +57,9 @@ export default class API {
         return this.fetchAPI (`${this.apiURL}/api/space/${spaceId}`, "GET");
     }
 
+    // Save Application of User
+    saveApplication( payload ) {
+        return this.fetchAPI (`${this.apiURL}/api/application/add`, "POST", payload);
+    }
+
 }

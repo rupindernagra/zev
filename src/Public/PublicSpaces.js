@@ -10,7 +10,7 @@ import API from '../Common/API';
 import PublicMenu from './PublicMenu';
 import SpaceListing from './SpaceListing';
 import Modal from '../Components/Modules/Modal';
-import ApplicationForm from './ApplicationForm';
+import ApplicationForm from '../Components/Form/ApplicationForm';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -25,18 +25,12 @@ export default class PublicSpaces extends Component {
     super(props);
 
     this.api = new API();
-    // this.handleChange = this.handleChange.bind(this)
   }
-
-  // componentDidMount() {
-  //   $('p').css('display', 'none');
-  // }
 
   openModal(e) {
     e.preventDefault();
 
     $('.ui.modal').modal('show');
-    console.log('click and open Modal');
   }
 
   render() {
@@ -52,11 +46,11 @@ export default class PublicSpaces extends Component {
       <div>
         <PublicMenu />
         <div className="public-view-space">
-          <section className="space-address py-5">
+          <section className="space-address pt-5 py-2">
             <Container>
               <Row>
                 <Col sm={12}>
-                  <div className="ui placeholder segment">
+                  <div className="ui vertical segment">
                     <Row>
                       <Col sm={9} xs={12} className="main-column">
                         <div className="ui header">
@@ -93,13 +87,13 @@ export default class PublicSpaces extends Component {
                 <div className="col-sm-12">
                   <Slider {...settings}>
                     <div>
-                      <img className="ui fluid image" src="http://www.gbexclusiverealestate.com/wp-content/uploads/2019/07/2019-07-01_84699_Windsor_at_Westside_Castaway_5933.crop-box-16-9-1200x676.jpg" />
+                      <img className="ui fluid image" alt="gallery" src="http://www.gbexclusiverealestate.com/wp-content/uploads/2019/07/2019-07-01_84699_Windsor_at_Westside_Castaway_5933.crop-box-16-9-1200x676.jpg" />
                     </div>
                     <div>
-                      <img className="ui fluid image" src="https://www.urbansplash.co.uk/images/placeholder-16-9.jpg" />
+                      <img className="ui fluid image" alt="gallery" src="https://www.urbansplash.co.uk/images/placeholder-16-9.jpg" />
                     </div>
                     <div>
-                      <img className="ui fluid image" src="https://wallpaperplay.com/walls/full/e/d/4/98365.jpg" />
+                      <img className="ui fluid image" alt="gallery" src="https://wallpaperplay.com/walls/full/e/d/4/98365.jpg" />
                     </div>
                   </Slider>
                 </div>
@@ -181,7 +175,7 @@ export default class PublicSpaces extends Component {
             <Container>
               <Row>
                 <Col sm={12}>
-                  <h4>Description</h4>
+                  <h4>Features</h4>
                   <hr />
                 </Col>
                 <Col sm={6}>
