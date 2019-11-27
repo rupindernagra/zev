@@ -12,9 +12,9 @@ export default class SpaceListing extends Component {
                     </div>
                 </div>
                 <div className="content">
-                    <a href="/" className="header">Team Fu</a>
+                    <a href="/" className="header listing-card-address">Team Fu</a>
                     <div className="meta">
-                        <span className="date">Created in Sep 2014</span>
+                        <span className="date">4 bed 2.5 bath · 3,538 ft²</span>
                     </div>
                 </div>
             </div>

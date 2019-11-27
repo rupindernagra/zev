@@ -3,8 +3,31 @@ body, .public-view-space {
     background-color: #ffffff !important;
     background-image: none !important;
 }
+h1, h2, h3, h4, h5, h6 { color: #1d2c4c !important; }
+p { line-height: 1.6 }
+body, input, select, p, ul, li, div, span {
+    color: #525975;
+    font-size: 16px;
+}
+section { padding: 40px 0 25px; }
 .ui.cards > .card > .content, .ui.card > .content {
     min-height: 0 !important;
+}
+.space-address .home-features {
+    color: #525975 !important;
+}
+.space-address .price-box-container {
+    border-left: 1px solid hsla(60,1%,75%,.3);
+    text-align: right;
+}
+.space-address .price-box-container .price-box { display: inline-block }
+.space-address .price-box-container .browse-more a {
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.space-address .price-box-container .space-price {
+    font-weight: 600;
 }
 .space-features .feature-label {
     display: inline-block;
@@ -12,14 +35,43 @@ body, .public-view-space {
 .space-features .item strong {
     margin-left: 5px;
 }
-.space-similar .image {
-    position: relative;
+.public-view-space .space-features .item {
+    margin-bottom: 10px;
+    font-size: 16px !important;
 }
-.space-similar .listing-overlay {
+.public-view-space .space-features .item > * {
+    font-size: 16px;
+}
+
+.space-similar .related-listing .image {
+    position: relative !important;
+}
+.space-similar .related-listing .listing-overlay {
     position: absolute;
     bottom: 0;
     width: 100%;
     background-image: linear-gradient(0deg,#000,transparent);
-    color: #fff;
+}
+.space-similar .related-listing .listing-overlay > * {
+    color: #fff !important;
     text-shadow: 0 1px 0 rgba(0,0,0,.2);
+}
+.space-similar .related-listing .listing-overlay .listing-price {
+    display: inline-block;
+    padding: 18px 0 18px 18px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.space-similar .related-listing a.listing-card-address {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #1d2c4c !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+.public-view-space #about h2 {
+    margin-bottom: 20px;
 }

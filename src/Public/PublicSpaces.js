@@ -46,10 +46,10 @@ export default class PublicSpaces extends Component {
       <div>
         <PublicMenu />
         <div className="public-view-space">
-          <section className="space-address pt-5 py-2">
+          <section className="space-address pb-3">
             <Container>
               <Row>
-                <Col sm={12}>
+                <Col sm={{ offset: 1, span: 10 }} xs={12}>
                   <div className="ui vertical segment">
                     <Row>
                       <Col sm={9} xs={12} className="main-column">
@@ -81,10 +81,10 @@ export default class PublicSpaces extends Component {
               {/* {this.props.children} */}
             </Container>
           </section>
-          <section className="space-images mt-5">
+          <section className="space-images">
             <Container>
               <Row>
-                <div className="col-sm-12">
+                <Col sm={12}>
                   <Slider {...settings}>
                     <div>
                       <img className="ui fluid image" alt="gallery" src="http://www.gbexclusiverealestate.com/wp-content/uploads/2019/07/2019-07-01_84699_Windsor_at_Westside_Castaway_5933.crop-box-16-9-1200x676.jpg" />
@@ -96,16 +96,16 @@ export default class PublicSpaces extends Component {
                       <img className="ui fluid image" alt="gallery" src="https://wallpaperplay.com/walls/full/e/d/4/98365.jpg" />
                     </div>
                   </Slider>
-                </div>
+                </Col>
               </Row>
             </Container>
           </section>
-          <section className="space-description mt-5">
+          <section className="space-description">
             <Container>
               <Row>
-                <Col sm={12}>
-                  <h3>Description</h3>
-                  <hr />
+                <Col sm={{ offset: 1, span: 10 }} xs={12}>
+                  {/* <h3>Description</h3> */}
+                  {/* <hr /> */}
                   <p>
                     Here is description
                   </p>
@@ -113,123 +113,132 @@ export default class PublicSpaces extends Component {
               </Row>
             </Container>
           </section>
-          <section className="space-features mt-5">
+          <section className="space-features">
             <Container>
               <Row>
-                <Col sm={12}>
-                  <h4>About Space</h4>
-                  <hr />
-                </Col>
-                <Col sm={6}>
-                  <div className="ui list">
-                    <div className="item">
-                      <div className="feature-label">Space type: </div>
-                      <strong>Single family home</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label"># of Bedrooms: </div>
-                      <strong>3</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label"># of Bathrooms: </div>
-                      <strong>3</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label"># of Balconies: </div>
-                      <strong>3</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label"># of Garages: </div>
-                      <strong>3</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label"># of Parkings: </div>
-                      <strong>3</strong>
-                    </div>
-                  </div>
-                </Col>
-                <Col sm={6}>
-                  <div className="ui list">
-                    <div className="item">
-                      <div className="feature-label">Space size: </div>
-                      <strong>5,750 ft²</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label">Balcony size: </div>
-                      <strong>1,495 ft²</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label">Pets allowed: </div>
-                      <strong>Yes</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label">Pool: </div>
-                      <strong>None</strong>
-                    </div>
-                  </div>
+                <Col sm={{ offset: 1, span: 10 }} xs={12}>
+                  <Row>
+                    <Col sm={12}>
+                      <h4 className="ui header small">About Space</h4>
+                      <div className="ui divider"></div>
+                    </Col>
+                    <Col sm={6}>
+                      <div className="ui list">
+                        <div className="item">
+                          <div className="feature-label">Space type: </div>
+                          <strong>Single family home</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label"># of Bedrooms: </div>
+                          <strong>3</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label"># of Bathrooms: </div>
+                          <strong>3</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label"># of Balconies: </div>
+                          <strong>3</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label"># of Garages: </div>
+                          <strong>3</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label"># of Parkings: </div>
+                          <strong>3</strong>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col sm={6}>
+                      <div className="ui list">
+                        <div className="item">
+                          <div className="feature-label">Space size: </div>
+                          <strong>5,750 ft²</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label">Balcony size: </div>
+                          <strong>1,495 ft²</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label">Pets allowed: </div>
+                          <strong>Yes</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label">Pool: </div>
+                          <strong>None</strong>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </Container>
           </section>
-          <section className="space-features mt-5">
+          <section className="space-features">
             <Container>
               <Row>
-                <Col sm={12}>
-                  <h4>Features</h4>
-                  <hr />
-                </Col>
-                <Col sm={6}>
-                  <div className="ui list">
-                    <div className="item">
-                      <div className="feature-label">Space type: </div>
-                      <strong>Single family home</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label">Space type: </div>
-                      <strong>Single family home</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label">Space type: </div>
-                      <strong>Single family home</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label">Space type: </div>
-                      <strong>Single family home</strong>
-                    </div>
-                  </div>
-                </Col>
-                <Col sm={6}>
-                  <div className="ui list">
-                    <div className="item">
-                      <div className="feature-label">Space type: </div>
-                      <strong>Single family home</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label">Space type: </div>
-                      <strong>Single family home</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label">Space type: </div>
-                      <strong>Single family home</strong>
-                    </div>
-                    <div className="item">
-                      <div className="feature-label">Space type: </div>
-                      <strong>Single family home</strong>
-                    </div>
-                  </div>
+                <Col sm={{ offset: 1, span: 10 }} xs={12}>
+                  <h4 className="ui header small">Features</h4>
+                  <div className="ui divider"></div>
+                  <Row>
+                    {/* <Col sm={12}>
+                      
+                    </Col> */}
+                    <Col sm={6}>
+                      <div className="ui list">
+                        <div className="item">
+                          <div className="feature-label">Space type: </div>
+                          <strong>Single family home</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label">Space type: </div>
+                          <strong>Single family home</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label">Space type: </div>
+                          <strong>Single family home</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label">Space type: </div>
+                          <strong>Single family home</strong>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col sm={6}>
+                      <div className="ui list">
+                        <div className="item">
+                          <div className="feature-label">Space type: </div>
+                          <strong>Single family home</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label">Space type: </div>
+                          <strong>Single family home</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label">Space type: </div>
+                          <strong>Single family home</strong>
+                        </div>
+                        <div className="item">
+                          <div className="feature-label">Space type: </div>
+                          <strong>Single family home</strong>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </Container>
           </section>
-          <section className="space-similar mt-5 py-5">
+          <section className="space-similar">
             <Container>
               <Row>
                 <Col sm={12}>
                   <Modal>
                     <ApplicationForm />
                   </Modal>
-                  <h4>Similar Spaces</h4>
-                  <hr />
+                  <h4 className="ui header small">Similar Spaces</h4>
+                  <div className="ui divider"></div>
                 </Col>
                 <Col sm={4}>
                   <SpaceListing />
@@ -239,6 +248,20 @@ export default class PublicSpaces extends Component {
                 </Col>
                 <Col sm={4}>
                   <SpaceListing image="" />
+                </Col>
+              </Row>
+            </Container>
+          </section>
+          <section id="about">
+            <Container>
+              <Row>
+                <Col sm={{ offset:3, span:6 }} xs={12}>
+                  <h2>About [Real Estate]</h2>
+                  <p>We're a team dedicated to changing the real estate business by making
+                  buying and selling dramatically easier. Moving has been one of the most
+                  stressful events in our lives. With a traditional home sale lasting months
+                  full of headaches and uncertainty, we knew there had to be a better
+                  experience for buyers and sellers.</p>
                 </Col>
               </Row>
             </Container>
