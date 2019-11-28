@@ -18,7 +18,7 @@ class App extends Component{
                 <Switch>
                   <Route exact path="/" component={Admin}/>
                   <Route exact path="/register" component={Registration}/>
-                  <Route exact path="/public/space/" component={PublicSpace}/>
+                  <Route exact path="/public/space/:spaceId" component={PublicSpace}/>
                   <Route path="/admin" component={Admin}/>
                   <Route path="/dashboard" component={Dashboard}/>
                   <Route path="/profile" component={Profile}/>
@@ -27,6 +27,9 @@ class App extends Component{
                   <Route path="/spaces_add" component={SpaceAdd}/>
                   <Route path="/applicants" component={Applicants}/>
                   <Route path="/forgot-password" component={ForgotPassword} />
+                  
+                  {/* Default route when nothing else matches */}
+                  <Route component={Admin} />
                 </Switch>
               </Router>
     }

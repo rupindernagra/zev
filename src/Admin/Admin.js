@@ -67,7 +67,7 @@ export default class Admin extends Component {
   }
 
   render() {
-    if(localStorage.getItem('login')){
+    if(localStorage.getItem('login')) {
       return <Redirect to='/dashboard' />
     }
     const { errors } = this.state;
@@ -126,10 +126,11 @@ export default class Admin extends Component {
 
     this.api.login(formData).then(
       res => res.json()
-    ).then(data => {
-      if(data.status) {
-        this.setState({validateUser: null});
-        localStorage.setItem('login',true);
+    ).then(response => {
+      if(response.status) {
+        this.setState({ validateUser: null });
+        localStorage.setItem('login', true);
+        localStorage.setItem('current_user_id', response.result.id);
       } else {
         console.log("check");
         this.setState({validateUser: true});

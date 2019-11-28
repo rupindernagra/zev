@@ -111,7 +111,7 @@ class Spaces extends Component {
 
   componentDidMount() {
     // Get all Spaces
-    this.api.getSpaces().then(
+    this.api.getMySpaces().then(
       res => res.json()
     ).then(data => {
       if(data.status) {
@@ -182,16 +182,15 @@ class SpaceSingle extends Component {
   }
   componentDidMount() {
 
-    // let { spaceId } = useParams();
-    const { match: { params } } = this.props;
+    const { match: { params: { spaceId } } } = this.props;
 
     // Get single Space
-    this.api.getSpaceById(params.spaceId)
+    this.api.getMySpaces(spaceId)
     .then(res => res.json())
     .then(data => {
       if(data.status) {
         this.setState({
-          space: data.result[0],
+          space: data.result,
           status: data.status
         })
       }
@@ -286,6 +285,7 @@ class SpaceAdd extends Component {
       space_name: '',
       description: '',
       city: '',
+      price: '0.00',
       space_status: '',
       space_type: '',
       no_of_balconies: 0,
@@ -296,7 +296,7 @@ class SpaceAdd extends Component {
       no_of_parkings: 0,
       space_image: ''
     };
-    this.app = new API();
+    this.api = new API();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onDrop = this.onDrop.bind(this);
@@ -321,6 +321,9 @@ class SpaceAdd extends Component {
         break;
       case 'city':
         this.setState({ city: value });
+        break;
+      case 'price':
+        this.setState({ price: value });
         break;
       case 'space_status':
         this.setState({ space_status: value });
@@ -359,6 +362,7 @@ class SpaceAdd extends Component {
       space_name      : this.state.space_name,
       description     : this.state.description,
       city            : this.state.city,
+      price           : this.state.price,
       image_url       : this.state.space_image,
       space_status    : this.state.space_status,
       space_type      : this.state.space_type,
@@ -368,9 +372,10 @@ class SpaceAdd extends Component {
       no_of_bathrooms : this.state.no_of_bathrooms,
       no_of_garages   : this.state.no_of_garages,
       no_of_parkings  : this.state.no_of_parkings,
+      user_id         : this.api.currentUserId
     };
 
-    this.app.addSpace(formData).then(
+    this.api.addSpace(formData).then(
       res => res.json()
     ).then(data => {
       console.log(data);
@@ -427,10 +432,15 @@ class SpaceAdd extends Component {
                   <span className='error pr-15 text-right text-danger d-block'>{errors.lastname}</span>} */}
               </div>
               
-              <Text label="City" labelPosition="above" type="text" placeholder="City" sm={12} name="city" onChange={(e) => this.handleChange(e)} required noValidate />
-              {/* {errors.phone.length > 0 &&
-                <span className='error pr-15 text-right text-danger d-block'>{errors.phone}</span>} */}
-
+              <Row>
+                <Col sm={6}>
+                  <Text label="City" labelPosition="above" type="text" placeholder="City" sm={12} name="city" onChange={(e) => this.handleChange(e)} required noValidate />
+                </Col>
+                <Col sm={6}>
+                  <Text label="Price" labelPosition="above" type="text" onChange={(e) => this.handleChange(e)} noValidate  className="form-control" name="price" />
+                </Col>
+              </Row>
+              
               <Row>
                 <Col sm={6}>
                   <Text label="Space Status" labelPosition="above" type="text" onChange={(e) => this.handleChange(e)} noValidate  className="form-control" name="space_status" />

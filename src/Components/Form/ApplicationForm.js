@@ -9,7 +9,7 @@ export default class ApplicationForm extends Component {
             loading: true,
             firstname: '',
             lastname: '',
-            space_id: null,
+            space_id: '',
             email: '',
             phone: '',
             message: '',
@@ -74,7 +74,7 @@ export default class ApplicationForm extends Component {
         let formData = {
             firstname: this.state.firstname,
             lastname: this.state.lastname,
-            space_id: 1,
+            space_id: this.props.spaceId,
             email: this.state.email,
             phone: this.state.phone,
             message: this.state.message,
