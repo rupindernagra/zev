@@ -93,20 +93,11 @@ class Spaces extends Component {
       spaces: []
     };
     this.api = new API();
-    this.moveToSpace = this.moveToSpace.bind(this)
   }
   addSpace(event) {
     event.preventDefault();
 
     window.location.href = "/spaces_add";
-  }
-  moveToSpace(spaceId) {
-    // event.preventDefault();
-    // move to single space
-    console.log('event', spaceId)
-     debugger
-    // window.location.href = '/space/' + event.target;
-
   }
 
   componentDidMount() {
@@ -115,6 +106,7 @@ class Spaces extends Component {
       res => res.json()
     ).then(data => {
       if(data.status) {
+        console.log('spaces', data)
         this.setState({
           spaces: data.result
         })
@@ -138,10 +130,11 @@ class Spaces extends Component {
                   <tr>
                     <th>Image</th>
                     <th>Space Name</th>
-                    {/* <th>Space Status</th> */}
+                    <th>Space Status</th>
                     <th>Space Type</th>
                     <th># Views</th>
                     <th># Applicants</th>
+                    <th>Price</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -150,10 +143,11 @@ class Spaces extends Component {
                     <tr>
                       <td>Image</td>
                       <td>{space.space_name}</td>
-                      {/* <td>{space.space_status}</td> */}
+                      <td>{space.space_status}</td>
                       <td>{space.space_type}</td>
-                      <td>100</td>
-                      <td>90</td>
+                      <td>{space.views}</td>
+                      <td>{space.applicants}</td>
+                      <td>{space.price}</td>
                       <td>
                         <Button type="success" text="Share" />
                         <Button className="ml-3" type="primary" text="View/Edit" to={`/space/${space.id}`} />
@@ -181,7 +175,6 @@ class SpaceSingle extends Component {
     this.api = new API();
   }
   componentDidMount() {
-
     const { match: { params: { spaceId } } } = this.props;
 
     // Get single Space
@@ -189,6 +182,7 @@ class SpaceSingle extends Component {
     .then(res => res.json())
     .then(data => {
       if(data.status) {
+        console.log('single', data)
         this.setState({
           space: data.result,
           status: data.status

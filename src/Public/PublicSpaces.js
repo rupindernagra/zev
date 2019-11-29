@@ -41,10 +41,11 @@ export default class PublicSpaces extends Component {
     const { match: { params: { spaceId } } } = this.props;
 
     // Get single Space
-    this.api.getSpaceById(spaceId)
+    this.api.getSpaceWithUpdateViews(spaceId)
     .then(res => res.json())
     .then(data => {
       if(data.status) {
+        // set state for space
         this.setState({
           space: data.result,
         })
@@ -211,7 +212,7 @@ export default class PublicSpaces extends Component {
                           <div className="item">
                             <div className="feature-label">Space size: </div>
                             <strong>
-                              {` . ${space.floor_space} ft²`}
+                              {`${space.floor_space} ft²`}
                             </strong>
                           </div>
                         ) : ''}
@@ -220,7 +221,7 @@ export default class PublicSpaces extends Component {
                           <div className="item">
                             <div className="feature-label">Balcony size: </div>
                             <strong>
-                              {` . ${space.balconies_space} ft²`}
+                              {`${space.balconies_space} ft²`}
                             </strong>
                           </div>
                         ) : ''}

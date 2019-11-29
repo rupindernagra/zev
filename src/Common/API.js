@@ -18,6 +18,16 @@ export default class API {
                     },
                 })
             )
+        } else if(method === "PUT") {
+            return (
+                fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                })
+            )
         } else if(method === "POST") {
             return (
                 fetch(url, {
@@ -77,6 +87,12 @@ export default class API {
                 this.fetchAPI (`${this.apiURL}/api/space/my/${spaceId}`, "POST", {user_id: this.currentUserId})
             );
         }
+    }
+
+    // Update space views
+    getSpaceWithUpdateViews( spaceId ) {
+        console.log('here in count');
+        return this.fetchAPI (`${this.apiURL}/api/space/update/views/${spaceId}`, "PUT");
     }
 
     // Save Application of User
