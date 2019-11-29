@@ -63,6 +63,19 @@ export default class API {
         return this.fetchAPI (`${this.apiURL}/api/auth/login`, "POST", payload);
     }
 
+    // Fetch all users data
+    getUsers() {
+        return this.fetchAPI (`${this.apiURL}/api/users/all`, "GET");
+    }
+
+    // Fetch single user data
+    getCurrentUserData() {
+        if( this.currentUserId ) {
+            return this.fetchAPI (`${this.apiURL}/api/users/id/${this.currentUserId}`, "GET");
+        }
+        return false;
+    }
+
     // Add new Space
     addSpace( payload ) {
         return this.fetchAPI (`${this.apiURL}/api/space/add`, "POST", payload);

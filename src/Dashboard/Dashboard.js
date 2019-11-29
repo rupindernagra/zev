@@ -62,8 +62,25 @@ class DashboardHome extends Component {
 }
 
 class Profile extends Component {
-  state = {}
+  constructor(props) {
+    super(props);
+    this.state = { user: {} }
+    this.api = new API();
+  }
+
+  componentDidMount() {
+    this.api.getCurrentUserData().then(
+      res => res.json()
+    ).then(userData => {
+      console.log(userData)
+      this.setState({ user: userData.result });
+    }).catch(err => {
+      console.log('ERR: ', err);
+    })
+  }
+  
   render() {
+    const user = this.state.user;
     return (<Content title="Profile" subTitle="Manager Profile" browserTitle="Zev Rector :: Manager Profile">
       <Row>
         <Col xs={12}>
@@ -74,10 +91,11 @@ class Profile extends Component {
               </div>
               <div className="userName">
                 {/* <input type="text" name="username" value="Kevin Parker" readOnly="true" />  */}
-                Kevin Parker
+                {user.firstname}
+                {user.lastname ? ` ${user.lastname}` : ''}
                 <i className="fa fa-pencil"></i>
               </div>
-              <Button type="primary" text="Save" />
+              {/* <Button type="primary" text="Save" /> */}
             </Col>
           </Box>
         </Col>
