@@ -113,4 +113,16 @@ export default class API {
         return this.fetchAPI (`${this.apiURL}/api/application/add`, "POST", payload);
     }
 
+    // Get current user applicants
+    getMyApplicants() {
+        if (this.currentUserId) {
+            return this.fetchAPI (`${this.apiURL}/api/application/my/all`, "POST", {user_id: this.currentUserId});
+        }
+    }
+
+    // Get current user applicants by space id
+    getMyApplicantsBySpaceId( spaceId ) {
+        return this.fetchAPI (`${this.apiURL}/api/application/space/${spaceId}`, "POST", {user_id: this.currentUserId});
+    }
+
 }

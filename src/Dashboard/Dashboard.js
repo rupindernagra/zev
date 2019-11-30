@@ -543,72 +543,86 @@ class SpaceAdd extends Component {
 }
 
 class Applicants extends Component {
-  state = {}
+  constructor() {
+    super()
+    this.state = {
+      applicants: [],
+      status: false
+    };
+    this.api = new API();
+  }
+
+  componentDidMount() {
+    this.api.getMyApplicants().then(
+      res => res.json()
+    ).then(data => {
+      console.log('app', data);
+      if(data.status) {
+        this.setState({
+          applicants: data.result,
+          status: data.status
+        })
+      }
+    }).catch(err => {
+      console.log('ERR: ', err);
+    })
+  }
+  
   render() {
-    return (<Content title="Applicants" subTitle="Applicants" browserTitle="Zev Rector :: Applicants">
-      <Row>
-        <Col xs={12}>
-          <Box title="List of Applicants" type="primary">
-            <input type="text" className="form-group form-control" placeholder="Search Applicants ..." />
-            <div className="form-group"></div>
-            <div className="table-responsive">
-              <table className="table table-striped applicant-list">
-                <thead>
-                  <tr>
-                    <th>Applicant Name</th>
-                    <th>Space Name</th>
-                    <th>Reports</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Kevin Parker</td>
-                    <td>Space One</td>
-                    <td><a href="/applicants">Report Link</a></td>
-                    <td>
-                      <span className="asent"><i className="fa fa-paper-plane-o"></i> Sent</span>
-                      <span className="aopen"><i className="fa fa-envelope-open-o"></i> Opened</span>
-                      <span className="acomp"><i className="fa fa-thumbs-o-up"></i> Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Ted Parker</td>
-                    <td>Space Three</td>
-                    <td><a href="/applicants">Report Link</a></td>
-                    <td>
-                      <span className="asent"><i className="fa fa-paper-plane-o"></i> Sent</span>
-                      <span className="aopen"><i className="fa fa-envelope-open-o"></i> Opened</span>
-                      <span className="acomp"><i className="fa fa-thumbs-o-up"></i> Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Kenny G</td>
-                    <td>Space One</td>
-                    <td><a href="/applicants">Report Link</a></td>
-                    <td>
-                      <span className="asent"><i className="fa fa-paper-plane-o"></i> Sent</span>
-                      <span className="aopen"><i className="fa fa-envelope-open-o"></i> Opened</span>
-                      <span className="acomp"><i className="fa fa-thumbs-o-up"></i> Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Ben Parker</td>
-                    <td>Space One</td>
-                    <td><a href="/applicants">Report Link</a></td>
-                    <td>
-                      <span className="asent"><i className="fa fa-paper-plane-o"></i> Sent</span>
-                      <span className="aopen"><i className="fa fa-envelope-open-o"></i> Opened</span>
-                      <span className="acomp"><i className="fa fa-thumbs-o-up"></i> Completed</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </Box>
-        </Col>
-      </Row>
-    </Content>);
+    const statusConfig = {
+      Sent: {
+        spanClass: 'asent',
+        iconName: 'fa-paper-plane-o'
+      },
+      Opened: {
+        spanClass: 'aopen',
+        iconName: 'fa-envelope-open-o'
+      },
+      Completed: {
+        spanClass: 'acomp',
+        iconName: 'fa-thumbs-o-up'
+      }
+    };
+    
+    return (
+      <Content title="Applicants" subTitle="Applicants" browserTitle="Zev Rector :: Applicants">
+        <Row>
+          <Col xs={12}>
+            <Box title="List of Applicants" type="primary">
+              <input type="text" className="form-group form-control" placeholder="Search Applicants ..." />
+              <div className="form-group"></div>
+              <div className="table-responsive">
+                <table className="table table-striped applicant-list">
+                  <thead>
+                    <tr>
+                      <th>Applicant Name</th>
+                      <th>Space Name</th>
+                      <th>Reports</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.applicants.map((applicant, index) => (
+                      <tr>
+                        <td>{applicant.firstname} {applicant.lastname ? applicant.lastname : ''}</td>
+                        <td>{applicant.space_name}</td>
+                        <td><a href="/applicants">Report Link</a></td>
+                        <td>
+                          <span className={statusConfig[applicant.status].spanClass}>
+                            <i className={`mr-2 fa ${statusConfig[applicant.status].iconName}`}></i>
+                            {applicant.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ) )}
+                  </tbody>
+                </table>
+              </div>
+            </Box>
+          </Col>
+        </Row>
+      </Content>
+    );
   }
 }
 
