@@ -91,6 +91,12 @@ export default class API {
         return this.fetchAPI (`${this.apiURL}/api/space/${spaceId}`, "GET");
     }
 
+    // Search my spaces
+    searchMySpaces( term ) {
+        const payload = { user_id: this.currentUserId, term }
+        return this.fetchAPI (`${this.apiURL}/api/search/spaces`, "POST", payload)
+    }
+    
     // Get current user Spaces
     getMySpaces( spaceId='' ) {
         if( this.currentUserId ) {

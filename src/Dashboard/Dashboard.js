@@ -3,8 +3,9 @@ import API from '../Common/API';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './dashboard.css';
 import { Redirect } from 'react-router-dom'
-import ImageUploader from 'react-images-upload';
 import AdminLTE, { Sidebar, Content, Row, Col, Box, Button, Inputs } from 'adminlte-2-react';
+import ImageUploader from 'react-images-upload';
+import SearchBar from '../Components/Modules/SearchBar';
 const { Text } = Inputs;
 const { Item } = Sidebar;
 //import {Container,Row,Col,Form,Button} from 'react-bootstrap';
@@ -133,13 +134,29 @@ class Spaces extends Component {
       console.log(err);
     })
   }
+
+  // Callback return
+  onSearchSubmit = (term) => {
+
+    // API - Search spaces
+    this.api.searchMySpaces(term).then(
+      res => res.json()
+    ).then(search => {
+      if(search.status) {
+        this.setState({ spaces: search.result })
+      }
+    }).catch(err => {
+      console.log(err);
+    })
+
+  }
   
   render() {
     return (<Content title="Spaces" subTitle="Spaces" browserTitle="Zev Rector :: Spaces">
       <Row>
         <Col xs={12}>
           <Box title="List of spaces" type="primary">
-            <input type="text" className="form-group form-control" placeholder="Search Spaces ..." />
+            <SearchBar onSubmit={this.onSearchSubmit} placeholder="Search Spaces ..." />
             <Button type="primary" text="Add New Space" onClick={this.addSpace} />
             <div className="form-group"></div>
             <div className="table-responsive">
@@ -204,23 +221,22 @@ class SpaceSingle extends Component {
       if(data.status) {
         console.log('single', data)
 
-        // Get Applicants for single user
-    
-    if (data.status) {
-      // console.log('state', this.state)
-      this.api.getMyApplicantsBySpaceId( data.result.id ).then(
-        response => response.json()
-      ).then(appl => {
-        if(appl.status) {
-          this.setState({
-            applicants: appl.result,
-            applicantsStatus: appl.status
+        // Get Applicants for single space
+        if (data.status) {
+          
+          this.api.getMyApplicantsBySpaceId( data.result.id ).then(
+            response => response.json()
+          ).then(appl => {
+            if(appl.status) {
+              this.setState({
+                applicants: appl.result,
+                applicantsStatus: appl.status
+              })
+            }
+          }).catch(err => {
+            console.log('ERR: ', err);
           })
         }
-      }).catch(err => {
-        console.log('ERR: ', err);
-      })
-    }
 
         this.setState({
           space: data.result,
