@@ -122,7 +122,7 @@ export default class API {
 
     // Get current user applicants by space id
     getMyApplicantsBySpaceId( spaceId ) {
-        return this.fetchAPI (`${this.apiURL}/api/application/space/${spaceId}`, "POST", {user_id: this.currentUserId});
+        return this.fetchAPI (`${this.apiURL}/api/application/my/space/${spaceId}`, "POST", {user_id: this.currentUserId});
     }
 
 }

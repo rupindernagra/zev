@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import API from '../Common/API';
-import AdminLTE, { Sidebar, Content, Row, Col, Box, Button, Inputs } from 'adminlte-2-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './dashboard.css';
 import { Redirect } from 'react-router-dom'
 import ImageUploader from 'react-images-upload';
-//import {Container,Row,Col,Form,Button} from 'react-bootstrap';
+import AdminLTE, { Sidebar, Content, Row, Col, Box, Button, Inputs } from 'adminlte-2-react';
 const { Text } = Inputs;
+const { Item } = Sidebar;
+//import {Container,Row,Col,Form,Button} from 'react-bootstrap';
 var JSAlert = require("js-alert");
 
-const { Item } = Sidebar;
 export default class Dashboard extends Component {
   sidebar = [
     <Item key="DashboardHome" text="Dashboard" to="/dashboard" icon="fa-home" />,
@@ -188,7 +188,9 @@ class SpaceSingle extends Component {
     
     this.state = {
       space: '',
-      status: false
+      status: false,
+      applicants: [],
+      applicantsStatus: false
     };
     this.api = new API();
   }
@@ -201,6 +203,25 @@ class SpaceSingle extends Component {
     .then(data => {
       if(data.status) {
         console.log('single', data)
+
+        // Get Applicants for single user
+    
+    if (data.status) {
+      // console.log('state', this.state)
+      this.api.getMyApplicantsBySpaceId( data.result.id ).then(
+        response => response.json()
+      ).then(appl => {
+        if(appl.status) {
+          this.setState({
+            applicants: appl.result,
+            applicantsStatus: appl.status
+          })
+        }
+      }).catch(err => {
+        console.log('ERR: ', err);
+      })
+    }
+
         this.setState({
           space: data.result,
           status: data.status
@@ -210,6 +231,7 @@ class SpaceSingle extends Component {
     .catch(err => {
       console.log(err);
     })
+
   }
 
   render() {
@@ -218,6 +240,20 @@ class SpaceSingle extends Component {
     if(space_status) {
       space = this.state.space;
     }
+    const statusConfig = {
+      Sent: {
+        spanClass: 'asent',
+        iconName: 'fa-paper-plane-o'
+      },
+      Opened: {
+        spanClass: 'aopen',
+        iconName: 'fa-envelope-open-o'
+      },
+      Completed: {
+        spanClass: 'acomp',
+        iconName: 'fa-thumbs-o-up'
+      }
+    };
     
     return (
       <Content title="Space" subTitle={space.space_name} browserTitle="Zev Rector :: Spaces">
@@ -281,7 +317,47 @@ class SpaceSingle extends Component {
               </div>
             </Box>
           </Col>
-        </Row> 
+        </Row>
+
+        {/* Show Applicants */}
+        {(!this.state.applicantsStatus) && this.state.applicants.length === 0 ? '' : (
+          <Row>
+            <Col xs={12}>
+              <Box title="List of Applicants" type="secondarys">
+                <div className="table-responsive">
+                  <table className="table table-striped applicant-list">
+                    <thead>
+                      <tr>
+                        <th>Applicant Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Reports</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.applicants.map((applicant, index) => (
+                        <tr key={index}>
+                          <td>{applicant.firstname} {applicant.lastname ? applicant.lastname : ''}</td>
+                          <td>{applicant.email}</td>
+                          <td>{applicant.phone}</td>
+                          <td><a href="/applicants">Report Link</a></td>
+                          <td>
+                            <span className={statusConfig[applicant.status].spanClass}>
+                              <i className={`mr-2 fa ${statusConfig[applicant.status].iconName}`}></i>
+                              {applicant.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ) )}
+                    </tbody>
+                  </table>
+                </div>
+              </Box>
+            </Col>
+          </Row>
+        ) }
+
         {/* ) : (
           <Redirect to="/spaces" />
         ) } */}
@@ -596,7 +672,10 @@ class Applicants extends Component {
                   <thead>
                     <tr>
                       <th>Applicant Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
                       <th>Space Name</th>
+                      <th>Space Type</th>
                       <th>Reports</th>
                       <th>Status</th>
                     </tr>
@@ -605,7 +684,10 @@ class Applicants extends Component {
                     {this.state.applicants.map((applicant, index) => (
                       <tr key={index}>
                         <td>{applicant.firstname} {applicant.lastname ? applicant.lastname : ''}</td>
+                        <td>{applicant.email}</td>
+                        <td>{applicant.phone}</td>
                         <td>{applicant.space_name}</td>
+                        <td>{applicant.space_type}</td>
                         <td><a href="/applicants">Report Link</a></td>
                         <td>
                           <span className={statusConfig[applicant.status].spanClass}>
