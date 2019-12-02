@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
-// import { Redirect } from 'react-router-dom';
-// import { Row, Col, Inputs, Button } from 'adminlte-2-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import '../App.css';
 import '../Registration/registration.css';
 import './public.css';
 import API from '../Common/API';
+import { Container, Row, Col } from 'react-bootstrap';
 import PublicMenu from './PublicMenu';
 import Spinner from '../Components/Modules/Spinner';
 import SpaceListing from './SpaceListing';
 import Modal from '../Components/Modules/Modal';
 import ApplicationForm from '../Components/Form/ApplicationForm';
-import Placeholder from '../Components/Modules/Placeholder';
+// import Placeholder from '../Components/Modules/Placeholder';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import faker from 'faker';
-// const { Text } = Inputs;
 const {$} = window;
-var JSAlert = require("js-alert");
+// var JSAlert = require("js-alert");
 
 export default class PublicSpaces extends Component {
 

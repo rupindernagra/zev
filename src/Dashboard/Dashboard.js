@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
+import API from '../Common/API';
 import AdminLTE, { Sidebar, Content, Row, Col, Box, Button, Inputs } from 'adminlte-2-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Redirect, useParams } from 'react-router-dom'
+import './dashboard.css';
+import { Redirect } from 'react-router-dom'
 import ImageUploader from 'react-images-upload';
 //import {Container,Row,Col,Form,Button} from 'react-bootstrap';
-import './dashboard.css';
-import API from '../Common/API';
-const { Select2, Date, DateTime, Text } = Inputs;
+const { Text } = Inputs;
 var JSAlert = require("js-alert");
 
-const { Item, Header } = Sidebar;
+const { Item } = Sidebar;
 export default class Dashboard extends Component {
   sidebar = [
-    <Item link="DashboardHome" text="Dashboard" to="/dashboard" icon="fa-home" />,
-    <Item link="Profile" text="Profile" to="/profile" icon="fa-user" />,
-    <Item link="Spaces" text="Spaces" to="/spaces" icon="fa-map-marker"  />,
-    // <Item link="SpaceAdd"  text="Add Space" to="/spaces_add" icon="fa-map-marker" children="Spaces" isSubItem={true} />,
-    <Item link="SpaceAdd"  text="Add Space" to="/spaces_add" icon="fa-map-marker" />,
-    <Item link="Applicants" text="Applicants" to="/applicants" icon="fa-users" />,
-    <Item link="Logout" text="Logout" to="/logout" icon="fa-power-off" />,
+    <Item key="DashboardHome" text="Dashboard" to="/dashboard" icon="fa-home" />,
+    <Item key="Profile" text="Profile" to="/profile" icon="fa-user" />,
+    <Item key="Spaces" text="Spaces" to="/spaces" icon="fa-map-marker"  />,
+    // <Item key="SpaceAdd"  text="Add Space" to="/spaces_add" icon="fa-map-marker" children="Spaces" isSubItem={true} />,
+    <Item key="SpaceAdd"  text="Add Space" to="/spaces_add" icon="fa-map-marker" />,
+    <Item key="Applicants" text="Applicants" to="/applicants" icon="fa-users" />,
+    <Item key="Logout" text="Logout" to="/logout" icon="fa-power-off" />,
   ];
   render() {
     if(!localStorage.getItem('login')) {
@@ -158,7 +158,7 @@ class Spaces extends Component {
                 </thead>
                 <tbody>
                   {this.state.spaces.map((space, index) => (
-                    <tr>
+                    <tr key={space.id}>
                       <td>Image</td>
                       <td>{space.space_name}</td>
                       <td>{space.space_status}</td>
@@ -404,7 +404,7 @@ class SpaceAdd extends Component {
   }
 
   render() {
-    const { errors, formValid } = this.state;
+    // const { errors, formValid } = this.state;
     return (<Content title="Space" subTitle="Add new Space" browserTitle="Zev Rector :: Add new Space">
       <Row>
         {/* <Col xs={12}>
@@ -603,7 +603,7 @@ class Applicants extends Component {
                   </thead>
                   <tbody>
                     {this.state.applicants.map((applicant, index) => (
-                      <tr>
+                      <tr key={index}>
                         <td>{applicant.firstname} {applicant.lastname ? applicant.lastname : ''}</td>
                         <td>{applicant.space_name}</td>
                         <td><a href="/applicants">Report Link</a></td>
