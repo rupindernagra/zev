@@ -96,6 +96,17 @@ export default class API {
         const payload = { user_id: this.currentUserId, term }
         return this.fetchAPI (`${this.apiURL}/api/search/spaces`, "POST", payload)
     }
+
+    // Search my applicants
+    searchMyApplicants( term ) {
+        const fullname = term.split(' ');
+        const payload = {
+            user_id: this.currentUserId,
+            firstname: fullname[0],
+            lastname: fullname[1] || ''
+        }
+        return this.fetchAPI (`${this.apiURL}/api/search/applicants`, "POST", payload)
+    }
     
     // Get current user Spaces
     getMySpaces( spaceId='' ) {

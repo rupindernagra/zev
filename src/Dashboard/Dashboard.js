@@ -156,7 +156,7 @@ class Spaces extends Component {
       <Row>
         <Col xs={12}>
           <Box title="List of spaces" type="primary">
-            <SearchBar onSubmit={this.onSearchSubmit} placeholder="Search Spaces ..." />
+            <SearchBar onSubmit={this.onSearchSubmit} placeholder="Search Spaces..." />
             <Button type="primary" text="Add New Space" onClick={this.addSpace} />
             <div className="form-group"></div>
             <div className="table-responsive">
@@ -659,6 +659,22 @@ class Applicants extends Component {
       console.log('ERR: ', err);
     })
   }
+
+  // Callback return
+  onSearchSubmit = (term) => {
+
+    // API - Search applicants
+    this.api.searchMyApplicants(term).then(
+      res => res.json()
+    ).then(search => {
+      if(search.status) {
+        this.setState({ applicants: search.result })
+      }
+    }).catch(err => {
+      console.log(err);
+    })
+
+  }
   
   render() {
     const statusConfig = {
@@ -681,7 +697,7 @@ class Applicants extends Component {
         <Row>
           <Col xs={12}>
             <Box title="List of Applicants" type="primary">
-              <input type="text" className="form-group form-control" placeholder="Search Applicants ..." />
+              <SearchBar onSubmit={this.onSearchSubmit} placeholder="Search Applicants..." />
               <div className="form-group"></div>
               <div className="table-responsive">
                 <table className="table table-striped applicant-list">
