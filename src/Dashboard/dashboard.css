@@ -10,6 +10,13 @@ body{
     margin-bottom:10px;
     overflow: hidden;
 }
+.userDP:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+.userDP .avatar {
+    width: 100%;
+}
 .userDP .fa{
     font-size:220px;
     color:#333333;

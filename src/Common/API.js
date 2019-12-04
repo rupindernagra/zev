@@ -73,6 +73,11 @@ export default class API {
         return this.fetchAPI (`${this.apiURL}/api/users/all`, "GET");
     }
 
+    // Upload user avatar
+    uploadAvatar( payload ) {
+        return this.fetchAPI (`${this.apiURL}/api/users/upload/${this.currentUserId}/avatar`, "POST", payload, {});
+    }
+
     // Fetch single user data
     getCurrentUserData() {
         if( this.currentUserId ) {
