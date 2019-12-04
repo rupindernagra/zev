@@ -398,8 +398,9 @@ class SpaceAdd extends Component {
       no_of_bathrooms: 0,
       no_of_garages: 0,
       no_of_parkings: 0,
-      space_image: ''
+      gallery: null,
     };
+    this.imageUrl = '';
     this.api = new API();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -407,8 +408,10 @@ class SpaceAdd extends Component {
   }
 
   onDrop(picture) {
+    // set state with updated gallery
     this.setState({
-      space_image: this.state.space_image.concat(picture),
+      gallery: picture,
+      loaded: 0,
     });
   }
 
@@ -467,7 +470,6 @@ class SpaceAdd extends Component {
       description     : this.state.description,
       city            : this.state.city,
       price           : this.state.price,
-      image_url       : this.state.space_image,
       space_status    : this.state.space_status,
       space_type      : this.state.space_type,
       no_of_balconies : this.state.no_of_balconies,
@@ -479,19 +481,42 @@ class SpaceAdd extends Component {
       user_id         : this.api.currentUserId
     };
 
-    this.api.addSpace(formData).then(
-      res => res.json()
-    ).then(data => {
-      console.log(data);
-      if( data.status ) {
-        JSAlert.alert("Space successfully added").then(function() {
-          window.location.href = "/spaces";
+    const uploadData = new FormData()
+
+    for (let x = 0; x < this.state.gallery.length; x++) {
+      uploadData.append ('file', this.state.gallery[x]);
+    }
+    
+    this.api.uploadSpaceImage(uploadData)
+    .then(res => {
+      return res.json()
+    }).then(uploaded => {
+      if(uploaded.result !== undefined) {
+        
+        this.imageUrl = uploaded.result.map(res => {
+          return encodeURI (this.api.spaceImageUrl + res.filename)
         });
+        formData.gallery = JSON.stringify(this.imageUrl);
+
+        // Add new space with image url
+        this.api.addSpace(formData).then(
+          res => res.json()
+        ).then(data => {
+          console.log(data);
+          if( data.status ) {
+            JSAlert.alert("Space successfully added").then(function() {
+              window.location.href = "/spaces";
+            });
+          }
+        }).catch(err => {
+          console.log(err);
+          console.log(err.status);
+        })
+
       }
     }).catch(err => {
-      console.log(err);
-      console.log(err.status);
-    })
+      console.log('Upload ERR: ', err);
+    });
     
   }
 
@@ -514,13 +539,13 @@ class SpaceAdd extends Component {
               <div className="form-group has-text">
                 <label>Space Image</label>
                 <ImageUploader
-                  name="space_image"
+                  name="gallery"
                   withIcon={true}
                   buttonText='Choose images'
                   onChange={this.onDrop}
                   imgExtension={['.jpg', '.gif', '.png', '.gif']}
                   maxFileSize={5242880}
-                  singleImage={true}
+                  singleImage={false}
                   withPreview={true}
                 />
               </div>

@@ -4,39 +4,36 @@
 export default class API {
 
     constructor() {
-        this.apiURL = "http://localhost:3001"
+        this.apiURL = 'http://localhost:3001';
+        this.spacePath = '/images/space/';
+        this.avatarPath = '/images/avatar/';
+        this.headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        };
     }
 
-    fetchAPI(url, method="GET", body={}) {
+    fetchAPI(url, method="GET", body={}, headers=this.headers) {
         if(method === "GET") {
             return (
                 fetch(url, {
                     method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
+                    headers
                 })
             )
         } else if(method === "PUT") {
             return (
                 fetch(url, {
                     method: 'PUT',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
+                    headers
                 })
             )
         } else if(method === "POST") {
             return (
                 fetch(url, {
                     method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(body)
+                    headers,
+                    body
                 })
             )
         }
@@ -52,15 +49,23 @@ export default class API {
         return localStorage.getItem('current_user_id');
     }
 
+    // Get images URLs
+    get spaceImageUrl() {
+        return `${this.apiURL}${this.spacePath}`;
+    }
+    get avatarUrl() {
+        return `${this.apiURL}${this.avatarPath}`;
+    }
+
     
     // Registration API
     register( payload ) {
-        return this.fetchAPI (`${this.apiURL}/api/register`, "POST", payload);
+        return this.fetchAPI (`${this.apiURL}/api/register`, "POST", JSON.stringify(payload));
     }
 
     // Login API
     login( payload ) {
-        return this.fetchAPI (`${this.apiURL}/api/auth/login`, "POST", payload);
+        return this.fetchAPI (`${this.apiURL}/api/auth/login`, "POST", JSON.stringify(payload));
     }
 
     // Fetch all users data
@@ -78,7 +83,12 @@ export default class API {
 
     // Add new Space
     addSpace( payload ) {
-        return this.fetchAPI (`${this.apiURL}/api/space/add`, "POST", payload);
+        return this.fetchAPI (`${this.apiURL}/api/space/add`, "POST", JSON.stringify(payload));
+    }
+
+    // Upload space images
+    uploadSpaceImage( payload ) {
+        return this.fetchAPI (`${this.apiURL}/api/space/upload`, "POST", payload, {});
     }
 
     // Get All Spaces APIs
@@ -94,7 +104,7 @@ export default class API {
     // Search my spaces
     searchMySpaces( term ) {
         const payload = { user_id: this.currentUserId, term }
-        return this.fetchAPI (`${this.apiURL}/api/search/spaces`, "POST", payload)
+        return this.fetchAPI (`${this.apiURL}/api/search/spaces`, "POST", JSON.stringify(payload))
     }
 
     // Search my applicants
@@ -105,41 +115,40 @@ export default class API {
             firstname: fullname[0],
             lastname: fullname[1] || ''
         }
-        return this.fetchAPI (`${this.apiURL}/api/search/applicants`, "POST", payload)
+        return this.fetchAPI (`${this.apiURL}/api/search/applicants`, "POST", JSON.stringify(payload))
     }
     
     // Get current user Spaces
     getMySpaces( spaceId='' ) {
         if( this.currentUserId ) {
             return (spaceId === '') ? (
-                this.fetchAPI (`${this.apiURL}/api/space/my/all`, "POST", {user_id: this.currentUserId})
+                this.fetchAPI (`${this.apiURL}/api/space/my/all`, "POST", JSON.stringify({user_id: this.currentUserId}))
             ) : (
-                this.fetchAPI (`${this.apiURL}/api/space/my/${spaceId}`, "POST", {user_id: this.currentUserId})
+                this.fetchAPI (`${this.apiURL}/api/space/my/${spaceId}`, "POST", JSON.stringify({user_id: this.currentUserId}))
             );
         }
     }
 
     // Update space views
     getSpaceWithUpdateViews( spaceId ) {
-        console.log('here in count');
         return this.fetchAPI (`${this.apiURL}/api/space/update/views/${spaceId}`, "PUT");
     }
 
     // Save Application of User
     saveApplication( payload ) {
-        return this.fetchAPI (`${this.apiURL}/api/application/add`, "POST", payload);
+        return this.fetchAPI (`${this.apiURL}/api/application/add`, "POST", JSON.stringify(payload));
     }
 
     // Get current user applicants
     getMyApplicants() {
         if (this.currentUserId) {
-            return this.fetchAPI (`${this.apiURL}/api/application/my/all`, "POST", {user_id: this.currentUserId});
+            return this.fetchAPI (`${this.apiURL}/api/application/my/all`, "POST", JSON.stringify({user_id: this.currentUserId}));
         }
     }
 
     // Get current user applicants by space id
     getMyApplicantsBySpaceId( spaceId ) {
-        return this.fetchAPI (`${this.apiURL}/api/application/my/space/${spaceId}`, "POST", {user_id: this.currentUserId});
+        return this.fetchAPI (`${this.apiURL}/api/application/my/space/${spaceId}`, "POST", JSON.stringify({user_id: this.currentUserId}));
     }
 
 }
