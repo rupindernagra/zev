@@ -12,9 +12,6 @@ import Modal from '../Components/Modules/Modal';
 import ApplicationForm from '../Components/Form/ApplicationForm';
 import GallerySlider from './GallerySlider';
 // import Placeholder from '../Components/Modules/Placeholder';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 const {$} = window;
 // var JSAlert = require("js-alert");
 

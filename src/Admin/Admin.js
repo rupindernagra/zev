@@ -28,7 +28,9 @@ export default class Admin extends Component {
 
   constructor(props) {
     super(props);
+    console.log('in login page');
     this.state = {
+      // loggedIn: false,
       formValid: false,
       errorCount: null,
       validateUser: null,
@@ -39,6 +41,12 @@ export default class Admin extends Component {
     };
     this.api = new API();
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      loggedIn: localStorage.getItem('login') ? true : false
+    });
   }
 
   handleChange = (event) => {
@@ -67,7 +75,7 @@ export default class Admin extends Component {
   }
 
   render() {
-    if(localStorage.getItem('login')) {
+    if(this.state.loggedIn) {
       return <Redirect to='/dashboard' />
     }
     const { errors } = this.state;
@@ -128,9 +136,12 @@ export default class Admin extends Component {
       res => res.json()
     ).then(response => {
       if(response.status) {
-        this.setState({ validateUser: null });
         localStorage.setItem('login', true);
         localStorage.setItem('current_user_id', response.result.id);
+        this.setState({
+          validateUser: null,
+          loggedIn: localStorage.getItem('login') ? true : false
+        });
       } else {
         console.log("check");
         this.setState({validateUser: true});

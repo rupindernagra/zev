@@ -6,12 +6,18 @@ import { Redirect } from 'react-router-dom'
 import AdminLTE, { Sidebar, Content, Row, Col, Box, Button, Inputs } from 'adminlte-2-react';
 import ImageUploader from 'react-images-upload';
 import SearchBar from '../Components/Modules/SearchBar';
+import DashboardHome from './DashboardHome';
 const { Text } = Inputs;
 const { Item } = Sidebar;
 //import {Container,Row,Col,Form,Button} from 'react-bootstrap';
 var JSAlert = require("js-alert");
 
 export default class Dashboard extends Component {
+  constructor() {
+    super();
+    console.log('I am still here');
+  }
+  
   sidebar = [
     <Item key="DashboardHome" text="Dashboard" to="/dashboard" icon="fa-home" />,
     <Item key="Profile" text="Profile" to="/profile" icon="fa-user" />,
@@ -27,40 +33,18 @@ export default class Dashboard extends Component {
     }
     return (
       <AdminLTE title={["Zev", "Rector"]} titleShort={["Z", "R"]} theme="blue" sidebar={this.sidebar}>
-        <DashboardHome path="/dashboard" />,
-        <Profile path="/profile" />,
-        <Spaces path="/spaces" />,
-        <SpaceAdd path="/spaces_add" isSubItem={true} />,
+        <DashboardHome path="/dashboard" />
+        <Profile path="/profile" />
+        <Spaces path="/spaces" />
+        <SpaceAdd path="/spaces_add" isSubItem={true} />
         <SpaceSingle path="/space/:spaceId" />
-        <Applicants path="/applicants" />,
-        <Logout path="/logout" />,
+        <Applicants path="/applicants" />
+        <Logout path="/logout" />
       </AdminLTE>
     );
   }
 }
-class DashboardHome extends Component {
-  state = {}
-  render() {
-    return (<Content title="Dashboard" subTitle="Let's Start" browserTitle="Zev Rector :: Dashboard">
-      <Row>
-        <Col xs={12}>
-          <Box title="Notification Area" type="primary" closable collapsable>
-            <ul>
-              <li>Welcome to the Zev Rector Homepage</li>
-              <li>You Can Add Spaces</li>
-              <li>You Can Send Forms To Users &amp; Select</li>
-            </ul>
-          </Box>
-        </Col>
-        {/* <Col xs={6}>
-          <Box title="Another box">
-            Content goes here
-          </Box>
-        </Col> */}
-      </Row>
-    </Content>);
-  }
-}
+
 
 class Profile extends Component {
   constructor(props) {
@@ -801,9 +785,29 @@ class Applicants extends Component {
 }
 
 class Logout extends Component {
-  state = {}
+  constructor(props) {
+    super(props);
+
+    if( localStorage.getItem('login') ) {
+      localStorage.clear();
+      this.state = {
+        loggedOut: localStorage.getItem('login') ? false : true
+      };
+    }
+    
+  }
+  componentDidMount() {
+    console.log(localStorage.getItem('login'));
+    this.setState({
+      loggedOut: localStorage.getItem('login') ? false : true
+    });
+  }
   render() {
-    localStorage.removeItem('login');
-    return <Redirect to='/admin' />
+    if(this.state.loggedOut || !localStorage.getItem('login')) {
+      window.location.reload(false);
+      return <Redirect to='/admin' />
+    }
+
+    return <Redirect to={'/dashboard'} />
   }
 }

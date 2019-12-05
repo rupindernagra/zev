@@ -5,6 +5,7 @@ import PublicSpace from './Public/PublicSpaces';
 import Registration from './Registration/Registration';
 import Admin from './Admin/Admin';
 import Dashboard from './Dashboard/Dashboard';
+// import DashboardHome from './Dashboard/DashboardHome';
 import Profile from './Dashboard/Dashboard';
 import Spaces from './Dashboard/Dashboard';
 import SpaceSingle from './Dashboard/Dashboard';
@@ -19,8 +20,9 @@ class App extends Component{
                   <Route exact path="/" component={Admin}/>
                   <Route exact path="/register" component={Registration}/>
                   <Route exact path="/public/space/:spaceId" component={PublicSpace}/>
-                  <Route path="/admin" component={Admin}/>
+                  <Route exact path="/admin" component={Admin}/>
                   <Route path="/dashboard" component={Dashboard}/>
+                  {/* <Route path="/dashboard" component={DashboardHome}/> */}
                   <Route path="/profile" component={Profile}/>
                   <Route path="/spaces" component={Spaces}/>
                   <Route path="/space/:spaceId" component={SpaceSingle}/>

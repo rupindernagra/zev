@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default class GallerySlider extends Component {
     constructor(props) {
@@ -20,11 +22,12 @@ export default class GallerySlider extends Component {
 
     render() {
         var thumbViewSettings = {
-            slidesToShow: 3,
+            slidesToShow: 4,
             slidesToScroll: 1,
             arrows: false,
             focusOnSelect: true,
             infinite: true,
+            centerMode: true,
         }
         var fullViewSettings = {
             slidesToShow: 1,
