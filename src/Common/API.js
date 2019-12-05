@@ -1,10 +1,12 @@
 /**
  * Common file for all APIs
  */
+import { Config } from './Config';
+
 export default class API {
 
     constructor() {
-        this.apiURL = 'http://localhost:3001';
+        this.apiURL = Config.server.url;
         this.spacePath = '/images/space/';
         this.avatarPath = '/images/avatar/';
         this.headers = {
