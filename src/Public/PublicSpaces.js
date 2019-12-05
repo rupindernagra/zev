@@ -10,6 +10,7 @@ import Spinner from '../Components/Modules/Spinner';
 import SpaceListing from './SpaceListing';
 import Modal from '../Components/Modules/Modal';
 import ApplicationForm from '../Components/Form/ApplicationForm';
+import GallerySlider from './GallerySlider';
 // import Placeholder from '../Components/Modules/Placeholder';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -23,7 +24,8 @@ export default class PublicSpaces extends Component {
     super(props);
 
     this.state = {
-      space: {}, status: false
+      space: {},
+      status: false,
     };
     this.api = new API();
   }
@@ -35,9 +37,9 @@ export default class PublicSpaces extends Component {
   }
 
   componentDidMount() {
+    // Get single Space
     const { match: { params: { spaceId } } } = this.props;
 
-    // Get single Space
     this.api.getSpaceWithUpdateViews(spaceId)
     .then(res => res.json())
     .then(data => {
@@ -56,18 +58,11 @@ export default class PublicSpaces extends Component {
   }
 
   render() {
-    var settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1
-    };
     const space = this.state.space;
 
     return (
       <div>
-        {!this.state.status ? <Spinner message="Preparing Data..." type="indeterminate" /> : (
+        {!this.state.status ? <Spinner message="Preparing Space data..." type="indeterminate" /> : (
           <div className="public-view-space">
             <PublicMenu />
             {/* <Placeholder type="line" /> */}
@@ -108,21 +103,11 @@ export default class PublicSpaces extends Component {
                 {/* {this.props.children} */}
               </Container>
             </section>
-            <section className="space-images">
+            <section className="space-gallery-slider">
               <Container>
                 <Row>
                   <Col sm={12}>
-                    <Slider {...settings}>
-                      <div>
-                        <img className="ui fluid image" alt="gallery" src="http://www.gbexclusiverealestate.com/wp-content/uploads/2019/07/2019-07-01_84699_Windsor_at_Westside_Castaway_5933.crop-box-16-9-1200x676.jpg" />
-                      </div>
-                      <div>
-                        <img className="ui fluid image" alt="gallery" src="https://www.urbansplash.co.uk/images/placeholder-16-9.jpg" />
-                      </div>
-                      <div>
-                        <img className="ui fluid image" alt="gallery" src="https://wallpaperplay.com/walls/full/e/d/4/98365.jpg" />
-                      </div>
-                    </Slider>
+                    <GallerySlider />
                   </Col>
                 </Row>
               </Container>

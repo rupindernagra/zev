@@ -528,7 +528,7 @@ class SpaceAdd extends Component {
       if(uploaded.result !== undefined) {
         
         this.imageUrl = uploaded.result.map(res => {
-          return encodeURI (this.api.spaceImageUrl + res.filename)
+          return encodeURI (res.filename)
         });
         formData.gallery = JSON.stringify(this.imageUrl);
 
@@ -545,7 +545,7 @@ class SpaceAdd extends Component {
         }).catch(err => {
           console.log(err);
           console.log(err.status);
-        })
+        });
 
       }
     }).catch(err => {
@@ -573,11 +573,12 @@ class SpaceAdd extends Component {
               <div className="form-group has-text">
                 <label>Space Image</label>
                 <ImageUploader
+                  label="Max file size: 5mb, accepted: jpg|gif|png, Dimesion: 3:2"
                   name="gallery"
                   withIcon={true}
                   buttonText='Choose images'
                   onChange={this.onDrop}
-                  imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                  imgExtension={['.jpg', '.gif', '.png']}
                   maxFileSize={5242880}
                   singleImage={false}
                   withPreview={true}
