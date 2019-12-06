@@ -1,9 +1,13 @@
-import React, { Component } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React, { Component } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import placeholderImg from './images/placeholder-space.jpg';
 
 export default class GallerySlider extends Component {
+    static defaultProps = {
+        slidesUrl: []
+    };
     constructor(props) {
         super(props);
         this.state = {
@@ -21,14 +25,16 @@ export default class GallerySlider extends Component {
     }
 
     render() {
+        const { slidesUrl } = this.props;
+
         var thumbViewSettings = {
-            slidesToShow: 4,
+            slidesToShow: 5,
             slidesToScroll: 1,
             arrows: false,
             focusOnSelect: true,
             infinite: true,
             centerMode: true,
-        }
+        };
         var fullViewSettings = {
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -38,43 +44,42 @@ export default class GallerySlider extends Component {
         };
         return (
             <div>
-                <Slider
-                    asNavFor={this.state.fullView}
-                    ref={slider => (this.slider1 = slider)}
-                    {...thumbViewSettings}
-                    className="thumb-slider"
-                >
-                    <div>
-                        <img className="ui fluid image" alt="gallery" src="http://www.gbexclusiverealestate.com/wp-content/uploads/2019/07/2019-07-01_84699_Windsor_at_Westside_Castaway_5933.crop-box-16-9-1200x676.jpg" />
-                    </div>
-                    <div>
-                        <img className="ui fluid image" alt="gallery" src="https://www.urbansplash.co.uk/images/placeholder-16-9.jpg" />
-                    </div>
-                    <div>
-                        <img className="ui fluid image" alt="gallery" src="https://wallpaperplay.com/walls/full/e/d/4/98365.jpg" />
-                    </div>
-                    <div>
-                        <img className="ui fluid image" alt="gallery" src="https://www.urbansplash.co.uk/images/placeholder-16-9.jpg" />
-                    </div>
-                </Slider>
+                {slidesUrl.length >= 5 ? (
+                    <Slider
+                        asNavFor={this.state.fullView}
+                        ref={slider => (this.slider1 = slider)}
+                        {...thumbViewSettings}
+                        className="thumb-slider"
+                    >
+                        {slidesUrl.map((slide, index) => {
+                            return (
+                                <div key={index}>
+                                    <img className="ui fluid image" alt="slide" src={slide} />
+                                </div>
+                            )
+                        })}
+                    </Slider>
+                ) : ''}
+
                 <Slider
                     asNavFor={this.state.thumbView}
                     ref={slider => (this.slider2 = slider)}
                     {...fullViewSettings}
                     className="full-slider"
                 >
-                    <div>
-                        <img className="ui fluid image" alt="gallery" src="http://www.gbexclusiverealestate.com/wp-content/uploads/2019/07/2019-07-01_84699_Windsor_at_Westside_Castaway_5933.crop-box-16-9-1200x676.jpg" />
-                    </div>
-                    <div>
-                        <img className="ui fluid image" alt="gallery" src="https://www.urbansplash.co.uk/images/placeholder-16-9.jpg" />
-                    </div>
-                    <div>
-                        <img className="ui fluid image" alt="gallery" src="https://wallpaperplay.com/walls/full/e/d/4/98365.jpg" />
-                    </div>
-                    <div>
-                        <img className="ui fluid image" alt="gallery" src="https://www.urbansplash.co.uk/images/placeholder-16-9.jpg" />
-                    </div>
+                    {slidesUrl.length > 0 ? (
+                        slidesUrl.map((slide, index) => {
+                            return (
+                                <div key={index}>
+                                    <img style={{ width: '100%', height: '550px', objectFit: 'cover' }} className="ui fluid image" alt="slide" src={slide} />
+                                </div>
+                            )
+                        })
+                    ) : (
+                        <div>
+                            <img style={{ width: '100%', height: '550px', objectFit: 'cover' }} className="ui fluid image" alt="slide" src={placeholderImg} />
+                        </div>
+                    )}          
                 </Slider>
             </div>
         );

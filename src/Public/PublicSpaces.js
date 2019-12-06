@@ -56,7 +56,12 @@ export default class PublicSpaces extends Component {
 
   render() {
     const space = this.state.space;
-
+    let gallery = [];
+    if (this.state.status & space.gallery !== '') {
+      gallery = space.gallery.split(', ');
+      gallery = gallery.map(img => this.api.spaceImageUrl + img);
+    }
+    
     return (
       <div>
         {!this.state.status ? <Spinner message="Preparing Space data..." type="indeterminate" /> : (
@@ -104,7 +109,7 @@ export default class PublicSpaces extends Component {
               <Container>
                 <Row>
                   <Col sm={12}>
-                    <GallerySlider />
+                    <GallerySlider slidesUrl={gallery} />
                   </Col>
                 </Row>
               </Container>

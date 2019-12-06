@@ -111,7 +111,7 @@ export default class Admin extends Component {
                 {this.state.validateUser !== null ? <p className="form-status alert alert-danger text-center">Invalid User Credentials</p> : ''}
               </div>
             </Form.Group>
-            <Link to="/forgot-password">Forgot password?</Link>
+            {/* <Link to="/forgot-password">Forgot password?</Link> */}
           </Form>
 
           </Col>

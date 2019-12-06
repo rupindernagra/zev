@@ -534,7 +534,7 @@ class SpaceAdd extends Component {
         this.imageUrl = uploaded.result.map(res => {
           return encodeURI (res.filename)
         });
-        formData.gallery = JSON.stringify(this.imageUrl);
+        formData.gallery = this.imageUrl.join(', ');
 
         // Add new space with image url
         this.api.addSpace(formData).then(
