@@ -7,17 +7,13 @@ import AdminLTE, { Sidebar, Content, Row, Col, Box, Button, Inputs } from 'admin
 import ImageUploader from 'react-images-upload';
 import SearchBar from '../Components/Modules/SearchBar';
 import DashboardHome from './DashboardHome';
+import { ApplStatus } from './Config';
 const { Text } = Inputs;
 const { Item } = Sidebar;
 //import {Container,Row,Col,Form,Button} from 'react-bootstrap';
 var JSAlert = require("js-alert");
 
 export default class Dashboard extends Component {
-  constructor() {
-    super();
-    console.log('I am still here');
-  }
-  
   sidebar = [
     <Item key="DashboardHome" text="Dashboard" to="/dashboard" icon="fa-home" />,
     <Item key="Profile" text="Profile" to="/profile" icon="fa-user" />,
@@ -274,20 +270,6 @@ class SpaceSingle extends Component {
     if(space_status) {
       space = this.state.space;
     }
-    const statusConfig = {
-      Sent: {
-        spanClass: 'asent',
-        iconName: 'fa-paper-plane-o'
-      },
-      Opened: {
-        spanClass: 'aopen',
-        iconName: 'fa-envelope-open-o'
-      },
-      Completed: {
-        spanClass: 'acomp',
-        iconName: 'fa-thumbs-o-up'
-      }
-    };
     
     return (
       <Content title="Space" subTitle={space.space_name} browserTitle="Zev Rector :: Spaces">
@@ -377,8 +359,8 @@ class SpaceSingle extends Component {
                           <td>{applicant.phone}</td>
                           <td><a href="/applicants">Report Link</a></td>
                           <td>
-                            <span className={statusConfig[applicant.status].spanClass}>
-                              <i className={`mr-2 fa ${statusConfig[applicant.status].iconName}`}></i>
+                            <span className={ApplStatus[applicant.status].spanClass}>
+                              <i className={`mr-2 fa ${ApplStatus[applicant.status].iconName}`}></i>
                               {applicant.status}
                             </span>
                           </td>
@@ -720,22 +702,7 @@ class Applicants extends Component {
 
   }
   
-  render() {
-    const statusConfig = {
-      Sent: {
-        spanClass: 'asent',
-        iconName: 'fa-paper-plane-o'
-      },
-      Opened: {
-        spanClass: 'aopen',
-        iconName: 'fa-envelope-open-o'
-      },
-      Completed: {
-        spanClass: 'acomp',
-        iconName: 'fa-thumbs-o-up'
-      }
-    };
-    
+  render() {    
     return (
       <Content title="Applicants" subTitle="Applicants" browserTitle="Zev Rector :: Applicants">
         <Row>
@@ -766,8 +733,8 @@ class Applicants extends Component {
                         <td>{applicant.space_type}</td>
                         <td><a href="/applicants">Report Link</a></td>
                         <td>
-                          <span className={statusConfig[applicant.status].spanClass}>
-                            <i className={`mr-2 fa ${statusConfig[applicant.status].iconName}`}></i>
+                          <span className={ApplStatus[applicant.status].spanClass}>
+                            <i className={`mr-2 fa ${ApplStatus[applicant.status].iconName}`}></i>
                             {applicant.status}
                           </span>
                         </td>
