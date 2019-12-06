@@ -28,9 +28,7 @@ export default class Admin extends Component {
 
   constructor(props) {
     super(props);
-    console.log('in login page');
     this.state = {
-      // loggedIn: false,
       formValid: false,
       errorCount: null,
       validateUser: null,
