@@ -30,7 +30,7 @@ export default class PublicSpaces extends Component {
   openModal(e) {
     e.preventDefault();
 
-    $('.ui.modal').modal('show');
+    $('.ui.modal.application-form').modal('show');
   }
 
   componentDidMount() {
@@ -284,7 +284,7 @@ export default class PublicSpaces extends Component {
               <Container>
                 <Row>
                   <Col sm={12}>
-                    <Modal>
+                    <Modal title="Submit Application" className="application-form">
                       <ApplicationForm spaceId={space.id} />
                     </Modal>
                     <h4 className="ui header small">Similar Spaces</h4>

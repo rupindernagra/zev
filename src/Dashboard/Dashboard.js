@@ -7,9 +7,12 @@ import AdminLTE, { Sidebar, Content, Row, Col, Box, Button, Inputs } from 'admin
 import ImageUploader from 'react-images-upload';
 import SearchBar from '../Components/Modules/SearchBar';
 import DashboardHome from './DashboardHome';
+// import ShareModal from './ShareModal';
+import Modal from '../Components/Modules/Modal';
 import { ApplStatus } from './Config';
 const { Text } = Inputs;
 const { Item } = Sidebar;
+const { $ } = window;
 //import {Container,Row,Col,Form,Button} from 'react-bootstrap';
 var JSAlert = require("js-alert");
 
@@ -123,10 +126,26 @@ class Spaces extends Component {
   constructor() {
     super();
     this.state = {
-      spaces: []
+      spaces: [],
+      spaceUrl: '',
+      copySuccess: false
     };
     this.api = new API();
   }
+
+  openModal = (spaceId) => {
+    let path = `/public/space/${spaceId}`;
+    this.setState({ spaceUrl: window.location.origin + path });
+    $('.ui.modal.share-modal').modal('show');
+  }
+
+  copyCodeToClipboard = () => {
+    const el = this.urlText
+    el.select()
+    document.execCommand("copy")
+    this.setState({copySuccess: true})
+  }
+
   addSpace(event) {
     event.preventDefault();
 
@@ -198,7 +217,7 @@ class Spaces extends Component {
                       <td>{space.applicants}</td>
                       <td>{space.price}</td>
                       <td>
-                        <Button type="success" text="Share" />
+                        <Button type="success" text="Share" onClick={this.openModal.bind(null, space.id)} />
                         <Button className="ml-3" type="primary" text="View/Edit" to={`/space/${space.id}`} />
                       </td>
                     </tr>
@@ -206,6 +225,25 @@ class Spaces extends Component {
                 </tbody>
               </table>
             </div>
+            <Modal title="Share Space URL" className="share-modal">
+              <div>
+                <input type="text" readOnly
+                  ref={(text) => this.urlText = text}
+                  value={this.state.spaceUrl}
+                />
+              </div>
+              <div>
+                <button onClick={() => this.copyCodeToClipboard()}>
+                  Copy to Clipboard
+                </button>
+                {
+                  this.state.copySuccess ?
+                  <div style={{"color": "green"}}>
+                    Success!
+                  </div> : null
+                }
+              </div>
+            </Modal>
           </Box>
         </Col>
       </Row>
@@ -398,7 +436,7 @@ class SpaceAdd extends Component {
       no_of_bathrooms: 0,
       no_of_garages: 0,
       no_of_parkings: 0,
-      gallery: null,
+      gallery: [],
     };
     this.imageUrl = '';
     this.api = new API();

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 
 export default class Modal extends Component {
+    static defaultProps = {
+        title: 'Modal',
+        className: ''
+    };
     render() {
         return (
-            <div className="ui modal">
+            <div className={`ui modal ${this.props.className}`}>
                 <i className="close icon"></i>
                 <div className="header">
-                    Submit Application
+                    {this.props.title}
                 </div>
                 <div className="content">
                     { this.props.children }
