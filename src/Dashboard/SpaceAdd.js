@@ -120,7 +120,7 @@ export default class SpaceAdd extends Component {
                     this.imageUrl = uploaded.result.map(res => {
                         return encodeURI(res.filename)
                     });
-                    formData.gallery = this.imageUrl.join(', ');
+                    formData.gallery = JSON.stringify(this.imageUrl);
 
                     // Add new space with image url
                     this.api.addSpace(formData).then(

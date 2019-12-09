@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
+import API from '../Common/API';
+import placeholderImg from './images/placeholder-space.jpg';
 
 export default class SpaceListing extends Component {
+    api = new API();
+
     render() {
-        console.log('props..', this.props);
         const { space } = this.props;
+        let image;
+        if (space.gallery !== '') {
+            image = JSON.parse(space.gallery);
+            image = this.api.spaceImageUrl + image[0];
+        }
         return (
             <div className="ui fluid card related-listing">
                 <div className="image">
-                    <img src="https://opendoor.imgix.net/https%3A%2F%2Flisting-photos-production.s3.amazonaws.com%2Fuploads%2Fphotography_request-33471%2F15874232-_FS3Ld7ustY.jpg?ixlib=rb-1.1.0&w=760&h=480&auto=compress&fit=crop&s=df31dffd6c60c69695764840697b26a1" alt="similar space" />
+                    {image.length !== '' || image.length !== null ? (
+                        <img alt="similar space" src={image} />
+                    ) : (
+                        <img alt="similar space placeholder" src={placeholderImg} />
+                    )}
                     <div className="listing-overlay">
                         <div className="listing-price">${`${space.price}`}</div>
                         <span className="small">&nbsp; $161/ft²</span>

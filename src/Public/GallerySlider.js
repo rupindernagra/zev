@@ -79,7 +79,7 @@ export default class GallerySlider extends Component {
                         <div>
                             <img style={{ width: '100%', height: '550px', objectFit: 'cover' }} className="ui fluid image" alt="slide" src={placeholderImg} />
                         </div>
-                    )}          
+                    )}
                 </Slider>
             </div>
         );

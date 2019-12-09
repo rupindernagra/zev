@@ -49,7 +49,7 @@ export default class PublicSpaces extends Component {
             .then(response => {
               let spaces = [];
               spaces = response.result.filter(space => space.space_type === data.result.space_type);
-              console.log('all spaces', spaces);
+              // Set similar spaces
               this.setState({
                 similarSpaces: spaces.slice(0, 3)
               });
@@ -63,6 +63,7 @@ export default class PublicSpaces extends Component {
             status: data.status,
             space: data.result,
           });
+
         }
       })
       .catch(err => {
@@ -75,8 +76,8 @@ export default class PublicSpaces extends Component {
   render() {
     const space = this.state.space;
     let gallery = [];
-    if (this.state.status & space.gallery !== '') {
-      gallery = space.gallery.split(', ');
+    if (this.state.status && space.gallery !== '') {
+      gallery = JSON.parse(space.gallery);
       gallery = gallery.map(img => this.api.spaceImageUrl + img);
     }
 
