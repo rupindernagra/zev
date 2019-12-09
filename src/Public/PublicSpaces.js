@@ -48,7 +48,7 @@ export default class PublicSpaces extends Component {
             .then(res => res.json())
             .then(response => {
               let spaces = [];
-              spaces = response.result.filter(space => space.space_type === data.result.space_type);
+              spaces = response.result.filter(space => space.space_type === data.result.space_type && space.id !== data.result.id);
               // Set similar spaces
               this.setState({
                 similarSpaces: spaces.slice(0, 3)

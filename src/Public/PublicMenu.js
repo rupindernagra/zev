@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class PublicMenu extends Component {
     render() {
@@ -7,9 +8,9 @@ export default class PublicMenu extends Component {
                 <div className="item">
                     <img src="/logo192.png" alt="logo" />
                 </div>
-                <a href="/" className="item">Features</a>
-                <a href="/" className="item active">Testimonials</a>
-                <a href="/" className="item">Sign-in</a>
+                <Link to className="item">Spaces</Link>
+                <Link to className="item active">Testimonials</Link>
+                <Link to className="item">Sign-in</Link>
             </div>
         );
     }

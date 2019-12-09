@@ -7,7 +7,7 @@ export default class SpaceListing extends Component {
 
     render() {
         const { space } = this.props;
-        let image;
+        let image = '';
         if (space.gallery !== '') {
             image = JSON.parse(space.gallery);
             image = this.api.spaceImageUrl + image[0];
@@ -15,10 +15,10 @@ export default class SpaceListing extends Component {
         return (
             <div className="ui fluid card related-listing">
                 <div className="image">
-                    {image.length !== '' || image.length !== null ? (
-                        <img alt="similar space" src={image} />
+                    {(image !== '' && image !== null) ? (
+                        <img style={{ width: '100%', height: '240px', objectFit: 'cover' }} alt="similar space" src={image} />
                     ) : (
-                        <img alt="similar space placeholder" src={placeholderImg} />
+                        <img style={{ width: '100%', height: '240px', objectFit: 'cover' }} alt="similar placeholder" src={placeholderImg} />
                     )}
                     <div className="listing-overlay">
                         <div className="listing-price">${`${space.price}`}</div>
@@ -26,7 +26,7 @@ export default class SpaceListing extends Component {
                     </div>
                 </div>
                 <div className="content">
-                    <a href="/" className="header listing-card-address">{jsUcfirst(space.space_name)}</a>
+                    <a href={`/public/space/${space.id}`} className="header listing-card-address">{jsUcfirst(space.space_name)}</a>
                     <div className="meta">
                         <span className="date">{`${space.no_of_bedrooms} bed ${space.no_of_bathrooms} bath`}
                         {space.floor_space ? ` · ${space.floor_space}  ft²` : null}</span>
