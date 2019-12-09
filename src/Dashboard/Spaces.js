@@ -108,15 +108,15 @@ export default class Spaces extends Component {
                                 </table>
                             </div>
                             <Modal title="Share Space URL" className="share-modal">
-                                <div>
-                                    <input type="text" readOnly
+                                <div className="ui action big input">
+                                    <input
+                                        type="text" readOnly size={40}
                                         ref={(text) => this.urlText = text}
                                         value={this.state.spaceUrl}
                                     />
-                                </div>
-                                <div>
-                                    <button onClick={() => this.copyCodeToClipboard()}>
-                                        Copy to Clipboard
+                                    <button onClick={() => this.copyCodeToClipboard()} className="ui teal right labeled icon button">
+                                        <i className="copy icon"></i>
+                                        Copy
                                     </button>
                                     { this.state.copySuccess ?
                                         <div style={{ "color": "green" }}>
