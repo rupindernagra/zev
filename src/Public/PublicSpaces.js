@@ -12,7 +12,7 @@ import Modal from '../Components/Modules/Modal';
 import ApplicationForm from '../Components/Form/ApplicationForm';
 import GallerySlider from './GallerySlider';
 // import Placeholder from '../Components/Modules/Placeholder';
-const {$} = window;
+const { $ } = window;
 // var JSAlert = require("js-alert");
 
 export default class PublicSpaces extends Component {
@@ -23,6 +23,7 @@ export default class PublicSpaces extends Component {
     this.state = {
       space: {},
       status: false,
+      similarSpaces: []
     };
     this.api = new API();
   }
@@ -38,20 +39,37 @@ export default class PublicSpaces extends Component {
     const { match: { params: { spaceId } } } = this.props;
 
     this.api.getSpaceWithUpdateViews(spaceId)
-    .then(res => res.json())
-    .then(data => {
-      console.log('data', data)
-      if(data.status) {
-        // set state for space
-        this.setState({
-          status: data.status,
-          space: data.result,
-        })
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('data', data)
+        if (data.status) {
+
+          this.api.getMySpaces()
+            .then(res => res.json())
+            .then(response => {
+              let spaces = [];
+              spaces = response.result.filter(space => space.space_type === data.result.space_type);
+              console.log('all spaces', spaces);
+              this.setState({
+                similarSpaces: spaces.slice(0, 3)
+              });
+            })
+            .catch(err => {
+              console.log('ERR: ', err);
+            });
+
+          // set state for space
+          this.setState({
+            status: data.status,
+            space: data.result,
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    // Get similar applicants
   }
 
   render() {
@@ -61,7 +79,7 @@ export default class PublicSpaces extends Component {
       gallery = space.gallery.split(', ');
       gallery = gallery.map(img => this.api.spaceImageUrl + img);
     }
-    
+
     return (
       <div>
         {!this.state.status ? <Spinner message="Preparing Space data..." type="indeterminate" /> : (
@@ -93,9 +111,9 @@ export default class PublicSpaces extends Component {
                         <Col sm={3} xs={12} className="price-box-container">
                           <div className="price-box text-center">
                             <h3 className="space-price">{`$${space.price}`}</h3>
-                              <div className="browse-more">
-                                <a id="" href="/" target="_self" className="ui button primary" onClick={this.openModal}>Submit Application</a>
-                              </div>
+                            <div className="browse-more">
+                              <a id="" href="/" target="_self" className="ui button primary" onClick={this.openModal}>Submit Application</a>
+                            </div>
                           </div>
                         </Col>
                       </Row>
@@ -146,7 +164,7 @@ export default class PublicSpaces extends Component {
                               </strong>
                             </div>
                           ) : ''}
-                          
+
                           {space.no_of_bathrooms ? (
                             <div className="item">
                               <div className="feature-label"># of Bathrooms: </div>
@@ -164,7 +182,7 @@ export default class PublicSpaces extends Component {
                               </strong>
                             </div>
                           ) : ''}
-                          
+
                           {space.no_of_garages ? (
                             <div className="item">
                               <div className="feature-label"># of Garages: </div>
@@ -173,12 +191,12 @@ export default class PublicSpaces extends Component {
                               </strong>
                             </div>
                           ) : ''}
-                          
+
                           {space.no_of_parkings ? (
                             <div className="item">
                               <div className="feature-label"># of Parkings: </div>
                               <strong>
-                                
+
                               </strong>
                             </div>
                           ) : ''}
@@ -203,7 +221,7 @@ export default class PublicSpaces extends Component {
                               </strong>
                             </div>
                           ) : ''}
-                          
+
                           {space.balconies_space ? (
                             <div className="item">
                               <div className="feature-label">Balcony size: </div>
@@ -219,7 +237,7 @@ export default class PublicSpaces extends Component {
                               {space.pets_allowed ? 'Yes' : 'No'}
                             </strong>
                           </div>
-                          
+
                           <div className="item">
                             <div className="feature-label">Pool: </div>
                             <strong>
@@ -285,32 +303,31 @@ export default class PublicSpaces extends Component {
                 </Row>
               </Container>
             </section>
-            <section className="space-similar">
-              <Container>
-                <Row>
-                  <Col sm={12}>
-                    <Modal title="Submit Application" className="application-form">
-                      <ApplicationForm spaceId={space.id} />
-                    </Modal>
-                    <h4 className="ui header small">Similar Spaces</h4>
-                    <div className="ui divider"></div>
-                  </Col>
-                  <Col sm={4}>
-                    <SpaceListing />
-                  </Col>
-                  <Col sm={4}>
-                    <SpaceListing image="" />
-                  </Col>
-                  <Col sm={4}>
-                    <SpaceListing image="" />
-                  </Col>
-                </Row>
-              </Container>
-            </section>
+            {this.state.similarSpaces.length > 0 ? (
+              <section className="space-similar">
+                <Container>
+                  <Row>
+                    <Col sm={12}>
+                      <Modal title="Submit Application" className="application-form">
+                        <ApplicationForm spaceId={space.id} />
+                      </Modal>
+                      <h4 className="ui header small">Similar Spaces</h4>
+                      <div className="ui divider"></div>
+                    </Col>
+                    {this.state.similarSpaces.map(space => (
+                      <Col key={space.id} sm={4}>
+                        <SpaceListing space={space} />
+                      </Col>
+                    ) )}
+                  </Row>
+                </Container>
+              </section>
+            ) : null}
+            
             <section id="about">
               <Container>
                 <Row>
-                  <Col sm={{ offset:3, span:6 }} xs={12}>
+                  <Col sm={{ offset: 3, span: 6 }} xs={12}>
                     <h2>About [Real Estate]</h2>
                     <p>We're a team dedicated to changing the real estate business by making
                     buying and selling dramatically easier. Moving has been one of the most
@@ -322,7 +339,7 @@ export default class PublicSpaces extends Component {
               </Container>
             </section>
           </div>
-        ) }
+        )}
       </div>
     )
   }
