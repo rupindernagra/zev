@@ -75,9 +75,7 @@ export default class DashboardHome extends Component {
                                 <tbody>
                                     {this.state.spaces.map((space, index) => (
                                         <tr key={space.id}>
-                                            <td>
-                                                <Link to={`/space/${space.id}`}>{space.space_name}</Link>
-                                            </td>
+                                            <td><Link to={`/admin/spaces/view/${space.id}`}>{space.space_name}</Link></td>
                                             <td>{space.space_status}</td>
                                             <td>{space.views}</td>
                                             <td>{space.applicants}</td>
@@ -107,8 +105,8 @@ export default class DashboardHome extends Component {
                                         <tr key={index}>
                                             <td>{applicant.firstname} {applicant.lastname ? applicant.lastname : ''}</td>
                                             <td>{applicant.email}</td>
-                                            <td>{applicant.space_name}</td>
-                                            <td><a href="/applicants">Report Link</a></td>
+                                            <td><Link to={`/admin/spaces/view/${applicant.id}`}>{applicant.space_name}</Link></td>
+                                            <td><Link to="/admin/applicants">Report Link</Link></td>
                                             <td>
                                                 <span className={ApplStatus[applicant.status].spanClass}>
                                                     <i className={`mr-2 fa ${ApplStatus[applicant.status].iconName}`}></i>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import API from '../Common/API';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Content, Row, Col, Box } from 'adminlte-2-react';
@@ -149,7 +150,7 @@ export default class SpaceSingle extends Component {
                                                     <td>{applicant.firstname} {applicant.lastname ? applicant.lastname : ''}</td>
                                                     <td>{applicant.email}</td>
                                                     <td>{applicant.phone}</td>
-                                                    <td><a href="/applicants">Report Link</a></td>
+                                                    <td><Link to="/admin/applicants">Report Link</Link></td>
                                                     <td>
                                                         <span className={ApplStatus[applicant.status].spanClass}>
                                                             <i className={`mr-2 fa ${ApplStatus[applicant.status].iconName}`}></i>
@@ -167,7 +168,7 @@ export default class SpaceSingle extends Component {
                 )}
 
                 {/* ) : (
-            <Redirect to="/spaces" />
+            <Redirect to="/admin/spaces" />
           ) } */}
             </Content>
         );

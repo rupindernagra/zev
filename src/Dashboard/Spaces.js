@@ -29,12 +29,6 @@ export default class Spaces extends Component {
         this.setState({ copySuccess: true })
     }
 
-    addSpace(event) {
-        event.preventDefault();
-
-        window.location.href = "/spaces_add";
-    }
-
     componentDidMount() {
         // Get all Spaces
         this.api.getMySpaces().then(
@@ -72,7 +66,7 @@ export default class Spaces extends Component {
                     <Col xs={12}>
                         <Box title="List of spaces" type="primary">
                             <SearchBar onSubmit={this.onSearchSubmit} placeholder="Search Spaces..." />
-                            <Button type="primary" text="Add New Space" onClick={this.addSpace} />
+                            <Button type="primary" text="Add New Space" to="/admin/spaces/add" />
                             <div className="form-group"></div>
                             <div className="table-responsive">
                                 <table className="table table-striped">
@@ -100,7 +94,7 @@ export default class Spaces extends Component {
                                                 <td>{space.price}</td>
                                                 <td>
                                                     <Button type="success" text="Share" onClick={this.openModal.bind(null, space.id)} />
-                                                    <Button className="ml-3" type="primary" text="View/Edit" to={`/space/${space.id}`} />
+                                                    <Button className="ml-3" type="primary" text="View/Edit" to={`/admin/spaces/view/${space.id}`} />
                                                 </td>
                                             </tr>
                                         ))}

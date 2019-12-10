@@ -74,7 +74,7 @@ export default class Admin extends Component {
 
   render() {
     if(this.state.loggedIn) {
-      return <Redirect to='/dashboard' />
+      return <Redirect to='/admin/dashboard' />
     }
     const { errors } = this.state;
     return (

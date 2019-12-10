@@ -16,26 +16,27 @@ const { Item } = Sidebar;
 
 export default class Dashboard extends Component {
   sidebar = [
-    <Item key="DashboardHome" text="Dashboard" to="/dashboard" icon="fa-home" />,
-    <Item key="Profile" text="Profile" to="/profile" icon="fa-user" />,
-    <Item key="Spaces" text="Spaces" to="/spaces" icon="fa-map-marker"  />,
-    // <Item key="SpaceAdd"  text="Add Space" to="/spaces_add" icon="fa-map-marker" children="Spaces" isSubItem={true} />,
-    <Item key="SpaceAdd"  text="Add Space" to="/spaces_add" icon="fa-map-marker" />,
-    <Item key="Applicants" text="Applicants" to="/applicants" icon="fa-users" />,
+    <Item key="DashboardHome" text="Dashboard" to="/admin/dashboard" icon="fa-home" />,
+    <Item key="Profile" text="Profile" to="/admin/profile" icon="fa-user" />,
+    <Item key="Spaces" text="Spaces" to="/admin/spaces" icon="fa-map-marker"  />,
+    // <Item key="SpaceAdd"  text="Add Space" to="/admin/spaces_add" icon="fa-map-marker" children="Spaces" isSubItem={true} />,
+    <Item key="SpaceAdd"  text="Add Space" to="/admin/spaces/add" icon="fa-map-marker" />,
+    <Item key="Applicants" text="Applicants" to="/admin/applicants" icon="fa-users" />,
     <Item key="Logout" text="Logout" to="/logout" icon="fa-power-off" />,
   ];
   render() {
     if(!localStorage.getItem('login')) {
-      return <Redirect to='/admin' />
+      return <Redirect to='/login' />
     }
+    
     return (
       <AdminLTE title={["Zev", "Rector"]} titleShort={["Z", "R"]} theme="blue" sidebar={this.sidebar}>
-        <DashboardHome path="/dashboard" />
-        <Profile path="/profile" />
-        <Spaces path="/spaces" />
-        <SpaceAdd path="/spaces_add" isSubItem={true} />
-        <SpaceSingle path="/space/:spaceId" />
-        <Applicants path="/applicants" />
+        <DashboardHome path="/admin/dashboard" />
+        <Profile path="/admin/profile" />
+        <SpaceAdd path="/admin/spaces/add" isSubItem={true} />
+        <SpaceSingle path="/admin/spaces/view/:spaceId" />
+        <Spaces path="/admin/spaces" />
+        <Applicants path="/admin/applicants" />
         <Logout path="/logout" />
       </AdminLTE>
     );

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import API from '../Common/API';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Content, Row, Col, Box } from 'adminlte-2-react';
@@ -72,9 +73,9 @@ export default class Applicants extends Component {
                                                 <td>{applicant.firstname} {applicant.lastname ? applicant.lastname : ''}</td>
                                                 <td>{applicant.email}</td>
                                                 <td>{applicant.phone}</td>
-                                                <td>{applicant.space_name}</td>
+                                                <td><Link to={`/admin/spaces/view/${applicant.id}`}>{applicant.space_name}</Link></td>
                                                 <td>{applicant.space_type}</td>
-                                                <td><a href="/applicants">Report Link</a></td>
+                                                <td><Link to="/admin/applicants">Report Link</Link></td>
                                                 <td>
                                                     <span className={ApplStatus[applicant.status].spanClass}>
                                                         <i className={`mr-2 fa ${ApplStatus[applicant.status].iconName}`}></i>

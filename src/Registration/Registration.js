@@ -92,10 +92,10 @@ export default class Registration extends Component {
   render() {
     const { errors, formValid } = this.state;
     if(localStorage.getItem('login')){
-      return <Redirect to='/dashboard' />
+      return <Redirect to='/admin/dashboard' />
     }
     if(this.state.isRegistered) {
-      return <Redirect to='/admin' />
+      return <Redirect to='/login' />
     }
     return (
       <div className="registration">

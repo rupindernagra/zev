@@ -22,9 +22,9 @@ export default class Logout extends Component {
     render() {
         if (this.state.loggedOut || !localStorage.getItem('login')) {
             window.location.reload(false);
-            return <Redirect to='/admin' />
+            return <Redirect to='/login' />
         }
 
-        return <Redirect to={'/dashboard'} />
+        return <Redirect to={'/admin/dashboard'} />
     }
 }

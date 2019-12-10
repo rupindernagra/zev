@@ -62,7 +62,7 @@ export default class ForgotPassword extends Component {
 
 	render() {
 		if(localStorage.getItem('login')){
-      return <Redirect to='/dashboard' />
+      return <Redirect to='/admin/dashboard' />
     }
     const { errors } = this.state;
 		return (

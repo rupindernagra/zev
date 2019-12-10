@@ -129,7 +129,7 @@ export default class SpaceAdd extends Component {
                         console.log(data);
                         if (data.status) {
                             JSAlert.alert("Space successfully added").then(function () {
-                                window.location.href = "/spaces";
+                                window.location.href = '/admin/spaces';
                             });
                         }
                     }).catch(err => {
