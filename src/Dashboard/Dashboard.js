@@ -20,7 +20,7 @@ export default class Dashboard extends Component {
     <Item key="Profile" text="Profile" to="/admin/profile" icon="fa-user" />,
     <Item key="Spaces" text="Spaces" to="/admin/spaces" icon="fa-map-marker"  />,
     // <Item key="SpaceAdd"  text="Add Space" to="/admin/spaces_add" icon="fa-map-marker" children="Spaces" isSubItem={true} />,
-    <Item key="SpaceAdd"  text="Add Space" to="/admin/spaces/add" icon="fa-map-marker" />,
+    <Item key="SpaceAdd"  text="Add Space" to="/admin/spaces/add" icon="fa-plus" />,
     <Item key="Applicants" text="Applicants" to="/admin/applicants" icon="fa-users" />,
     <Item key="Logout" text="Logout" to="/logout" icon="fa-power-off" />,
   ];
