@@ -3,6 +3,7 @@ import API from '../Common/API';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Content, Row, Col, Box, Button, Inputs } from 'adminlte-2-react';
 import ImageUploader from 'react-images-upload';
+import AdminMobileFooter from './AdminMobileFooter';
 const { Text } = Inputs;
 var JSAlert = require("js-alert");
 
@@ -269,6 +270,9 @@ export default class SpaceAdd extends Component {
                         </form>
                     </Box>
                 </Col>
+
+                <AdminMobileFooter />
+
             </Row>
         </Content>);
     }

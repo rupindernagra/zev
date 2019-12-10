@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import API from '../Common/API';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Content, Row, Col, Box } from 'adminlte-2-react';
+import AdminMobileFooter from './AdminMobileFooter';
 import { ApplStatus } from './Config';
 
 
@@ -163,9 +164,14 @@ export default class SpaceSingle extends Component {
                                     </table>
                                 </div>
                             </Box>
+
                         </Col>
                     </Row>
                 )}
+
+                <Row>
+                    <AdminMobileFooter />
+                </Row>
 
                 {/* ) : (
             <Redirect to="/admin/spaces" />

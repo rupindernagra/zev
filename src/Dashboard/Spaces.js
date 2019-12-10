@@ -3,6 +3,7 @@ import API from '../Common/API';
 import { Content, Row, Col, Box, Button } from 'adminlte-2-react';
 import SearchBar from '../Components/Modules/SearchBar';
 import Modal from '../Components/Modules/Modal';
+import AdminMobileFooter from './AdminMobileFooter';
 const { $ } = window;
 
 export default class Spaces extends Component {
@@ -120,6 +121,9 @@ export default class Spaces extends Component {
                             </Modal>
                         </Box>
                     </Col>
+
+                    <AdminMobileFooter />
+                    
                 </Row>
             </Content>
         );

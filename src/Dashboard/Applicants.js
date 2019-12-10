@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Content, Row, Col, Box } from 'adminlte-2-react';
 import SearchBar from '../Components/Modules/SearchBar';
 import { ApplStatus } from './Config';
+import AdminMobileFooter from './AdminMobileFooter';
 
 export default class Applicants extends Component {
     constructor() {
@@ -89,6 +90,9 @@ export default class Applicants extends Component {
                             </div>
                         </Box>
                     </Col>
+
+                    <AdminMobileFooter />
+
                 </Row>
             </Content>
         );

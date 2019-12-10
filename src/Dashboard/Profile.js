@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import API from '../Common/API';
 import './dashboard.css';
 import { Content, Row, Col, Box } from 'adminlte-2-react';
+import AdminMobileFooter from './AdminMobileFooter';
 const JSAlert = require('js-alert');
 
 export default class Profile extends Component {
@@ -92,6 +93,9 @@ export default class Profile extends Component {
                         </Col>
                     </Box>
                 </Col>
+
+                <AdminMobileFooter />
+                
             </Row>
         </Content>);
     }

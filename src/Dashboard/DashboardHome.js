@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './dashboard.css';
 import { Content, Row, Col, Box } from 'adminlte-2-react';
 import { ApplStatus } from './Config';
-
+import AdminMobileFooter from './AdminMobileFooter';
 
 export default class DashboardHome extends Component {
     constructor() {
@@ -120,6 +120,9 @@ export default class DashboardHome extends Component {
                         </div>
                     </Box>
                 </Col>
+                
+                <AdminMobileFooter />
+                
             </Row>
         </Content>);
     }

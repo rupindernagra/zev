@@ -15,7 +15,7 @@ import Applicants from './Dashboard/Dashboard';
 import ForgotPassword from './Admin/ForgotPassword';
 
 
-class App extends Component{
+class App extends Component {
     render() {
       return  <Router>
                 <Switch>

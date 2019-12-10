@@ -46,3 +46,44 @@ body{
 /* .applicant-list .acomp{
     color:blue;
 } */
+
+/* START - Footer Navbar for mobile devices */
+.navbar-footer {
+    display: none;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    background-color: #3c8dbc;
+    overflow: auto;
+}
+.navbar-footer a {
+    float: left;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    width: 33.33%; /* Four links of equal widths */
+    text-align: center;
+}
+.navbar-footer a:hover {
+    background-color: #367fa9;
+}
+.navbar-footer a.active {
+    background-color: #367fa9;
+}
+@media screen and (max-width: 767px) {
+    .navbar-footer {
+        display: block !important;
+    }
+}
+@media screen and (max-width: 500px) {
+    .navbar-footer a {
+        text-align: center;
+        padding: 7px;
+    }
+    .navbar-footer a i {
+        width: 100%;
+        display: block;
+    }
+}
+/* END - Footer Navbar for mobile devices */
