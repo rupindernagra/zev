@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import API from '../Common/API';
 import { Content, Row, Col, Box, Button } from 'adminlte-2-react';
+import {
+    FacebookShareButton, FacebookIcon,
+    LinkedinShareButton,
+    TwitterShareButton,
+    TelegramShareButton,
+    WhatsappShareButton,
+    PinterestShareButton,
+    RedditShareButton,
+    TumblrShareButton,
+    EmailShareButton,
+  } from 'react-share';
 import SearchBar from '../Components/Modules/SearchBar';
 import Modal from '../Components/Modules/Modal';
 import AdminMobileFooter from './AdminMobileFooter';
@@ -18,7 +29,7 @@ export default class Spaces extends Component {
     }
 
     openModal = (spaceId) => {
-        let path = `/public/space/${spaceId}`;
+        let path = `/spaces/${spaceId}`;
         this.setState({ spaceUrl: window.location.origin + path });
         $('.ui.modal.share-modal').modal('show');
     }
@@ -117,6 +128,15 @@ export default class Spaces extends Component {
                                         <div style={{ "color": "green" }}>
                                             Success!
                                         </div> : null }
+                                </div>
+                                
+                                <div className="share-onSocial">
+                                    <h4>Share on Social Media</h4>
+                                    <div className="share-social-icon">
+                                        <FacebookShareButton url={this.state.spaceUrl}>
+                                            <FacebookIcon size={32} borderRadius={5} />
+                                        </FacebookShareButton>
+                                    </div>
                                 </div>
                             </Modal>
                         </Box>

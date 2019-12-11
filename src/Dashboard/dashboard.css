@@ -54,6 +54,18 @@ body{
     color:blue;
 } */
 
+/* START - Share icons css */
+.share-onSocial {
+    margin-top: 15px;
+}
+.share-onSocial .share-social-icon {
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 15px;
+    text-align: center;
+}
+/* END - Share icons css */
+
 /* START - Footer Navbar for mobile devices */
 .navbar-footer {
     display: none;
