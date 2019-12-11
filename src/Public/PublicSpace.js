@@ -44,7 +44,7 @@ export default class PublicSpaces extends Component {
         console.log('data', data)
         if (data.status) {
 
-          this.api.getMySpaces()
+          this.api.getSpaces()
             .then(res => res.json())
             .then(response => {
               let spaces = [];

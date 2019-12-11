@@ -1,6 +1,13 @@
 body{
     background: none;
 }
+.sidebar-mini .navbar.navbar-static-top {
+    display: block;
+    padding: 0;
+}
+.sidebar-mini .navbar.navbar-static-top .sidebar-toggle {
+    font-size: 14px;
+}
 .userDP{
     height: 200px;
     width: 200px;

@@ -3,15 +3,18 @@ body, .public-view-space {
     background-color: #ffffff !important;
     background-image: none !important;
 }
-h1, h2, h3, h4, h5, h6 { color: #1d2c4c !important; }
+h2, h3, h4, h5, h6 { color: #1d2c4c !important; }
 p { line-height: 1.6 }
-body, input, select, p, ul, li, div {
+body, input, select, p, ul, li {
     color: #525975;
     font-size: 16px;
 }
 section { padding: 40px 0 25px; }
 .ui.cards > .card > .content, .ui.card > .content {
     min-height: 0 !important;
+}
+.space-address .street {
+    color: #1d2c4c !important;
 }
 .space-address .home-features {
     color: #525975 !important;
@@ -36,6 +39,7 @@ section { padding: 40px 0 25px; }
     margin-left: 5px;
 }
 .public-view-space .space-features .item {
+    color: #525975;
     margin-bottom: 10px;
     font-size: 16px !important;
 }

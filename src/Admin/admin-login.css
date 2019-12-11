@@ -38,16 +38,6 @@
     border-radius: 20px!important;
     margin:0px;
 }
-body{
-    background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%)!important;
-    /* background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB); */
-    height:100vh;
-    animation:Gradient 15s ease infinite;}
-  
-    @-webkit-keyframes Gradient {0% {background-position: 0% 50%}50% {background-position: 100% 50%}100% {background-position: 0% 50%}}
-    @-moz-keyframes Gradient {0% {background-position: 0% 50%}50% {background-position: 100% 50%}100% {background-position: 0% 50%}}
-    @keyframes Gradient {0% {background-position: 0% 50%}50% {background-position: 100% 50%}100% {background-position: 0% 50%}
-}
 .form-status{
     margin-top:10px;
 }

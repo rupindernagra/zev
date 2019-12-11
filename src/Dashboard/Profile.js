@@ -78,8 +78,8 @@ export default class Profile extends Component {
 
                             {this.state.saveButtonVisible ? (
                                 // <button onClick={this.fileSubmitHandler}>Save Image</button>
-                                <button onClick={this.fileSubmitHandler} class="ui labeled icon primary big button">
-                                    <i class="icon save"></i>
+                                <button onClick={this.fileSubmitHandler} className="ui labeled icon primary big button">
+                                    <i className="icon save"></i>
                                     Save Avatar
                                 </button>
                             ) : null}

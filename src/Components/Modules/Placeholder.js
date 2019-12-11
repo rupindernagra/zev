@@ -6,12 +6,12 @@ export default class Placeholder extends Component {
         let showPlaceholder;
         if( this.props.type === 'line') {
             showPlaceholder = 
-                <div class="ui placeholder">
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
+                <div className="ui placeholder">
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
                 </div>
         }
         return (
