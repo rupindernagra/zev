@@ -5,12 +5,14 @@ import '../Registration/registration.css';
 import './public.css';
 import API from '../Common/API';
 import { Container, Row, Col } from 'react-bootstrap';
+import HeadComponent from '../Components/HeadComponent';
 import PublicMenu from './PublicMenu';
 import Spinner from '../Components/Modules/Spinner';
 import SpaceListing from './SpaceListing';
 import Modal from '../Components/Modules/Modal';
 import ApplicationForm from '../Components/Form/ApplicationForm';
 import GallerySlider from './GallerySlider';
+import placeholderImg from './images/placeholder-space.jpg';
 // import Placeholder from '../Components/Modules/Placeholder';
 const { $ } = window;
 // var JSAlert = require("js-alert");
@@ -85,6 +87,12 @@ export default class PublicSpaces extends Component {
       <div>
         {!this.state.status ? <Spinner message="Preparing Space data..." type="indeterminate" /> : (
           <div className="public-view-space">
+            <HeadComponent
+              title = {space.space_name}
+              url = {document.documentURI}
+              description = {space.description}
+              image = {gallery.length > 0 ? gallery[0] : placeholderImg}
+            />
             <PublicMenu />
             {/* <Placeholder type="line" /> */}
             <section className="space-address pb-3">
@@ -319,12 +327,12 @@ export default class PublicSpaces extends Component {
                       <Col key={space.id} sm={4}>
                         <SpaceListing space={space} />
                       </Col>
-                    ) )}
+                    ))}
                   </Row>
                 </Container>
               </section>
             ) : null}
-            
+
             <section id="about">
               <Container>
                 <Row>

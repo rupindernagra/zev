@@ -1,17 +1,7 @@
 import React, { Component } from 'react';
 import API from '../Common/API';
 import { Content, Row, Col, Box, Button } from 'adminlte-2-react';
-import {
-    FacebookShareButton, FacebookIcon,
-    LinkedinShareButton,
-    TwitterShareButton,
-    TelegramShareButton,
-    WhatsappShareButton,
-    PinterestShareButton,
-    RedditShareButton,
-    TumblrShareButton,
-    EmailShareButton,
-  } from 'react-share';
+import SocialShare from '../Components/Modules/SocialShare';
 import SearchBar from '../Components/Modules/SearchBar';
 import Modal from '../Components/Modules/Modal';
 import AdminMobileFooter from './AdminMobileFooter';
@@ -132,11 +122,7 @@ export default class Spaces extends Component {
                                 
                                 <div className="share-onSocial">
                                     <h4>Share on Social Media</h4>
-                                    <div className="share-social-icon">
-                                        <FacebookShareButton url={this.state.spaceUrl}>
-                                            <FacebookIcon size={32} borderRadius={5} />
-                                        </FacebookShareButton>
-                                    </div>
+                                    <SocialShare url = {this.state.spaceUrl} />
                                 </div>
                             </Modal>
                         </Box>
