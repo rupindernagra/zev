@@ -91,6 +91,10 @@ body{
     background-color: #367fa9;
 }
 @media screen and (max-width: 767px) {
+    .sidebar-mini .navbar.navbar-static-top {
+        width: 42px;
+        margin-top: -50px;
+    }
     .navbar-footer {
         display: block !important;
     }
@@ -103,6 +107,10 @@ body{
     .navbar-footer a i {
         width: 100%;
         display: block;
+        font-size: 22px;
+    }
+    .navbar-footer span {
+        display: none;
     }
 }
 /* END - Footer Navbar for mobile devices */

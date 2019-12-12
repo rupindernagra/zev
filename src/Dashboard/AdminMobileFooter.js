@@ -5,9 +5,9 @@ export default class AdminMobileFooter extends Component {
     render() {
         return (
             <div className="navbar-footer">
-                <ActiveLink to="/admin/spaces"><i className="fa fa-fw fa-map-marker"></i> Spaces</ActiveLink>
-                <ActiveLink to="/admin/applicants"><i className="fa fa-fw fa-users"></i> Applicants</ActiveLink>
-                <ActiveLink to="/admin/profile"><i className="fa fa-fw fa-user"></i> My Profile</ActiveLink>
+                <ActiveLink to="/admin/spaces"><i className="fa fa-fw fa-map-marker"></i> <span>Spaces</span></ActiveLink>
+                <ActiveLink to="/admin/applicants"><i className="fa fa-fw fa-users"></i> <span>Applicants</span></ActiveLink>
+                <ActiveLink to="/admin/profile"><i className="fa fa-fw fa-user"></i> <span>My Profile</span></ActiveLink>
             </div>
         );
     }
