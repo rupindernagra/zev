@@ -11,8 +11,10 @@ import Spinner from '../Components/Modules/Spinner';
 import SpaceListing from './SpaceListing';
 import Modal from '../Components/Modules/Modal';
 import ApplicationForm from '../Components/Form/ApplicationForm';
+import MultiStepAppForm from './MultiStepAppForm';
 import GallerySlider from './GallerySlider';
 import placeholderImg from './images/placeholder-space.jpg';
+
 // import Placeholder from '../Components/Modules/Placeholder';
 const { $ } = window;
 // var JSAlert = require("js-alert");
@@ -88,12 +90,12 @@ export default class PublicSpaces extends Component {
         {!this.state.status ? <Spinner message="Preparing Space data..." type="indeterminate" /> : (
           <div className="public-view-space">
             <HeadComponent
-              title = {space.space_name}
-              url = {document.documentURI}
-              description = {space.description}
-              image = {gallery.length > 0 ? gallery[0] : placeholderImg}
+              title={space.space_name}
+              url={document.documentURI}
+              description={space.description}
+              image={gallery.length > 0 ? gallery[0] : placeholderImg}
             />
-            <PublicMenu />
+            {/* <PublicMenu /> */}
             {/* <Placeholder type="line" /> */}
             <section className="space-address pb-3">
               <Container>
@@ -317,9 +319,6 @@ export default class PublicSpaces extends Component {
                 <Container>
                   <Row>
                     <Col sm={12}>
-                      <Modal title="Submit Application" className="application-form">
-                        <ApplicationForm spaceId={space.id} />
-                      </Modal>
                       <h4 className="ui header small">Similar Spaces</h4>
                       <div className="ui divider"></div>
                     </Col>
@@ -347,6 +346,10 @@ export default class PublicSpaces extends Component {
                 </Row>
               </Container>
             </section>
+            <Modal title="Submit Application" className="application-form">
+              <MultiStepAppForm  />
+              {/* <ApplicationForm spaceId={space.id} /> */}
+            </Modal>
           </div>
         )}
       </div>

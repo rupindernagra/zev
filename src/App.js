@@ -13,6 +13,7 @@ import SpaceAdd from './Dashboard/Dashboard';
 import SpaceSingle from './Dashboard/Dashboard';
 import Applicants from './Dashboard/Dashboard';
 import ForgotPassword from './Admin/ForgotPassword';
+import ScrollForm from './Public/ScrollForm';
 
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
       return  <Router>
                 <Switch>
                   <Route exact path="/" component={Registration}/>
+                  <Route path="/form" component={ScrollForm}/>
                   <Route path="/register" component={Registration}/>
                   <Route path="/login" component={Admin}/>
                   {/* <Route path="/home" component={Homepage}/>
