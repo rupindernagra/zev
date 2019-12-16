@@ -63,7 +63,6 @@ input:focus {
 }
 .appl-form {
   margin: auto;
-  text-align: center;
 }
 .appl-form label {
   display: block;
@@ -80,7 +79,7 @@ input:focus {
   transition: box-shadow 0.3s ease 0s;
 }
 .appl-form input:focus {
-  border: none !important;
+  border-color: transparent !important;
 }
 .pagination-additional-class.pagination li.progress-report {
   background-color: thistle;
@@ -90,4 +89,23 @@ input:focus {
 }
 .pagination-additional-class.pagination .progress {
   margin-bottom: 0;
+}
+
+
+.cCkTRd {
+  pointer-events: none;
+  position: absolute;
+  background-color: rgba(153, 0, 0, 0.6);
+  color: rgb(255, 255, 255);
+  border-radius: 3px;
+  padding: 4px 8px;
+}
+.jRGmWl {
+  max-width: 100%;
+  font-weight: unset;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgb(255, 255, 255);
+  font-family: sans-serif;
+  margin: 0px;
 }

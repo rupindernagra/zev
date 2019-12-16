@@ -27,18 +27,20 @@ export default class ScrollForm extends Component {
   }
 
   nextStep = () => {
-    const { step } = this.state;
-    this.setState({
-      step: step + 1
-    });
+    // const { step } = this.state;
+    // this.setState({
+    //   step: step + 1
+    // });
+    this.handlePageChange(this.state.nextPage);
   };
 
-  prevStep = () => {
-    const { step } = this.state;
-    this.setState({
-      step: step - 1
-    });
-  };
+  // prevStep = () => {
+  //   // const { step } = this.state;
+  //   // this.setState({
+  //   //   step: step - 1
+  //   // });
+  //   this.handlePageChange(this.state.prevPage);
+  // };
 
   handleChange = input => event => {
     const { value } = event.target;
@@ -66,13 +68,13 @@ export default class ScrollForm extends Component {
         emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
           ? true
           : false;
-        fieldValidationErrors.email = emailValid ? "" : " is invalid";
+        fieldValidationErrors.email = emailValid ? "" : " Hmm…that email doesn't look valid";
         // progressComplete = emailValid ? (progressComplete + 50) : 0;
         break;
       case "phone":
         phoneValid =
-          value.length === 10 && value.match(/^\d{10}$/) ? true : false;
-        fieldValidationErrors.phone = phoneValid ? "" : " is too short";
+          value.length === 10 && value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/) ? true : false;
+        fieldValidationErrors.phone = phoneValid ? "" : " Hmm…that phone number isn't valid";
         break;
       default:
         break;
@@ -134,41 +136,39 @@ export default class ScrollForm extends Component {
     // console.log("page..", this.state.currentPage);
     console.log(this.state.progressComplete);
     const { step } = this.state;
-    const { firstName, email, phone } = this.state;
+    const { firstName, email, phone, formErrors, firstNameValid } = this.state;
     const values = { firstName, email, phone };
     // debugger
     // const pagesNumbers = this.getPagesNumbers();
 
     return (
-      // <div>
-      //   <ReactPageScroller ref={c => this.reactPageScroller = c}>
-      //     hello
-      //   </ReactPageScroller>
-      // </div>
       <React.Fragment>
         <ReactPageScroller
           pageOnChange={this.handlePageChange}
           customPageNumber={this.state.currentPage}
-          // ref={c => this.reactPageScroller = c}
+        // ref={c => this.reactPageScroller = c}
         >
           <FullNameField
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             values={values}
-            
+            fieldError={formErrors.firstName}
+            fieldValid={firstNameValid}
           />
           <EmailField
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             values={values}
-            style={{ padding: '15px' }}
+            fieldError={formErrors.email}
+            fieldValid={firstNameValid}
           />
           <PhoneField
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             values={values}
-            style={{ padding: '15px' }}
+            fieldError={formErrors.phone}
+            fieldValid={firstNameValid}
           />
         </ReactPageScroller>
 
@@ -180,20 +180,22 @@ export default class ScrollForm extends Component {
             />
           </li>
           <li>
-            <button
-              onClick={this.handlePageChange.bind(this, this.state.prevPage)}
-              disabled={this.state.currentPage === 0}
-            >
-              prev
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={this.handlePageChange.bind(this, this.state.nextPage)}
-              disabled={this.totalPage === this.state.nextPage}
-            >
-              next
-            </button>
+            <div class="ui buttons">
+              <button
+                class={`ui left attached icon primary button ${this.state.currentPage === 0 && 'disabled'}`}
+                onClick={this.handlePageChange.bind(this, this.state.prevPage)}
+                disabled={this.state.currentPage === 0}
+              >
+                <i class="up chevron icon"></i>
+              </button>
+              <button
+                class={`ui right attached icon primary button ${this.totalPage === this.state.nextPage && 'disabled'}`}
+                onClick={this.handlePageChange.bind(this, this.state.nextPage)}
+                disabled={this.totalPage === this.state.nextPage}
+              >
+                <i class="down chevron icon"></i>
+              </button>
+            </div>
           </li>
         </ul>
       </React.Fragment>
@@ -208,20 +210,33 @@ class FullNameField extends Component {
   };
 
   render() {
-    const { values } = this.props;
+    const { values, fieldError, fieldValid } = this.props;
+    console.log('first error', this.props);
     return (
       <div className="component first-component" style={{ padding: '15px 30px' }}>
         <form className="appl-form">
-          <div className="field">
+          <div className="field mb-3">
             {/* <label>First Name</label> */}
             <label>First up, what's your name?</label>
             <input
-              placeholder="First Name"
+              autofocus={true}
+              placeholder="Type your full name here"
               onChange={this.props.handleChange("firstName")}
               defaultValue={values.firstName}
             />
           </div>
-          {/* <button onClick={this.saveAndContinue}>Save And Continue </button> */}
+          {fieldError.length > 0 ? (
+            <FormError fieldError={fieldError} />
+          ) : (
+            <>
+              {fieldValid && 
+                <button class="ui active large button" onClick={this.saveAndContinue}>
+                  OK
+                  <i class="check icon right"></i>
+                </button>
+              }
+            </>
+          )}
         </form>
       </div>
     );
@@ -234,27 +249,38 @@ class EmailField extends Component {
     this.props.nextStep();
   };
 
-  back = e => {
-    e.preventDefault();
-    this.props.prevStep();
-  };
+  // back = e => {
+  //   e.preventDefault();
+  //   this.props.prevStep();
+  // };
 
   render() {
-    const { values } = this.props;
+    const { values, fieldError, fieldValid } = this.props;
     return (
       <div className="component second-component" style={{ padding: '15px 30px' }}>
         <form className="appl-form">
-          <div className="field">
-            <label>Email Address</label>
+          <div className="field mb-3">
+            <label>Great. Now what's your email, _____?</label>
             <input
+              autofocus={true}
               type="email"
-              placeholder="Email Address"
+              placeholder="Type your email here"
               onChange={this.props.handleChange("email")}
               defaultValue={values.email}
             />
           </div>
-          {/* <button onClick={this.back}>Back</button>
-          <button onClick={this.saveAndContinue}>Save And Continue </button> */}
+          {fieldError.length > 0 ? (
+            <FormError fieldError={fieldError} />
+          ) : (
+            <>
+              {fieldValid && 
+                <button class="ui active large button" onClick={this.saveAndContinue}>
+                  OK
+                  <i class="check icon right"></i>
+                </button>
+              }
+            </>
+          )}
         </form>
       </div>
     );
@@ -267,29 +293,51 @@ class PhoneField extends Component {
     this.props.nextStep();
   };
 
-  back = e => {
-    e.preventDefault();
-    this.props.prevStep();
-  };
+  // back = e => {
+  //   e.preventDefault();
+  //   this.props.prevStep();
+  // };
 
   render() {
-    const { values } = this.props;
+    const { values, fieldError, fieldValid } = this.props;
     return (
       <div className="component third-component" style={{ padding: '15px 30px' }}>
         <form className="appl-form">
-          <div className="field">
-            <label>Enter Phone number</label>
+          <div className="field mb-3">
+            <label>And your phone number?</label>
             <input
-              type="email"
-              placeholder="Phone No."
+              autofocus={true}
+              maxLength={10}
+              type="tel"
+              placeholder="1234567890"
               onChange={this.props.handleChange("phone")}
               defaultValue={values.phone}
             />
           </div>
-          {/* <button onClick={this.back}>Back</button>
-          <button onClick={this.saveAndContinue}>Save And Continue </button> */}
+          {fieldError.length > 0 ? (
+            <FormError fieldError={fieldError} />
+          ) : (
+            <>
+              {fieldValid && 
+                <button class="ui active large button" onClick={this.saveAndContinue}>
+                  OK
+                  <i class="check icon right"></i>
+                </button>
+              }
+            </>
+          )}
         </form>
       </div>
     );
   }
+}
+
+const FormError = (props) => {
+  return (
+    <div class="error-message-box cCkTRd">
+      <div data-qa="error-message-visible" color="#FFFFFF" class="text___Text-sc-1t2ribu-0-div jRGmWl">
+        {props.fieldError}
+      </div>
+    </div>
+  )
 }
