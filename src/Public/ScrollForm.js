@@ -204,20 +204,20 @@ export default class ScrollForm extends Component {
               />
             </li>
             <li>
-              <div class="ui buttons">
+              <div className="ui buttons">
                 <button
-                  class={`ui left attached icon primary button ${this.state.currentPage === 0 && 'disabled'}`}
+                  className={`ui left attached icon primary button ${this.state.currentPage === 0 && 'disabled'}`}
                   onClick={this.handlePageChange.bind(this, this.state.prevPage)}
                   disabled={this.state.currentPage === 0}
                 >
-                  <i class="up chevron icon"></i>
+                  <i className="up chevron icon"></i>
                 </button>
                 <button
-                  class={`ui right attached icon primary button ${this.totalPage === this.state.nextPage && 'disabled'}`}
+                  className={`ui right attached icon primary button ${this.totalPage === this.state.nextPage && 'disabled'}`}
                   onClick={this.handlePageChange.bind(this, this.state.nextPage)}
                   disabled={this.totalPage === this.state.nextPage}
                 >
-                  <i class="down chevron icon"></i>
+                  <i className="down chevron icon"></i>
                 </button>
               </div>
             </li>
@@ -255,9 +255,9 @@ class FullNameField extends Component {
           ) : (
               <>
                 {fieldValid &&
-                  <button class="ui active large button" onClick={this.saveAndContinue}>
+                  <button className="ui active large button" onClick={this.saveAndContinue}>
                     OK
-                  <i class="check icon right"></i>
+                  <i className="check icon right"></i>
                   </button>
                 }
               </>
@@ -293,9 +293,9 @@ class EmailField extends Component {
           ) : (
               <>
                 {fieldValid &&
-                  <button class="ui active large button" onClick={this.saveAndContinue}>
+                  <button className="ui active large button" onClick={this.saveAndContinue}>
                     OK
-                  <i class="check icon right"></i>
+                  <i className="check icon right"></i>
                   </button>
                 }
               </>
@@ -332,9 +332,9 @@ class PhoneField extends Component {
           ) : (
               <>
                 {fieldValid &&
-                  <button class="ui active large button" onClick={this.saveAndContinue}>
+                  <button className="ui active large button" onClick={this.saveAndContinue}>
                     OK
-                  <i class="check icon right"></i>
+                  <i className="check icon right"></i>
                   </button>
                 }
               </>
@@ -352,7 +352,7 @@ class CommentField extends Component {
   };
 
   render() {
-    const { values, fieldError, fieldValid } = this.props;
+    const { values } = this.props;
     return (
       <div className="component forth-component" style={{ padding: '15px 30px' }}>
         <form className="appl-form">
@@ -366,9 +366,9 @@ class CommentField extends Component {
               defaultValue={values.message}
             />
           </div>
-          <button class="ui active large button" onClick={this.saveAndContinue}>
+          <button className="ui active large button" onClick={this.saveAndContinue}>
             OK
-            <i class="check icon right"></i>
+            <i className="check icon right"></i>
           </button>
         </form>
       </div>
@@ -378,8 +378,8 @@ class CommentField extends Component {
 
 const FormError = (props) => {
   return (
-    <div class="error-message-box cCkTRd">
-      <div data-qa="error-message-visible" color="#FFFFFF" class="text___Text-sc-1t2ribu-0-div jRGmWl">
+    <div className="error-message-box cCkTRd">
+      <div data-qa="error-message-visible" color="#FFFFFF" className="text___Text-sc-1t2ribu-0-div jRGmWl">
         {props.fieldError}
       </div>
     </div>

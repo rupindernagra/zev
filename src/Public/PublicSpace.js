@@ -6,7 +6,7 @@ import './public.css';
 import API from '../Common/API';
 import { Container, Row, Col } from 'react-bootstrap';
 import HeadComponent from '../Components/HeadComponent';
-import PublicMenu from './PublicMenu';
+// import PublicMenu from './PublicMenu';
 import Spinner from '../Components/Modules/Spinner';
 import SpaceListing from './SpaceListing';
 import Modal from '../Components/Modules/Modal';

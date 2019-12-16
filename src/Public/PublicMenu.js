@@ -9,7 +9,7 @@ export default class PublicMenu extends Component {
                 <div style={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} className="ui large top menu transition">
                     <div className="ui container">
                         <Link to="/" className="header item">
-                            <img className="logo" style={{ marginRight: '1em' }} src="https://semantic-ui.com/examples/assets/images/logo.png" />Home
+                            <img alt="logo" className="logo" style={{ marginRight: '1em' }} src="https://semantic-ui.com/examples/assets/images/logo.png" />Home
                             </Link>
                         <Link to="#" className="item">Spaces</Link>
                         <Link to="#" className="item">About</Link>

@@ -12,7 +12,7 @@ export default class PublicSpacesListing extends Component {
             .then(res => res.json())
             .then(response => {
                 console.log('spaces', response);
-                let spaces = [];
+                // let spaces = [];
                 // spaces = response.result.filter(space => space.space_type === data.result.space_type && space.id !== data.result.id);
                 // Set similar spaces
                 // this.setState({

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Homepage from './Public/Homepage';
-import PublicSpacesListing from './Public/PublicSpacesListing';
+// import Homepage from './Public/Homepage';
+// import PublicSpacesListing from './Public/PublicSpacesListing';
 import PublicSpace from './Public/PublicSpace';
 import Registration from './Registration/Registration';
 import Admin from './Admin/Admin';
