@@ -2,45 +2,37 @@ import React, { Component } from "react";
 import ReactPageScroller from "react-page-scroller";
 import { ProgressBar } from "react-bootstrap";
 import "./page.css";
+import API from "../Common/API";
 
 export default class ScrollForm extends Component {
   constructor(props) {
     super(props);
-    // this.scrollToTop = this.scrollToTop.bind(this);
     this.state = {
       currentPage: null,
       prevPage: null,
       nextPage: null,
       step: 0,
       progressComplete: 0,
-      firstName: "",
-      lastName: "",
+      fullName: "",
       email: "",
       phone: "",
-      formErrors: { firstName: "", email: "", phone: "" },
-      firstNameValid: false,
+      message: "",
+      formErrors: { fullName: "", email: "", phone: "" },
+      fullNameValid: false,
       emailValid: false,
       phoneValid: false,
-      formValid: false
+      messageValid: false,
+      formValid: false,
+      formSubmitted: false
     };
-    this.totalPage = 3;
+    this.totalPage = 5;
+    this.totalFields = 4;
+    this.api = new API();
   }
 
   nextStep = () => {
-    // const { step } = this.state;
-    // this.setState({
-    //   step: step + 1
-    // });
     this.handlePageChange(this.state.nextPage);
   };
-
-  // prevStep = () => {
-  //   // const { step } = this.state;
-  //   // this.setState({
-  //   //   step: step - 1
-  //   // });
-  //   this.handlePageChange(this.state.prevPage);
-  // };
 
   handleChange = input => event => {
     const { value } = event.target;
@@ -50,43 +42,41 @@ export default class ScrollForm extends Component {
   };
 
   validateField(fieldName, value) {
-    console.log("field", fieldName);
-    console.log("val", value);
     let fieldValidationErrors = this.state.formErrors;
-    let firstNameValid = this.state.firstNameValid;
+    let fullNameValid = this.state.fullNameValid;
     let emailValid = this.state.emailValid;
     let phoneValid = this.state.phoneValid;
+    let messageValid = this.state.messageValid;
     let progressComplete = this.state.progressComplete;
 
     switch (fieldName) {
-      case "firstName":
-        firstNameValid = value.length >= 3;
-        fieldValidationErrors.firstName = firstNameValid ? "" : " is not valid";
-        // progressComplete = firstNameValid ? (progressComplete + 50) : 0;
+      case "fullName":
+        fullNameValid = value.length >= 3;
+        fieldValidationErrors.fullName = fullNameValid ? "" : " is not valid";
         break;
       case "email":
         emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
           ? true
           : false;
         fieldValidationErrors.email = emailValid ? "" : " Hmm…that email doesn't look valid";
-        // progressComplete = emailValid ? (progressComplete + 50) : 0;
         break;
       case "phone":
         phoneValid =
           value.length === 10 && value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/) ? true : false;
         fieldValidationErrors.phone = phoneValid ? "" : " Hmm…that phone number isn't valid";
         break;
+      case "message":
+        messageValid = true
+        break;
       default:
         break;
     }
-    console.log(firstNameValid);
-    console.log(emailValid);
-    console.log(phoneValid);
-    progressComplete = (firstNameValid + emailValid + phoneValid) / this.totalPage * 100;
+
+    progressComplete = Math.ceil((fullNameValid + emailValid + phoneValid + messageValid) / this.totalFields * 100);
     this.setState(
       {
         formErrors: fieldValidationErrors,
-        firstNameValid: firstNameValid,
+        fullNameValid: fullNameValid,
         emailValid: emailValid,
         phoneValid: phoneValid,
         progressComplete: progressComplete
@@ -98,106 +88,141 @@ export default class ScrollForm extends Component {
   validateForm() {
     this.setState({
       formValid:
-        this.state.firstNameValid &&
+        this.state.fullNameValid &&
         this.state.emailValid &&
         this.state.phoneValid
     });
   }
 
   handlePageChange = number => {
-    console.log("click on page", number);
     if (number >= 0 && number <= this.totalPage - 1) {
       this.setState(
         {
           currentPage: number,
           prevPage: number - 1,
           nextPage: number + 1
-        },
-        this.testCall
+        }
       ); // set currentPage number, to reset it from the previous selected.
     }
   };
 
-  testCall() {
-    console.log("in works");
-  }
-
   goToPage = pageNumber => {
-    console.log(this.reactPageScroller);
-    console.log("num", pageNumber);
     this.reactPageScroller.goToPage(pageNumber);
   };
 
-  render() {
-    console.log("page..", this.state.currentPage);
-    console.log("prev page..", this.state.prevPage);
-    console.log("next page..", this.state.nextPage);
+  handleSubmit(e) {
+    e.preventDefault();
 
-    // console.log("page..", this.state.currentPage);
-    console.log(this.state.progressComplete);
-    const { step } = this.state;
-    const { firstName, email, phone, formErrors, firstNameValid } = this.state;
-    const values = { firstName, email, phone };
-    // debugger
-    // const pagesNumbers = this.getPagesNumbers();
+    let formData = {
+      fullname: this.state.fullName,
+      space_id: 32,
+      email: this.state.email,
+      phone: this.state.phone,
+      message: this.state.message,
+    };
+
+    this.api.saveApplication(formData).then(
+      res => res.json()
+    ).then(data => {
+      console.log('api status', data);
+      this.setState({ formSubmitted: true });
+    }).catch(err => {
+      console.log('ERROR: ', err);
+    });
+  }
+
+  render() {
+    const {
+      fullName,
+      email,
+      phone,
+      message,
+      formErrors,
+      fullNameValid,
+      emailValid,
+      phoneValid,
+      formSubmitted
+    } = this.state;
+    const values = { fullName, email, phone, message };
 
     return (
       <React.Fragment>
         <ReactPageScroller
           pageOnChange={this.handlePageChange}
           customPageNumber={this.state.currentPage}
-        // ref={c => this.reactPageScroller = c}
         >
           <FullNameField
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             values={values}
-            fieldError={formErrors.firstName}
-            fieldValid={firstNameValid}
+            fieldError={formErrors.fullName}
+            fieldValid={fullNameValid}
           />
           <EmailField
             nextStep={this.nextStep}
-            prevStep={this.prevStep}
             handleChange={this.handleChange}
             values={values}
             fieldError={formErrors.email}
-            fieldValid={firstNameValid}
+            fieldValid={emailValid}
           />
           <PhoneField
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             values={values}
             fieldError={formErrors.phone}
-            fieldValid={firstNameValid}
+            fieldValid={phoneValid}
           />
+          <CommentField
+            nextStep={this.nextStep}
+            handleChange={this.handleChange}
+            values={values}
+          />
+          <div className="component first-component" style={{ padding: '15px 30px' }}>
+            <div className="appl-form">
+              {formSubmitted ? (
+                <h3>All good, {this.state.fullName} — we've got that. <br />We'll be in touch soon!</h3>
+              ) : (
+                  <button
+                    className="ui huge positive right labeled icon button"
+                    onClick={(event) => this.handleSubmit(event)}
+                    disabled={!this.state.formValid}
+                  >
+                    Submit Application
+                  <i className="checkmark icon"></i>
+                  </button>
+                )}
+            </div>
+          </div>
         </ReactPageScroller>
 
-        <ul className="pagination-additional-class pagination">
-          <li className="progress-report">
-            <ProgressBar
-              style={{ width: "150px" }}
-              now={this.state.progressComplete}
-            />
-          </li>
-          <li>
-            <div class="ui buttons">
-              <button
-                class={`ui left attached icon primary button ${this.state.currentPage === 0 && 'disabled'}`}
-                onClick={this.handlePageChange.bind(this, this.state.prevPage)}
-                disabled={this.state.currentPage === 0}
-              >
-                <i class="up chevron icon"></i>
-              </button>
-              <button
-                class={`ui right attached icon primary button ${this.totalPage === this.state.nextPage && 'disabled'}`}
-                onClick={this.handlePageChange.bind(this, this.state.nextPage)}
-                disabled={this.totalPage === this.state.nextPage}
-              >
-                <i class="down chevron icon"></i>
-              </button>
-            </div>
-          </li>
-        </ul>
+        {formSubmitted ? null : (
+          <ul className="pagination-additional-class pagination">
+            <li className="progress-report">
+              <ProgressBar
+                style={{ width: "150px" }}
+                now={this.state.progressComplete}
+              />
+            </li>
+            <li>
+              <div class="ui buttons">
+                <button
+                  class={`ui left attached icon primary button ${this.state.currentPage === 0 && 'disabled'}`}
+                  onClick={this.handlePageChange.bind(this, this.state.prevPage)}
+                  disabled={this.state.currentPage === 0}
+                >
+                  <i class="up chevron icon"></i>
+                </button>
+                <button
+                  class={`ui right attached icon primary button ${this.totalPage === this.state.nextPage && 'disabled'}`}
+                  onClick={this.handlePageChange.bind(this, this.state.nextPage)}
+                  disabled={this.totalPage === this.state.nextPage}
+                >
+                  <i class="down chevron icon"></i>
+                </button>
+              </div>
+            </li>
+          </ul>
+        )}
       </React.Fragment>
     );
   }
@@ -211,7 +236,7 @@ class FullNameField extends Component {
 
   render() {
     const { values, fieldError, fieldValid } = this.props;
-    console.log('first error', this.props);
+
     return (
       <div className="component first-component" style={{ padding: '15px 30px' }}>
         <form className="appl-form">
@@ -219,24 +244,24 @@ class FullNameField extends Component {
             {/* <label>First Name</label> */}
             <label>First up, what's your name?</label>
             <input
-              autofocus={true}
+              autoFocus
               placeholder="Type your full name here"
-              onChange={this.props.handleChange("firstName")}
-              defaultValue={values.firstName}
+              onChange={this.props.handleChange("fullName")}
+              defaultValue={values.fullName}
             />
           </div>
           {fieldError.length > 0 ? (
             <FormError fieldError={fieldError} />
           ) : (
-            <>
-              {fieldValid && 
-                <button class="ui active large button" onClick={this.saveAndContinue}>
-                  OK
+              <>
+                {fieldValid &&
+                  <button class="ui active large button" onClick={this.saveAndContinue}>
+                    OK
                   <i class="check icon right"></i>
-                </button>
-              }
-            </>
-          )}
+                  </button>
+                }
+              </>
+            )}
         </form>
       </div>
     );
@@ -249,11 +274,6 @@ class EmailField extends Component {
     this.props.nextStep();
   };
 
-  // back = e => {
-  //   e.preventDefault();
-  //   this.props.prevStep();
-  // };
-
   render() {
     const { values, fieldError, fieldValid } = this.props;
     return (
@@ -262,7 +282,6 @@ class EmailField extends Component {
           <div className="field mb-3">
             <label>Great. Now what's your email, _____?</label>
             <input
-              autofocus={true}
               type="email"
               placeholder="Type your email here"
               onChange={this.props.handleChange("email")}
@@ -272,15 +291,15 @@ class EmailField extends Component {
           {fieldError.length > 0 ? (
             <FormError fieldError={fieldError} />
           ) : (
-            <>
-              {fieldValid && 
-                <button class="ui active large button" onClick={this.saveAndContinue}>
-                  OK
+              <>
+                {fieldValid &&
+                  <button class="ui active large button" onClick={this.saveAndContinue}>
+                    OK
                   <i class="check icon right"></i>
-                </button>
-              }
-            </>
-          )}
+                  </button>
+                }
+              </>
+            )}
         </form>
       </div>
     );
@@ -293,11 +312,6 @@ class PhoneField extends Component {
     this.props.nextStep();
   };
 
-  // back = e => {
-  //   e.preventDefault();
-  //   this.props.prevStep();
-  // };
-
   render() {
     const { values, fieldError, fieldValid } = this.props;
     return (
@@ -306,7 +320,6 @@ class PhoneField extends Component {
           <div className="field mb-3">
             <label>And your phone number?</label>
             <input
-              autofocus={true}
               maxLength={10}
               type="tel"
               placeholder="1234567890"
@@ -317,15 +330,46 @@ class PhoneField extends Component {
           {fieldError.length > 0 ? (
             <FormError fieldError={fieldError} />
           ) : (
-            <>
-              {fieldValid && 
-                <button class="ui active large button" onClick={this.saveAndContinue}>
-                  OK
+              <>
+                {fieldValid &&
+                  <button class="ui active large button" onClick={this.saveAndContinue}>
+                    OK
                   <i class="check icon right"></i>
-                </button>
-              }
-            </>
-          )}
+                  </button>
+                }
+              </>
+            )}
+        </form>
+      </div>
+    );
+  }
+}
+
+class CommentField extends Component {
+  saveAndContinue = e => {
+    e.preventDefault();
+    this.props.nextStep();
+  };
+
+  render() {
+    const { values, fieldError, fieldValid } = this.props;
+    return (
+      <div className="component forth-component" style={{ padding: '15px 30px' }}>
+        <form className="appl-form">
+          <div className="field mb-3">
+            <label>Last question, what's in your mind?</label>
+            <textarea
+              name="message"
+              placeholder="Please input message here"
+              rows="2"
+              onChange={this.props.handleChange("message")}
+              defaultValue={values.message}
+            />
+          </div>
+          <button class="ui active large button" onClick={this.saveAndContinue}>
+            OK
+            <i class="check icon right"></i>
+          </button>
         </form>
       </div>
     );

@@ -11,7 +11,7 @@ import Spinner from '../Components/Modules/Spinner';
 import SpaceListing from './SpaceListing';
 import Modal from '../Components/Modules/Modal';
 import ApplicationForm from '../Components/Form/ApplicationForm';
-import MultiStepAppForm from './MultiStepAppForm';
+// import MultiStepAppForm from './MultiStepAppForm';
 import GallerySlider from './GallerySlider';
 import placeholderImg from './images/placeholder-space.jpg';
 
@@ -347,8 +347,7 @@ export default class PublicSpaces extends Component {
               </Container>
             </section>
             <Modal title="Submit Application" className="application-form">
-              <MultiStepAppForm  />
-              {/* <ApplicationForm spaceId={space.id} /> */}
+              <ApplicationForm spaceId={space.id} />
             </Modal>
           </div>
         )}
