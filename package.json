@@ -17,6 +17,7 @@
     "react-images-upload": "^1.2.7",
     "react-modal": "^3.11.1",
     "react-page-scroller": "^2.0.1-beta",
+    "react-plaid-link": "^1.5.0",
     "react-scripts": "3.2.0",
     "react-share": "^3.0.1",
     "react-slick": "^0.25.2",

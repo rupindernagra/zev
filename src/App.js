@@ -14,6 +14,7 @@ import SpaceSingle from './Dashboard/Dashboard';
 import Applicants from './Dashboard/Dashboard';
 import ForgotPassword from './Admin/ForgotPassword';
 import ScrollForm from './Public/ScrollForm';
+import PlaidComponent from './Public/PlaidComponent'
 
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
                   <Route path="/admin/spaces/view/:spaceId" component={SpaceSingle}/>
                   <Route path="/admin/applicants" component={Applicants}/>
                   <Route path="/forgot-password" component={ForgotPassword} />
+                  <Route path="/plaid" component={PlaidComponent} />
                   
                   {/* Default route when nothing else matches */}
                   <Route component={Admin} />

@@ -158,4 +158,16 @@ export default class API {
         return this.fetchAPI (`${this.apiURL}/api/application/my/space/${spaceId}`, "POST", JSON.stringify({user_id: this.currentUserId}));
     }
 
+    /**
+     * Plaid APIs
+     */
+    getPlaid() {
+        return this.fetchAPI (`${this.apiURL}/api/plaid/`, "GET");
+    }
+
+    getPlaidAccessToken( payload ) {
+        console.log('payyy', payload);
+        return this.fetchAPI (`${this.apiURL}/api/plaid/get_access_token`, "POST", JSON.stringify(payload));
+    }
+
 }
