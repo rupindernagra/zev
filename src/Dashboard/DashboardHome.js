@@ -103,7 +103,7 @@ export default class DashboardHome extends Component {
                                 <tbody>
                                     {this.state.applicants.map((applicant, index) => (
                                         <tr key={index}>
-                                            <td>{applicant.firstname} {applicant.lastname ? applicant.lastname : ''}</td>
+                                            <td>{applicant.fullname}</td>
                                             <td>{applicant.email}</td>
                                             <td><Link to={`/admin/spaces/view/${applicant.id}`}>{applicant.space_name}</Link></td>
                                             <td><Link to="/admin/applicants">Report Link</Link></td>

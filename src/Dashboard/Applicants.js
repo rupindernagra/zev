@@ -71,7 +71,7 @@ export default class Applicants extends Component {
                                     <tbody>
                                         {this.state.applicants.map((applicant, index) => (
                                             <tr key={index}>
-                                                <td>{applicant.firstname} {applicant.lastname ? applicant.lastname : ''}</td>
+                                                <td>{applicant.fullname}</td>
                                                 <td>{applicant.email}</td>
                                                 <td>{applicant.phone}</td>
                                                 <td><Link to={`/admin/spaces/view/${applicant.id}`}>{applicant.space_name}</Link></td>

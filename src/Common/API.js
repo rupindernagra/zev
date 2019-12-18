@@ -116,11 +116,9 @@ export default class API {
 
     // Search my applicants
     searchMyApplicants( term ) {
-        const fullname = term.split(' ');
         const payload = {
             user_id: this.currentUserId,
-            firstname: fullname[0],
-            lastname: fullname[1] || ''
+            fullname: term
         }
         return this.fetchAPI (`${this.apiURL}/api/search/applicants`, "POST", JSON.stringify(payload))
     }

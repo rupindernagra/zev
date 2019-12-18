@@ -3,6 +3,10 @@ import ReactPageScroller from "react-page-scroller";
 import { ProgressBar } from "react-bootstrap";
 import "./page.css";
 import API from "../Common/API";
+import PlaidLink from 'react-plaid-link'
+const JSAlert = require("js-alert");
+
+const PLAID_PUBLIC_KEY = 'aec5a1cc5ee105b4d82ec8ec416946';
 
 export default class ScrollForm extends Component {
   constructor(props) {
@@ -11,7 +15,6 @@ export default class ScrollForm extends Component {
       currentPage: null,
       prevPage: null,
       nextPage: null,
-      step: 0,
       progressComplete: 0,
       fullName: "",
       email: "",
@@ -23,7 +26,8 @@ export default class ScrollForm extends Component {
       phoneValid: false,
       messageValid: false,
       formValid: false,
-      formSubmitted: false
+      formSubmitted: false,
+      loadPlaid: false
     };
     this.totalPage = 5;
     this.totalFields = 4;
@@ -110,9 +114,18 @@ export default class ScrollForm extends Component {
     this.reactPageScroller.goToPage(pageNumber);
   };
 
-  handleSubmit(e) {
+  handleClick = (e) => {
     e.preventDefault();
 
+    this.setState({ loadPlaid: true });
+  }
+
+  handleOnLoad = () => {
+    // Optional, called when Link loads
+  }
+
+  handleOnSuccess = (token, metadata) => {    // send token to client server
+    // handle formData
     let formData = {
       fullname: this.state.fullName,
       space_id: 32,
@@ -121,14 +134,35 @@ export default class ScrollForm extends Component {
       message: this.state.message,
     };
 
-    this.api.saveApplication(formData).then(
-      res => res.json()
-    ).then(data => {
-      console.log('api status', data);
-      this.setState({ formSubmitted: true });
-    }).catch(err => {
-      console.log('ERROR: ', err);
-    });
+    this.api.getPlaidAccessToken({ public_token: token })
+      .then(res => res.json())
+      .then(data => {
+        console.log('tokenResponse..', data);
+        formData.plaid_item_id = data.tokenResponse.item_id;
+        formData.plaid_access_token = data.tokenResponse.access_token;
+
+        if (!data.error) {
+          this.api.saveApplication(formData).then(
+            res => res.json()
+          ).then(response => {
+            console.log('api status', response);
+            this.setState({ formSubmitted: true });
+          }).catch(err => {
+            console.log('ERROR: ', err);
+            JSAlert.alert('Error in save data! Please try again.', '', JSAlert.Icons.Failed);
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        JSAlert.alert('Error in Plaid API! Please try again.', '', JSAlert.Icons.Failed);
+      });
+  }
+
+  handleOnExit = () => {
+    // handle the case when your user exits Link
+    console.log('in exit');
+    this.setState({ loadPlaid: false });
   }
 
   render() {
@@ -180,16 +214,26 @@ export default class ScrollForm extends Component {
           <div className="component first-component" style={{ padding: '15px 30px' }}>
             <div className="appl-form">
               {formSubmitted ? (
-                <h3>All good, {this.state.fullName} — we've got that. <br />We'll be in touch soon!</h3>
+                <>
+                  <h3>All good, {this.state.fullName} — we've got that. <br />We'll be in touch soon!</h3>
+                </>
               ) : (
-                  <button
-                    className="ui huge positive right labeled icon button"
-                    onClick={(event) => this.handleSubmit(event)}
-                    disabled={!this.state.formValid}
-                  >
-                    Submit Application
-                  <i className="checkmark icon"></i>
-                  </button>
+                  <PlaidLink
+                    clientName="Plaid Quickstart"
+                    env="sandbox"
+                    product={["auth", "transactions"]}
+                    publicKey={PLAID_PUBLIC_KEY}
+                    userLegalName="Sameer"
+                    userEmailAddress="sameer@squareloops.com"
+                    onLoad={this.handleOnLoad}
+                    onExit={this.handleOnExit}
+                    onClick={this.handleClick}
+                    onSuccess={this.handleOnSuccess}
+                    style={{}}
+                    className={`ui huge primary button ${this.state.loadPlaid && 'loading disabled'}`}
+                    disabled={!this.state.formValid}>
+                    Submit and connect a bank account
+                  </PlaidLink>
                 )}
             </div>
           </div>
@@ -239,7 +283,7 @@ class FullNameField extends Component {
 
     return (
       <div className="component first-component" style={{ padding: '15px 30px' }}>
-        <form className="appl-form">
+        <form className="appl-form" onSubmit={event => event.preventDefault()}>
           <div className="field mb-3">
             {/* <label>First Name</label> */}
             <label>First up, what's your name?</label>
