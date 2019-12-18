@@ -134,7 +134,12 @@ export default class ScrollForm extends Component {
       message: this.state.message,
     };
 
-    this.api.getPlaidAccessToken({ public_token: token })
+    const plaidPayload = {
+      public_token: token,
+      account_id: metadata.account_id
+    };
+
+    this.api.getPlaidAccessToken( plaidPayload )
       .then(res => res.json())
       .then(data => {
         console.log('tokenResponse..', data);
@@ -223,8 +228,8 @@ export default class ScrollForm extends Component {
                     env="sandbox"
                     product={["auth", "transactions"]}
                     publicKey={PLAID_PUBLIC_KEY}
-                    userLegalName="Sameer"
-                    userEmailAddress="sameer@squareloops.com"
+                    userLegalName={this.state.fullName}
+                    userEmailAddress={this.state.email}
                     onLoad={this.handleOnLoad}
                     onExit={this.handleOnExit}
                     onClick={this.handleClick}

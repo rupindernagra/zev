@@ -14,7 +14,11 @@ export default class PlaidComponent extends Component {
         // send token to client server
         console.log('token', token);
         console.log('metadata', metadata);
-        this.api.getPlaidAccessToken({ public_token: token })
+        const plaidPayload = {
+            public_token: token,
+            account_id: metadata.account_id
+        };
+        this.api.getPlaidAccessToken( plaidPayload )
             .then(res => res.json())
             .then(data => {
                 console.log('data..', data);
