@@ -16,7 +16,9 @@ export default class PlaidComponent extends Component {
         console.log('metadata', metadata);
         const plaidPayload = {
             public_token: token,
-            account_id: metadata.account_id
+            account_id: metadata.account_id,
+            institution_id: metadata.institution.institution_id,
+            initial_products: ["auth", "transactions"]
         };
         this.api.getPlaidAccessToken( plaidPayload )
             .then(res => res.json())
@@ -51,8 +53,8 @@ export default class PlaidComponent extends Component {
                 env="sandbox"
                 product={["auth", "transactions"]}
                 publicKey={PLAID_PUBLIC_KEY}
-                userLegalName="Sameer"
-                userEmailAddress="sameer@squareloops.com"
+                userLegalName="Squareloops"
+                userEmailAddress="sameer.squareloops@gmail.com"
                 onClick={this.save}
                 onLoad={this.handleOnLoad}
                 onExit={this.handleOnExit}

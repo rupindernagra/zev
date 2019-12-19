@@ -35,6 +35,7 @@ export default class Dashboard extends Component {
         <Profile path="/admin/profile" />
         <SpaceAdd path="/admin/spaces/add" isSubItem={true} />
         <SpaceSingle path="/admin/spaces/view/:spaceId" />
+        <SpaceAdd path="/admin/spaces/edit/:spaceId" />
         <Spaces path="/admin/spaces" />
         <Applicants path="/admin/applicants" />
         <Logout path="/logout" />

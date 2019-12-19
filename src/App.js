@@ -32,6 +32,7 @@ class App extends Component {
                   <Route path="/admin/profile" component={Profile}/>
                   <Route exact path="/admin/spaces" component={Spaces}/>
                   <Route path="/admin/spaces/add" component={SpaceAdd}/>
+                  <Route path="/admin/spaces/edit/:spaceId" component={SpaceAdd}/>
                   <Route path="/admin/spaces/view/:spaceId" component={SpaceSingle}/>
                   <Route path="/admin/applicants" component={Applicants}/>
                   <Route path="/forgot-password" component={ForgotPassword} />

@@ -148,7 +148,7 @@ export default class SpaceSingle extends Component {
                                         <tbody>
                                             {this.state.applicants.map((applicant, index) => (
                                                 <tr key={index}>
-                                                    <td>{applicant.firstname} {applicant.lastname ? applicant.lastname : ''}</td>
+                                                    <td>{applicant.fullname}</td>
                                                     <td>{applicant.email}</td>
                                                     <td>{applicant.phone}</td>
                                                     <td><Link to="/admin/applicants">Report Link</Link></td>

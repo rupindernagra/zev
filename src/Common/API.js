@@ -27,7 +27,8 @@ export default class API {
             return (
                 fetch(url, {
                     method: 'PUT',
-                    headers
+                    headers,
+                    body
                 })
             )
         } else if(method === "POST") {
@@ -134,6 +135,12 @@ export default class API {
         }
     }
 
+    // Update space changes
+    updateSpaceById( spaceId, payload ) {
+        console.log('pay', payload);
+        return this.fetchAPI (`${this.apiURL}/api/space/my/update/${spaceId}`, "PUT", JSON.stringify(payload));
+    }
+
     // Update space views
     getSpaceWithUpdateViews( spaceId ) {
         return this.fetchAPI (`${this.apiURL}/api/space/update/views/${spaceId}`, "PUT");
@@ -164,7 +171,6 @@ export default class API {
     }
 
     getPlaidAccessToken( payload ) {
-        console.log('payyy', payload);
         return this.fetchAPI (`${this.apiURL}/api/plaid/get_access_token`, "POST", JSON.stringify(payload));
     }
 

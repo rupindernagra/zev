@@ -74,6 +74,7 @@ body{
     bottom: 0;
     background-color: #3c8dbc;
     overflow: auto;
+    z-index: 99;
 }
 .navbar-footer a {
     float: left;
