@@ -139,24 +139,46 @@ export default class ScrollForm extends Component {
       account_id: metadata.account_id
     };
 
-    this.api.getPlaidAccessToken( plaidPayload )
+    this.api.getPlaidAccessToken(plaidPayload)
       .then(res => res.json())
       .then(data => {
         console.log('tokenResponse..', data);
-        formData.plaid_item_id = data.tokenResponse.item_id;
-        formData.plaid_access_token = data.tokenResponse.access_token;
 
+        // Stripe payment here.
         if (!data.error) {
-          this.api.saveApplication(formData).then(
-            res => res.json()
-          ).then(response => {
-            console.log('api status', response);
-            this.setState({ formSubmitted: true });
-          }).catch(err => {
-            console.log('ERROR: ', err);
-            JSAlert.alert('Error in save data! Please try again.', '', JSAlert.Icons.Failed);
-          });
+          const stripePayload = {
+            access_token: data.tokenResponse.access_token,
+            item_id: data.tokenResponse.item_id,
+            account_id: metadata.account_id,
+            institution_id: metadata.institution.institution_id,
+            initial_products: ["auth", "transactions"]
+          };
+          this.api.stripePayment(stripePayload)
+            .then(res => res.json())
+            .then(payment => {
+              console.log('payment', payment);
+
+              formData.plaid_item_id = data.tokenResponse.item_id;
+              // formData.plaid_access_token = data.tokenResponse.access_token;
+
+              if (!payment.error) {
+                this.api.saveApplication(formData).then(
+                  res => res.json()
+                ).then(response => {
+                  console.log('api status', response);
+                  this.setState({ formSubmitted: true });
+                }).catch(err => {
+                  console.log('ERROR: ', err);
+                  JSAlert.alert('Error in save data! Please try again.', '', JSAlert.Icons.Failed);
+                });
+              }
+
+            })
+            .catch(err => {
+              console.log(err);
+            })
         }
+
       })
       .catch(err => {
         console.log(err);
@@ -220,7 +242,10 @@ export default class ScrollForm extends Component {
             <div className="appl-form">
               {formSubmitted ? (
                 <>
-                  <h3>All good, {this.state.fullName} — we've got that. <br />We'll be in touch soon!</h3>
+                  <h3>
+                    All good, {this.state.fullName} — we've got that. <br />
+                    Payment successfully done! We'll be in touch soon!
+                  </h3>
                 </>
               ) : (
                   <PlaidLink

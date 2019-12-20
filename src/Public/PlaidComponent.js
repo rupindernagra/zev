@@ -12,25 +12,35 @@ export default class PlaidComponent extends Component {
     }
     handleOnSuccess = (token, metadata) => {
         // send token to client server
-        console.log('token', token);
-        console.log('metadata', metadata);
         const plaidPayload = {
             public_token: token,
-            account_id: metadata.account_id,
-            institution_id: metadata.institution.institution_id,
-            initial_products: ["auth", "transactions"]
         };
-        this.api.getPlaidAccessToken( plaidPayload )
+        this.api.getPlaidAccessToken(plaidPayload)
             .then(res => res.json())
             .then(data => {
                 console.log('data..', data);
+                // Stripe payment here.
+                if (!data.error) {
+                    const stripePayload = {
+                        access_token: data.tokenResponse.access_token,
+                        item_id: data.tokenResponse.item_id,
+                        account_id: metadata.account_id,
+                        institution_id: metadata.institution.institution_id,
+                        initial_products: ["auth", "transactions"]
+                    };
+                    this.api.stripePayment(stripePayload)
+                        .then(res => res.json())
+                        .then(payment => {
+                            console.log('payment', payment);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                }
             })
             .catch(err => {
                 console.log(err);
             });
-
-        // access_token: "access-sandbox-0c3980b4-9480-4dde-83c0-806b1e6908b9"
-        // item_id: "vyQKpMl965TlBd6KLrKQHxlzxRooWxiWjnqao"
     }
     handleOnExit = (err, metadata) => {
         // handle the case when your user exits Link

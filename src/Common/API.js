@@ -174,4 +174,10 @@ export default class API {
         return this.fetchAPI (`${this.apiURL}/api/plaid/get_access_token`, "POST", JSON.stringify(payload));
     }
 
+    // Stripe ACH Payment using Plaid Link
+    stripePayment( payload ) {
+        return this.fetchAPI (`${this.apiURL}/api/plaid/stripe/payment`, "POST", JSON.stringify(payload));
+    }
+
+
 }
