@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../Common/API';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Content, Row, Col, Box } from 'adminlte-2-react';
+import { Content, Row, Col, Box, Button } from 'adminlte-2-react';
 import AdminMobileFooter from './AdminMobileFooter';
 import { ApplStatus } from './Config';
 
@@ -71,6 +71,7 @@ export default class SpaceSingle extends Component {
                 <Row>
                     <Col xs={12}>
                         <Box title={space.space_name} type="primary">
+                            <Button type="primary" className="mb-3" text="Edit Space" to={`/admin/spaces/edit/${space.id}`} />
                             <div className="table-responsive">
                                 <table className="table table-striped">
                                     <tbody>
