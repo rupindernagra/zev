@@ -23,6 +23,7 @@ class App extends Component {
                 <Switch>
                   <Route exact path="/" component={Registration}/>
                   <Route path="/form" component={ScrollForm}/>
+                  <Route path="/application/:spaceId" component={ScrollForm}/>
                   <Route path="/register" component={Registration}/>
                   <Route path="/login" component={Admin}/>
                   {/* <Route path="/home" component={Homepage}/>

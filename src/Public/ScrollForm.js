@@ -29,6 +29,7 @@ export default class ScrollForm extends Component {
       formSubmitted: false,
       loadPlaid: false
     };
+    this.space_id = props.match.params.spaceId;
     this.totalPage = 5;
     this.totalFields = 4;
     this.api = new API();
@@ -128,7 +129,7 @@ export default class ScrollForm extends Component {
     // handle formData
     let formData = {
       fullname: this.state.fullName,
-      space_id: 32,
+      space_id: this.space_id,
       email: this.state.email,
       phone: this.state.phone,
       message: this.state.message,
@@ -148,9 +149,14 @@ export default class ScrollForm extends Component {
         if (!data.error) {
           const stripePayload = {
             access_token: data.tokenResponse.access_token,
-            item_id: data.tokenResponse.item_id,
             account_id: metadata.account_id,
-            institution_id: metadata.institution.institution_id,
+            meta: {
+              plaid_item_id: data.tokenResponse.item_id,
+              institution_id: metadata.institution.institution_id,
+              name: formData.fullname,
+              email: formData.email,
+              phone: formData.phone
+            },
             initial_products: ["auth", "transactions"]
           };
           this.api.stripePayment(stripePayload)
@@ -159,9 +165,15 @@ export default class ScrollForm extends Component {
               console.log('payment', payment);
 
               formData.plaid_item_id = data.tokenResponse.item_id;
-              // formData.plaid_access_token = data.tokenResponse.access_token;
+              formData.plaid_access_token = data.tokenResponse.access_token;
 
               if (!payment.error) {
+                formData.stripe_payment_id = payment.charge.id;
+                formData.amount = Number(payment.charge.amount) / 100;
+                formData.customer_id = payment.charge.customer;
+                formData.receipt_url = payment.charge.receipt_url;
+                formData.routing_number = payment.charge.source.routing_number;
+
                 this.api.saveApplication(formData).then(
                   res => res.json()
                 ).then(response => {
@@ -246,6 +258,10 @@ export default class ScrollForm extends Component {
                     All good, {this.state.fullName} — we've got that. <br />
                     Payment successfully done! We'll be in touch soon!
                   </h3>
+                  <Link class="ui labeled icon large grey button" to={`/spaces/${this.space_id}`}>
+                    <i class="left arrow icon"></i>
+                    Go Back to space
+                  </Link>
                 </>
               ) : (
                   <PlaidLink

@@ -143,7 +143,7 @@ export default class API {
 
     // Update space views
     getSpaceWithUpdateViews( spaceId ) {
-        return this.fetchAPI (`${this.apiURL}/api/space/update/views/${spaceId}`, "PUT");
+        return this.fetchAPI (`${this.apiURL}/api/space/update/views/${spaceId}`, "PUT", JSON.stringify({}));
     }
 
     // Save Application of User
@@ -179,5 +179,9 @@ export default class API {
         return this.fetchAPI (`${this.apiURL}/api/plaid/stripe/payment`, "POST", JSON.stringify(payload));
     }
 
+    // Get Stripe transactions using pay id
+    getStripeTransaction( payId ) {
+        return this.fetchAPI (`${this.apiURL}/api/plaid/stripe/transaction/${payId}`, "GET");
+    }
 
 }

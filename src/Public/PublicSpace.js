@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import '../Registration/registration.css';
@@ -52,7 +53,7 @@ export default class PublicSpaces extends Component {
             .then(res => res.json())
             .then(response => {
               let spaces = [];
-              spaces = response.result.filter(space => space.space_type === data.result.space_type && space.id !== data.result.id);
+              spaces = response.result.filter(space => space.space_type === data.result.space_type && Number(space.id) !== data.result.id);
               // Set similar spaces
               this.setState({
                 similarSpaces: spaces.slice(0, 3)
@@ -123,7 +124,7 @@ export default class PublicSpaces extends Component {
                           <div className="price-box text-center">
                             <h3 className="space-price">{`$${space.price}`}</h3>
                             <div className="browse-more">
-                              <a id="" href="/" target="_self" className="ui button primary" onClick={this.openModal}>Submit Application</a>
+                              <Link id="" to={`/application/${space.id}`} target="_self" className="ui button primary" >Submit Application</Link>
                             </div>
                           </div>
                         </Col>
