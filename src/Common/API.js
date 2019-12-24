@@ -76,17 +76,32 @@ export default class API {
         return this.fetchAPI (`${this.apiURL}/api/users/all`, "GET");
     }
 
-    // Upload user avatar
-    uploadAvatar( payload ) {
-        return this.fetchAPI (`${this.apiURL}/api/users/upload/${this.currentUserId}/avatar`, "POST", payload, {});
-    }
-
     // Fetch single user data
     getCurrentUserData() {
         if( this.currentUserId ) {
             return this.fetchAPI (`${this.apiURL}/api/users/id/${this.currentUserId}`, "GET");
         }
         return false;
+    }
+
+    // Get my profile info
+    myProfile() {
+        return this.fetchAPI (`${this.apiURL}/api/users/profile`, "POST", JSON.stringify({userId: this.currentUserId}));
+    }
+
+    // Upload user avatar
+    uploadAvatar( payload ) {
+        return this.fetchAPI (`${this.apiURL}/api/users/upload/${this.currentUserId}/avatar`, "POST", payload, {});
+    }
+
+    // Update user info
+    updateUserInfo( payload ) {
+        return this.fetchAPI (`${this.apiURL}/api/users/update/info/${this.currentUserId}`, "PUT", JSON.stringify(payload));
+    }
+
+    // Update user info
+    updatePassword( payload ) {
+        return this.fetchAPI (`${this.apiURL}/api/users/update/password/${this.currentUserId}`, "PUT", JSON.stringify(payload));
     }
 
     // Add new Space

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import ReactPageScroller from "react-page-scroller";
 import { ProgressBar } from "react-bootstrap";
 import "./page.css";

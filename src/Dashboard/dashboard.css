@@ -8,12 +8,12 @@ body{
 .sidebar-mini .navbar.navbar-static-top .sidebar-toggle {
     font-size: 14px;
 }
-.userDP{
-    height: 200px;
-    width: 200px;
+.userDP {
+    height: 180px;
+    width: 180px;
     margin: auto;
     border-radius: 50%;
-    border: 1px solid #000000;
+    border: 1px solid #e1e1e1;
     margin-bottom:10px;
     overflow: hidden;
 }
@@ -42,6 +42,15 @@ body{
     padding-top:1px;
     cursor: pointer;
 }
+.user-form .field {
+    margin-bottom: 15px;
+    float: left;
+    width: 100%;
+}
+.user-form .field input {
+    margin-left: 0;
+}
+
 .applicant-list .asent{
     color:#367fa9;
     margin-right:15px;
@@ -91,7 +100,17 @@ body{
 .navbar-footer a.active {
     background-color: #367fa9;
 }
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .userDP {
+        width: 120px;
+        height: 120px;
+    }
+}
 @media screen and (max-width: 767px) {
+    .userDP {
+        width: 150px;
+        height: 150px;
+    }
     .sidebar-mini .navbar.navbar-static-top {
         width: 42px;
         margin-top: -50px;
