@@ -127,6 +127,10 @@ export default class ScrollForm extends Component {
   }
 
   handleOnSuccess = (token, metadata) => {    // send token to client server
+    if(typeof this.space_id === 'undefined') {
+      this.space_id = this.props.match.params.spaceId;
+    }
+
     // handle formData
     let formData = {
       fullname: this.state.fullName,
@@ -224,6 +228,9 @@ export default class ScrollForm extends Component {
         <ReactPageScroller
           pageOnChange={this.handlePageChange}
           customPageNumber={this.state.currentPage}
+          animationTimer={300}
+          blockScrollUp={true}
+          blockScrollDown={true}
         >
           <FullNameField
             nextStep={this.nextStep}
@@ -259,8 +266,8 @@ export default class ScrollForm extends Component {
                     All good, {this.state.fullName} — we've got that. <br />
                     Payment successfully done! We'll be in touch soon!
                   </h3>
-                  <Link class="ui labeled icon large grey button" to={`/spaces/${this.space_id}`}>
-                    <i class="left arrow icon"></i>
+                  <Link className="ui labeled icon large grey button" to={`/spaces/${this.space_id}`}>
+                    <i className="left arrow icon"></i>
                     Go Back to space
                   </Link>
                 </>
@@ -268,7 +275,7 @@ export default class ScrollForm extends Component {
                   <PlaidLink
                     clientName="Plaid Quickstart"
                     env="sandbox"
-                    product={["auth", "transactions"]}
+                    product={["auth", "transactions", "assets"]}
                     publicKey={PLAID_PUBLIC_KEY}
                     userLegalName={this.state.fullName}
                     userEmailAddress={this.state.email}
