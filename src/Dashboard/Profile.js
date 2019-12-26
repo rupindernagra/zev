@@ -87,7 +87,7 @@ export default class Profile extends Component {
 
     validateField(fieldName, value) {
         let fieldValidationErrors = this.state.formErrors;
-        let { firstnameValid, emailValid, phoneValid, currentPasswordValid, newPasswordValid, confirmPasswordValid } = this.state;
+        let { firstnameValid, phoneValid, currentPasswordValid, newPasswordValid, confirmPasswordValid } = this.state;
 
         switch (fieldName) {
             case 'firstname':
@@ -181,6 +181,7 @@ export default class Profile extends Component {
                                 ) : (
                                         <i className="fa fa-user user"></i>
                                     )}
+                                <div class="update-avatar">Change Photo</div>
                             </div>
                             <input
                                 type="file"
@@ -196,12 +197,11 @@ export default class Profile extends Component {
                                 </button>
                             ) : null}
                             <div className="userName mt-3">
-                                {/* <input type="text" name="username" value="Kevin Parker" readOnly="true" />  */}
-                                {user.firstname}
-                                {user.lastname ? ` ${user.lastname}` : ''}
-                                <i className="fa fa-pencil"></i>
+                                <p>
+                                    {user.firstname}
+                                    {user.lastname ? ` ${user.lastname}` : ''}
+                                </p>
                             </div>
-                            {/* <Button type="primary" text="Save" /> */}
                         </Col>
                     </Box>
                 </Col>
