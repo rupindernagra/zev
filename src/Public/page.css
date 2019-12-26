@@ -1,3 +1,14 @@
+.bg_image{
+  background-image: url(./images/background-image.jpeg) !important;
+  height: 100%; 
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+
+}
+
 .title {
   margin: 20px auto 0;
   text-align: center;
@@ -17,7 +28,7 @@
   height: 100%;
   width: 100%;
   display: flex;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
 }
 
 .first-component--inside-scroller {
@@ -62,35 +73,57 @@ input:focus {
   outline: none;
 }
 .appl-form {
-  margin: auto;
+  margin:auto;
+  
 }
 .appl-form label {
   display: block;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 500;
+  margin-bottom:25px;
+  color: white;
+}
+.appl-form label span{
+  font-size: 20px;
+  font-weight: 600;
+  padding-right: 5px;
+}
+.appl-form label b{
+  font-size: 17px;
+  font-weight: 400;
 }
 .appl-form input, .appl-form textarea {
   font-size: 30px;
   background: none;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #cccccc6b;
   margin: 0;
   padding: 0 0 8px;
   transition: box-shadow 0.3s ease 0s;
+  width: 550px;
+  color: white;
+  
 }
-.appl-form input:focus, .appl-form textarea:focus {
+::placeholder{
+  color: #cccccc6b;
+}
+/* .appl-form input:focus, .appl-form textarea:focus {
   border-color: transparent !important;
-}
-.pagination-additional-class.pagination li.progress-report {
-  background-color: thistle;
-  padding: 5px;
-  margin-right: 10px;
+} */
+ .pagination-additional-class.pagination li.progress-report {
+   padding: 5px; 
+   margin-right: 10px;
   margin-bottom: 0;
-}
+  background-color: rgba(113, 89, 188, 0.8);
+  border-radius: 5px;
+}  
 .pagination-additional-class.pagination .progress {
   margin-bottom: 0;
+  background-color:rgba(78, 62, 129, 0.8);
 }
-
+.progress{
+  height: 5px;
+}
 
 .cCkTRd {
   pointer-events: none;
@@ -108,4 +141,16 @@ input:focus {
   color: rgb(255, 255, 255);
   font-family: sans-serif;
   margin: 0px;
+}
+@media screen and (max-width: 768px) {
+  .appl-form label {
+    font-size: 20px;
+    margin-bottom: 25px;
+    }
+}
+@media screen and (max-width: 768px){
+  .appl-form input, .appl-form textarea {
+    font-size: 23px;
+    width: 266px;
+  }
 }

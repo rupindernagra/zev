@@ -221,6 +221,7 @@ export default class ScrollForm extends Component {
 
     return (
       <React.Fragment>
+        <div className="bg_image">
         <ReactPageScroller
           pageOnChange={this.handlePageChange}
           customPageNumber={this.state.currentPage}
@@ -285,14 +286,17 @@ export default class ScrollForm extends Component {
             </div>
           </div>
         </ReactPageScroller>
+        </div>
 
         {formSubmitted ? null : (
           <ul className="pagination-additional-class pagination">
             <li className="progress-report">
-              <ProgressBar
-                style={{ width: "150px" }}
+              <ProgressBar               
+                style={{ width: "200px" }}
                 now={this.state.progressComplete}
               />
+              {/* <Text style={{position:'absolute', flex:0}}>testes</Text> */}
+              
             </li>
             <li>
               <div className="ui buttons">
@@ -333,7 +337,7 @@ class FullNameField extends Component {
         <form className="appl-form" onSubmit={event => event.preventDefault()}>
           <div className="field mb-3">
             {/* <label>First Name</label> */}
-            <label>First up, what's your name?</label>
+            <label><b>1</b><span> →</span> First up, what's your name?</label>
             <input
               autoFocus
               placeholder="Type your full name here"
@@ -371,7 +375,7 @@ class EmailField extends Component {
       <div className="component second-component" style={{ padding: '15px 30px' }}>
         <form className="appl-form">
           <div className="field mb-3">
-            <label>Great. Now what's your email, _____?</label>
+            <label><b>2</b><span> →</span>Great. Now what's your email, _____?</label>
             <input
               type="email"
               placeholder="Type your email here"
@@ -409,7 +413,7 @@ class PhoneField extends Component {
       <div className="component third-component" style={{ padding: '15px 30px' }}>
         <form className="appl-form">
           <div className="field mb-3">
-            <label>And your phone number?</label>
+            <label><b>3</b><span> →</span>And your phone number?</label>
             <input
               maxLength={10}
               type="tel"
@@ -448,11 +452,11 @@ class CommentField extends Component {
       <div className="component forth-component" style={{ padding: '15px 30px' }}>
         <form className="appl-form">
           <div className="field mb-3">
-            <label>Last question, what's in your mind?</label>
+            <label><b>4</b><span> →</span>Last question, what's in your mind?</label>
             <textarea
               name="message"
               placeholder="Please input message here"
-              rows="2"
+              rows="1"
               onChange={this.props.handleChange("message")}
               defaultValue={values.message}
             />
