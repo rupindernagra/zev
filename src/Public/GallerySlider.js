@@ -51,13 +51,19 @@ export default class GallerySlider extends Component {
                         {...thumbViewSettings}
                         className="thumb-slider"
                     >
-                        {slidesUrl.map((slide, index) => {
-                            return (
-                                <div key={index}>
-                                    <img className="ui fluid image" alt="slide" src={slide} />
-                                </div>
-                            )
-                        })}
+                        {slidesUrl.length > 0 ? (
+                            slidesUrl.map((slide, index) => {
+                                return (
+                                    <div key={index}>
+                                        <img className="ui fluid image" alt="slide" src={slide} onError={ev => ev.target.src=placeholderImg} />
+                                    </div>
+                                )
+                            })
+                        ) : (
+                            <div>
+                                <img className="ui fluid image" alt="slide" src={placeholderImg} />
+                            </div>
+                        )}
                     </Slider>
                 ) : ''}
 
@@ -71,13 +77,22 @@ export default class GallerySlider extends Component {
                         slidesUrl.map((slide, index) => {
                             return (
                                 <div key={index}>
-                                    <img style={{ width: '100%', height: '550px', objectFit: 'cover' }} className="ui fluid image" alt="slide" src={slide} />
+                                    <img
+                                        style={{ width: '100%', height: '550px', objectFit: 'cover' }}
+                                        className="ui fluid image"
+                                        alt="slide"
+                                        src={slide}
+                                        onError={ev => ev.target.src={placeholderImg}}/>
                                 </div>
                             )
                         })
                     ) : (
                         <div>
-                            <img style={{ width: '100%', height: '550px', objectFit: 'cover' }} className="ui fluid image" alt="slide" src={placeholderImg} />
+                            <img
+                                style={{ width: '100%', height: '550px', objectFit: 'cover' }}
+                                className="ui fluid image"
+                                alt="slide"
+                                src={placeholderImg} />
                         </div>
                     )}
                 </Slider>

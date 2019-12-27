@@ -5,6 +5,7 @@ import SocialShare from '../Components/Modules/SocialShare';
 import SearchBar from '../Components/Modules/SearchBar';
 import Modal from '../Components/Modules/Modal';
 import AdminMobileFooter from './AdminMobileFooter';
+import placeholderImg from '../Public/images/placeholder-space.jpg';
 const { $ } = window;
 
 export default class Spaces extends Component {
@@ -76,24 +77,37 @@ export default class Spaces extends Component {
                                         <tr>
                                             <th>Image</th>
                                             <th>Space Name</th>
-                                            <th>Space Status</th>
+                                            {/* <th>Space Status</th> */}
                                             <th>Space Type</th>
                                             <th># Views</th>
                                             <th># Applicants</th>
-                                            <th>Price</th>
+                                            {/* <th>Price</th> */}
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {this.state.spaces.map((space, index) => (
                                             <tr key={space.id}>
-                                                <td>Image</td>
+                                                <td style={{ maxWidth: '100px' }}>
+                                                    {this.api.getSpaceGallery(space.gallery).length === 0 ? (
+                                                        <img
+                                                            className="ui fluid image"
+                                                            alt="slide"
+                                                            src={placeholderImg} />
+                                                    ) : (
+                                                        <img
+                                                            className="ui fluid image"
+                                                            alt="slide"
+                                                            src={this.api.getSpaceGallery(space.gallery)[0]}
+                                                            onError={ev => ev.target.src = placeholderImg} />
+                                                    )}
+                                                </td>
                                                 <td>{space.space_name}</td>
-                                                <td>{space.space_status}</td>
+                                                {/* <td>{space.space_status}</td> */}
                                                 <td>{space.space_type}</td>
                                                 <td>{space.views}</td>
                                                 <td>{space.applicants}</td>
-                                                <td>{space.price}</td>
+                                                {/* <td>{space.price}</td> */}
                                                 <td>
                                                     <Button type="success" text="Share" onClick={this.openModal.bind(null, space.id)} />
                                                     <Button className="ml-3" type="primary" text="View/Edit" to={`/admin/spaces/view/${space.id}`} />
@@ -114,22 +128,22 @@ export default class Spaces extends Component {
                                         <i className="copy icon"></i>
                                         Copy
                                     </button>
-                                    { this.state.copySuccess ?
+                                    {this.state.copySuccess ?
                                         <div style={{ "color": "green" }}>
                                             Success!
-                                        </div> : null }
+                                        </div> : null}
                                 </div>
-                                
+
                                 <div className="share-onSocial">
                                     <h4>Share on Social Media</h4>
-                                    <SocialShare url = {this.state.spaceUrl} />
+                                    <SocialShare url={this.state.spaceUrl} />
                                 </div>
                             </Modal>
                         </Box>
                     </Col>
 
                     <AdminMobileFooter />
-                    
+
                 </Row>
             </Content>
         );

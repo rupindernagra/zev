@@ -80,11 +80,7 @@ export default class PublicSpaces extends Component {
 
   render() {
     const space = this.state.space;
-    let gallery = [];
-    if (this.state.status && space.gallery !== '') {
-      gallery = JSON.parse(space.gallery);
-      gallery = gallery.map(img => this.api.spaceImageUrl + img);
-    }
+    let gallery = this.api.getSpaceGallery(space.gallery);
 
     return (
       <div>

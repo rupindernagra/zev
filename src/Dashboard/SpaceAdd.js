@@ -46,11 +46,7 @@ export default class SpaceAdd extends Component {
                             space_name, description, city, price, space_status, space_type, no_of_balconies, balconies_space, no_of_bedrooms, no_of_bathrooms, no_of_garages, no_of_parkings
                         } = data.result;
 
-                        let gallery = [];
-                        if (data.result.gallery !== '') {
-                            gallery = JSON.parse(data.result.gallery);
-                            gallery = gallery.map(img => this.api.spaceImageUrl + img);
-                        }
+                        let gallery = this.api.getSpaceGallery(data.result.gallery);
 
                         this.setState({
                             space_name, description, city, price, space_status, space_type, no_of_balconies, balconies_space, no_of_bedrooms, no_of_bathrooms, no_of_garages, no_of_parkings, gallery

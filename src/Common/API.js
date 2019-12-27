@@ -60,6 +60,14 @@ export default class API {
         return `${this.apiURL}${this.avatarPath}`;
     }
 
+    // Get Gallery for space
+    getSpaceGallery(gallery) {
+        if(typeof gallery === 'undefined' || gallery === '') {
+            return [];
+        }
+        const images = JSON.parse(gallery);
+        return images.map(img => this.spaceImageUrl + img);
+    }
     
     // Registration API
     register( payload ) {

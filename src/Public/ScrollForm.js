@@ -131,6 +131,9 @@ export default class ScrollForm extends Component {
       this.space_id = this.props.match.params.spaceId;
     }
 
+    // var firstName = this.state.fullName.split(' ').slice(0, -1).join(' ');
+    // var lastName = this.state.fullName.split(' ').slice(-1).join(' ');
+
     // handle formData
     let formData = {
       fullname: this.state.fullName,
@@ -140,10 +143,29 @@ export default class ScrollForm extends Component {
       message: this.state.message,
     };
 
+    // Plaid payload
     const plaidPayload = {
       public_token: token,
       account_id: metadata.account_id
     };
+
+    // Asset report payload
+    // const assetReportPayload = {
+    //   daysRequested: 60,
+    //   options: {
+    //     client_report_id: '123',    // space id
+    //     webhook: 'http://localhost:3000',
+    //     user: {
+    //       client_user_id: '789',
+    //       first_name: firstName,
+    //       middle_name: '',
+    //       last_name: lastName,
+    //       ssn: '123-45-6789',
+    //       phone_number: this.state.phone,
+    //       email: this.state.email,
+    //     }
+    //   }
+    // };
 
     this.api.getPlaidAccessToken(plaidPayload)
       .then(res => res.json())
