@@ -175,10 +175,15 @@ export default class API {
     }
 
     // Get current user applicants
-    getMyApplicants() {
-        if (this.currentUserId) {
-            return this.fetchAPI (`${this.apiURL}/api/application/my/all`, "POST", JSON.stringify({user_id: this.currentUserId}));
+    getMyApplicants( applId='' ) {
+        if (!this.currentUserId) {
+            return false;
         }
+        return (applId === '') ? (
+            this.fetchAPI (`${this.apiURL}/api/application/my/all`, "POST", JSON.stringify({user_id: this.currentUserId}))
+        ) : (
+            this.fetchAPI (`${this.apiURL}/api/application/my/${applId}`, "POST", JSON.stringify({user_id: this.currentUserId}))
+        );
     }
 
     // Get current user applicants by space id

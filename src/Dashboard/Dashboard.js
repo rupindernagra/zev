@@ -9,6 +9,7 @@ import Spaces from './Spaces';
 import SpaceSingle from './SpaceSingle';
 import SpaceAdd from './SpaceAdd';
 import Applicants from './Applicants';
+import ApplicantSingle from './ApplicantSingle';
 import Logout from './Logout';
 // import ShareModal from './ShareModal';
 const { Item } = Sidebar;
@@ -37,7 +38,8 @@ export default class Dashboard extends Component {
         <SpaceSingle path="/admin/spaces/view/:spaceId" />
         <SpaceAdd path="/admin/spaces/edit/:spaceId" />
         <Spaces path="/admin/spaces" />
-        <Applicants path="/admin/applicants" />
+        <Applicants exact path="/admin/applicants" />
+        <ApplicantSingle path="/admin/applicants/view/:applId" />
         <Logout path="/logout" />
       </AdminLTE>
     );

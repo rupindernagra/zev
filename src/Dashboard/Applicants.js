@@ -4,7 +4,7 @@ import API from '../Common/API';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Content, Row, Col, Box } from 'adminlte-2-react';
 import SearchBar from '../Components/Modules/SearchBar';
-import { ApplStatus } from './Config';
+import ApplicantStatus from './ApplicantStatus';
 import AdminMobileFooter from './AdminMobileFooter';
 
 export default class Applicants extends Component {
@@ -71,18 +71,13 @@ export default class Applicants extends Component {
                                     <tbody>
                                         {this.state.applicants.map((applicant, index) => (
                                             <tr key={index}>
-                                                <td>{applicant.fullname}</td>
+                                                <td><Link to={`/admin/applicants/view/${applicant.id}`}>{applicant.fullname}</Link></td>
                                                 <td>{applicant.email}</td>
                                                 <td>{applicant.phone}</td>
                                                 <td><Link to={`/admin/spaces/view/${applicant.id}`}>{applicant.space_name}</Link></td>
                                                 <td>{applicant.space_type}</td>
                                                 <td><Link to="/admin/applicants">Report Link</Link></td>
-                                                <td>
-                                                    <span className={ApplStatus[applicant.status].spanClass}>
-                                                        <i className={`mr-2 fa ${ApplStatus[applicant.status].iconName}`}></i>
-                                                        {applicant.status}
-                                                    </span>
-                                                </td>
+                                                <td><ApplicantStatus title={applicant.status} /></td>
                                             </tr>
                                         ))}
                                     </tbody>

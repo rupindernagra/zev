@@ -4,7 +4,7 @@ import API from '../Common/API';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './dashboard.css';
 import { Content, Row, Col, Box } from 'adminlte-2-react';
-import { ApplStatus } from './Config';
+import ApplicantStatus from './ApplicantStatus';
 import AdminMobileFooter from './AdminMobileFooter';
 
 export default class DashboardHome extends Component {
@@ -107,12 +107,7 @@ export default class DashboardHome extends Component {
                                             <td>{applicant.email}</td>
                                             <td><Link to={`/admin/spaces/view/${applicant.id}`}>{applicant.space_name}</Link></td>
                                             <td><Link to="/admin/applicants">Report Link</Link></td>
-                                            <td>
-                                                <span className={ApplStatus[applicant.status].spanClass}>
-                                                    <i className={`mr-2 fa ${ApplStatus[applicant.status].iconName}`}></i>
-                                                    {applicant.status}
-                                                </span>
-                                            </td>
+                                            <td><ApplicantStatus title={applicant.status} /></td>
                                         </tr>
                                     ))}
                                 </tbody>
