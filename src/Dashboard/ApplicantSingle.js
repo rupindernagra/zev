@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Content, Row, Col, Box } from 'adminlte-2-react';
 import ApplicantStatus from './ApplicantStatus';
 import AdminMobileFooter from './AdminMobileFooter';
+import ChartComponent from './ChartComponent';
 
 export default class ApplicantSingle extends Component {
     constructor(props) {
@@ -67,6 +68,13 @@ export default class ApplicantSingle extends Component {
                                 )}
                             </div>
                         </Box>
+                        <Row>
+                            <Col sm={12} xs={12}>
+                                <Box title={applicant.fullname} type="secondary">
+                                    <ChartComponent />
+                                </Box>
+                            </Col>
+                        </Row>
                     </Col>
 
                     <AdminMobileFooter />
